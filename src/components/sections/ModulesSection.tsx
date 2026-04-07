@@ -1,61 +1,129 @@
 import { motion } from "framer-motion";
-import {
-  Search, Layers, Brain, FileText, Palette, Shield, ShoppingCart,
-  Wrench, DollarSign, BarChart3
-} from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import cardDiretorio from "@/assets/card-diretorio.jpg";
+import cardSoph from "@/assets/card-soph.jpg";
+import cardProfit from "@/assets/card-profit.jpg";
+import cardAcademy from "@/assets/card-academy.jpg";
 
-const modules = [
-  { icon: Search, title: "Central de Importadoras", desc: "+260 fornecedores verificados e organizados", bonus: false },
-  { icon: Layers, title: "Nichos", desc: "15 segmentos para você escolher o seu", bonus: false },
-  { icon: Brain, title: "Soph", desc: "IA que orienta suas decisões de negócio", bonus: false },
-  { icon: FileText, title: "Criar seu MEI", desc: "Passo a passo para formalizar seu negócio", bonus: false },
-  { icon: Palette, title: "Criar sua Logo", desc: "Ferramentas e direcionamento para sua identidade", bonus: false },
-  { icon: Shield, title: "Registrar sua Marca", desc: "Proteja sua marca de forma simples", bonus: false },
-  { icon: ShoppingCart, title: "Vender nos Marketplaces", desc: "Domine as maiores plataformas de venda", bonus: false },
-  { icon: Wrench, title: "Ferramentas Gratuitas", desc: "Economize com recursos selecionados", bonus: false },
-  { icon: DollarSign, title: "Precificação", desc: "Calcule seus preços com margem real", bonus: false },
-  { icon: BarChart3, title: "ERP Soph Gestão", desc: "Gerencie seu negócio com sistema completo", bonus: true },
+const cards = [
+  {
+    image: cardDiretorio,
+    title: "Diretório de Elite",
+    desc: "Contatos diretos de importadoras de eletrônicos, casa e moda.",
+  },
+  {
+    image: cardSoph,
+    title: "Inteligência Soph",
+    desc: "Chatbot especializado em e-commerce e gestão para tirar dúvidas 24/7.",
+  },
+  {
+    image: cardProfit,
+    title: "Profit Engine",
+    desc: "Calculadoras de impostos, fretes e taxas de marketplace integradas.",
+  },
+  {
+    image: cardAcademy,
+    title: "Academy 360",
+    desc: "Treinamentos práticos sobre tráfego, vendas e atendimento.",
+  },
 ];
 
 const ModulesSection = () => (
-  <section className="relative py-24 overflow-hidden">
-    <div className="absolute top-1/2 left-0 w-[400px] h-[400px] bg-cyan-500/3 rounded-full blur-[120px] -translate-y-1/2" />
-    <div className="container relative z-10 mx-auto px-4">
+  <section className="relative py-24 lg:py-32" style={{ background: '#0A192F' }}>
+    <div className="container mx-auto px-6">
+      {/* Badge */}
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className="text-center mb-16"
+        transition={{ duration: 0.5 }}
+        className="mb-8"
       >
-        <span className="inline-block px-4 py-1.5 rounded-full bg-cyan-500/10 text-cyan-400 text-sm font-semibold mb-6">
-          CONTEÚDO COMPLETO
+        <span
+          className="text-xs font-semibold tracking-[0.25em] uppercase"
+          style={{ color: 'rgba(255,255,255,0.5)' }}
+        >
+          EXPLORAÇÃO PROFUNDA
         </span>
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight gradient-text">
-          O que você acessará
-        </h2>
       </motion.div>
 
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5 max-w-7xl mx-auto">
-        {modules.map((mod, i) => (
+      {/* Header row: title left, description right */}
+      <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-16">
+        <motion.h2
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-4xl md:text-5xl lg:text-[3.5rem] font-extrabold tracking-tight leading-[1.1]"
+        >
+          <span className="text-foreground">O que você </span>
+          <span className="gradient-text">acessará</span>
+        </motion.h2>
+
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.15 }}
+          className="text-sm md:text-base leading-relaxed max-w-sm lg:text-right"
+          style={{ color: 'rgba(255,255,255,0.55)' }}
+        >
+          Cada pilar foi desenhado para remover um gargalo específico na sua operação comercial.
+        </motion.p>
+      </div>
+
+      {/* Cards grid */}
+      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        {cards.map((card, i) => (
           <motion.div
             key={i}
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: i * 0.06 }}
-            className="card-premium p-5 text-center relative group"
+            transition={{ duration: 0.5, delay: i * 0.1 }}
+            className="group rounded-2xl overflow-hidden transition-all duration-400 hover:-translate-y-1 hover:shadow-[0_0_30px_rgba(0,239,255,0.08)]"
+            style={{
+              background: '#102A43',
+              border: '1px solid rgba(0,239,255,0.08)',
+            }}
           >
-            {mod.bonus && (
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-gradient-to-r from-cyan-500 to-cyan-600 text-xs font-bold text-background whitespace-nowrap">
-                BÔNUS ANUAL
-              </div>
-            )}
-            <div className="w-12 h-12 rounded-xl bg-cyan-500/10 flex items-center justify-center mx-auto mb-3 group-hover:bg-cyan-500/20 transition-colors">
-              <mod.icon className="w-6 h-6 text-cyan-400" />
+            {/* Image area */}
+            <div className="relative h-48 overflow-hidden">
+              <img
+                src={card.image}
+                alt={card.title}
+                loading="lazy"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              {/* Subtle overlay for depth */}
+              <div
+                className="absolute inset-0"
+                style={{
+                  background: 'linear-gradient(180deg, transparent 50%, rgba(16,42,67,0.6) 100%)',
+                }}
+              />
             </div>
-            <h3 className="text-base font-bold text-foreground mb-1">{mod.title}</h3>
-            <p className="text-sm text-muted-foreground">{mod.desc}</p>
+
+            {/* Body */}
+            <div className="p-6 flex flex-col gap-3">
+              <h3 className="text-lg font-bold text-foreground">{card.title}</h3>
+              <p
+                className="text-sm leading-relaxed"
+                style={{ color: 'rgba(255,255,255,0.55)' }}
+              >
+                {card.desc}
+              </p>
+
+              {/* CTA */}
+              <a
+                href="#planos"
+                className="inline-flex items-center gap-2 text-xs font-bold tracking-[0.1em] uppercase mt-4 transition-colors duration-300 group-hover:text-primary"
+                style={{ color: 'rgba(255,255,255,0.7)' }}
+              >
+                VER MAIS
+                <ArrowRight className="w-4 h-4" />
+              </a>
+            </div>
           </motion.div>
         ))}
       </div>
