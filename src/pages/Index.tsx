@@ -1,3 +1,4 @@
+import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/sections/HeroSection";
 import PainSection from "@/components/sections/PainSection";
 import SolutionSection from "@/components/sections/SolutionSection";
@@ -13,6 +14,7 @@ import FinalCTASection from "@/components/sections/FinalCTASection";
 
 const Index = () => (
   <main className="min-h-screen bg-background overflow-x-hidden">
+    <Navbar />
     <HeroSection />
     <PainSection />
     <SolutionSection />

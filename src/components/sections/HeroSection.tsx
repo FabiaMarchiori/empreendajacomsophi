@@ -1,178 +1,128 @@
 import { motion } from "framer-motion";
-import { MessageCircle, ArrowRight, Users, Layers, Rocket } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import heroMockup from "@/assets/hero-mockup.png";
-import { useEffect, useState } from "react";
 
 const WHATSAPP_LINK = "https://wa.me/5511983348749?text=Pagina%20de%20vendas";
 
-const words = ["direção", "clareza", "economia", "estrutura"];
-
-const FloatingParticle = ({ delay, x, y, size }: { delay: number; x: string; y: string; size: number }) => (
-  <motion.div
-    className="absolute rounded-full bg-cyan-500/20"
-    style={{ left: x, top: y, width: size, height: size }}
-    animate={{ y: [-20, 20, -20], opacity: [0.2, 0.6, 0.2] }}
-    transition={{ duration: 5 + delay, repeat: Infinity, ease: "easeInOut", delay }}
-  />
-);
-
 const HeroSection = () => {
-  const [wordIndex, setWordIndex] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setWordIndex((prev) => (prev + 1) % words.length);
-    }, 2500);
-    return () => clearInterval(interval);
-  }, []);
-
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden pt-8 pb-16">
-      {/* Background effects */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-deep" />
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/5 rounded-full blur-[120px]" />
-      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-cyan-500/8 rounded-full blur-[100px]" />
-      
-      <FloatingParticle delay={0} x="10%" y="20%" size={6} />
-      <FloatingParticle delay={1} x="80%" y="15%" size={4} />
-      <FloatingParticle delay={2} x="60%" y="70%" size={8} />
-      <FloatingParticle delay={0.5} x="25%" y="80%" size={5} />
-      <FloatingParticle delay={1.5} x="90%" y="50%" size={3} />
-      <FloatingParticle delay={3} x="5%" y="55%" size={7} />
-      <FloatingParticle delay={2.5} x="45%" y="10%" size={4} />
-
-      {/* Geometric shapes */}
-      <motion.div
-        className="absolute top-20 right-20 w-32 h-32 border border-cyan-500/10 rotate-45"
-        animate={{ rotate: [45, 90, 45] }}
-        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-      />
-      <motion.div
-        className="absolute bottom-40 left-10 w-24 h-24 border border-cyan-500/5 rounded-full"
-        animate={{ scale: [1, 1.2, 1] }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+    <section className="relative min-h-screen flex items-center pt-16 overflow-hidden" style={{ background: '#0A192F' }}>
+      {/* Subtle radial glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] rounded-full opacity-20"
+        style={{ background: 'radial-gradient(circle, rgba(0,239,255,0.08) 0%, transparent 70%)' }}
       />
 
-      <div className="container relative z-10 mx-auto px-4">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left content */}
+      <div className="container mx-auto px-6 py-16 lg:py-24">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          {/* Left column */}
           <div className="space-y-8">
+            {/* Badge */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-cyan-500/20 bg-cyan-500/5"
+              transition={{ duration: 0.5 }}
             >
-              <Rocket className="w-4 h-4 text-cyan-500" />
-              <span className="text-sm font-medium text-cyan-400">Valores de lançamento por tempo limitado</span>
+              <span className="inline-block px-4 py-1.5 rounded-full bg-primary/15 text-primary text-xs font-semibold tracking-[0.15em] uppercase">
+                Ecossistema Exclusivo
+              </span>
             </motion.div>
 
+            {/* Headline */}
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1]"
+              className="text-[2.75rem] md:text-[3.25rem] lg:text-[3.75rem] font-extrabold tracking-tight leading-[1.08]"
             >
-              <span className="gradient-text">Pare de empreender no escuro.</span>{" "}
-              <span className="text-foreground">
-                Encontre importadoras, organize seu negócio e cresça com mais{" "}
-              </span>
-              <motion.span
-                key={wordIndex}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.4 }}
-                className="text-cyan-400 inline-block"
-              >
-                {words[wordIndex]}.
-              </motion.span>
+              <span className="text-foreground">Não é uma lista. É{"\n"}o seu ecossistema{"\n"}completo </span>
+              <span className="gradient-text">para{"\n"}empreender.</span>
             </motion.h1>
 
+            {/* Subtitle */}
             <motion.p
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-lg md:text-xl text-muted-foreground max-w-xl leading-relaxed"
+              className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-lg"
+              style={{ color: 'rgba(255,255,255,0.65)' }}
             >
-              Acesse um ecossistema completo com importadoras, nichos, orientação da Soph, 
-              precificação e ferramentas para estruturar seu negócio com mais clareza, economia e estratégia.
+              Mais de 260+ Importadoras diretas com 15 nichos lucrativos,
+              sua sócia digital Soph, gestão ERP e estruturação profissional
+              em um só lugar. Pare de buscar, comece a lucrar.
             </motion.p>
 
-            {/* Stats */}
+            {/* Buttons */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="flex flex-wrap gap-6"
+              className="flex flex-wrap gap-4 pt-2"
             >
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg bg-cyan-500/10 flex items-center justify-center">
-                  <Users className="w-5 h-5 text-cyan-400" />
-                </div>
-                <div>
-                  <p className="text-2xl font-bold text-foreground">+260</p>
-                  <p className="text-sm text-muted-foreground">Importadoras</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg bg-cyan-500/10 flex items-center justify-center">
-                  <Layers className="w-5 h-5 text-cyan-400" />
-                </div>
-                <div>
-                  <p className="text-2xl font-bold text-foreground">15</p>
-                  <p className="text-sm text-muted-foreground">Nichos</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg bg-cyan-500/10 flex items-center justify-center">
-                  <Rocket className="w-5 h-5 text-cyan-400" />
-                </div>
-                <div>
-                  <p className="text-2xl font-bold text-foreground">R$ 97</p>
-                  <p className="text-sm text-muted-foreground">Plano Anual + Bônus</p>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* CTAs */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="flex flex-wrap gap-4"
-            >
-              <a href="#planos" className="btn-glow px-8 py-4 rounded-xl text-lg inline-flex items-center gap-2 font-bold">
-                Quero entrar no Ecossistema
+              <a
+                href="#planos"
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-base font-bold transition-all duration-300 hover:-translate-y-0.5"
+                style={{
+                  background: 'linear-gradient(135deg, #00EFFF 0%, #00c4d6 100%)',
+                  color: '#0A192F',
+                  boxShadow: '0 0 24px rgba(0,239,255,0.25)',
+                }}
+              >
+                Começar Agora
                 <ArrowRight className="w-5 h-5" />
               </a>
               <a
-                href={WHATSAPP_LINK}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-secondary-dark px-8 py-4 rounded-xl text-lg inline-flex items-center gap-2"
+                href="#como-funciona"
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-base font-semibold transition-all duration-300 hover:bg-white/5"
+                style={{
+                  border: '1px solid rgba(255,255,255,0.2)',
+                  color: 'rgba(255,255,255,0.9)',
+                }}
               >
-                <MessageCircle className="w-5 h-5" />
-                Falar no WhatsApp
+                Ver como funciona
               </a>
             </motion.div>
           </div>
 
-          {/* Right mockup */}
+          {/* Right column - Mockup card */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.85, rotateY: 15 }}
-            animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-            transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
-            className="relative hidden lg:block"
+            initial={{ opacity: 0, scale: 0.92 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+            className="relative hidden lg:flex items-center justify-center"
           >
-            <div className="absolute inset-0 bg-cyan-500/5 rounded-3xl blur-[60px]" />
-            <img
-              src={heroMockup}
-              alt="Ecossistema EmpreendaJá - Dashboard em notebook, tablet e celular"
-              width={1280}
-              height={800}
-              className="relative z-10 w-full h-auto drop-shadow-2xl"
+            {/* Glow behind card */}
+            <div
+              className="absolute inset-0 rounded-3xl"
+              style={{
+                background: 'radial-gradient(ellipse at center, rgba(0,239,255,0.12) 0%, transparent 70%)',
+                filter: 'blur(40px)',
+              }}
             />
+            {/* Card container */}
+            <div
+              className="relative w-full rounded-2xl p-6 overflow-hidden"
+              style={{
+                background: 'linear-gradient(145deg, #0f2744 0%, #091b30 50%, #071526 100%)',
+                border: '1px solid rgba(0,239,255,0.1)',
+                boxShadow: '0 0 60px rgba(0,239,255,0.06), 0 25px 50px rgba(0,0,0,0.4)',
+              }}
+            >
+              {/* Top edge glow line */}
+              <div
+                className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px"
+                style={{ background: 'linear-gradient(90deg, transparent, rgba(0,239,255,0.4), transparent)' }}
+              />
+              {/* Bottom edge glow line */}
+              <div
+                className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3/4 h-px"
+                style={{ background: 'linear-gradient(90deg, transparent, rgba(0,239,255,0.3), transparent)' }}
+              />
+              <img
+                src={heroMockup}
+                alt="Ecossistema EmpreendaJá - Dashboard profissional"
+                className="w-full h-auto rounded-lg"
+              />
+            </div>
           </motion.div>
         </div>
       </div>
