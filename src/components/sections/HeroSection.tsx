@@ -118,7 +118,7 @@ const HeroSection = () => {
                 style={{ background: 'linear-gradient(90deg, transparent, rgba(0,239,255,0.3), transparent)' }}
               />
               <img
-                src={heroMockup}
+                src={heroDashboard}
                 alt="Ecossistema EmpreendaJá - Dashboard profissional"
                 className="w-full h-auto rounded-lg"
               />
