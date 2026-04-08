@@ -45,17 +45,17 @@ const PricingSection = () => (
         >
           <div className="mb-6">
             <h3 className="text-xl font-bold text-white mb-1">Plano Mensal</h3>
-            <p className="text-sm text-white/60">Valor de lançamento</p>
+            <p className="text-base text-white">Valor de lançamento</p>
           </div>
           <div className="mb-6">
             <span className="text-5xl font-extrabold text-white">R$ 47</span>
-            <span className="text-white/60">/mês</span>
+            <span className="text-white">/mês</span>
           </div>
           <ul className="space-y-3 mb-8 flex-1">
             {features.map((f, i) => (
               <li key={i} className="flex items-center gap-3">
                 <Check className="w-5 h-5 text-cyan-400 shrink-0" />
-                <span className="text-white/80 text-sm">{f}</span>
+                <span className="text-white text-base">{f}</span>
               </li>
             ))}
             <li className="flex items-center gap-3 opacity-50">
@@ -92,17 +92,17 @@ const PricingSection = () => (
           </div>
           <div className="mb-6 mt-2">
             <h3 className="text-xl font-bold text-white mb-1">Plano Anual</h3>
-            <p className="text-sm text-white/60">Valor de lançamento + Bônus exclusivo</p>
+            <p className="text-base text-white">Valor de lançamento + Bônus exclusivo</p>
           </div>
           <div className="mb-6">
             <span className="text-5xl font-extrabold text-white">R$ 97</span>
-            <span className="text-white/60">/ano</span>
+            <span className="text-white">/ano</span>
           </div>
           <ul className="space-y-3 mb-8 flex-1">
             {features.map((f, i) => (
               <li key={i} className="flex items-center gap-3">
                 <Check className="w-5 h-5 text-cyan-400 shrink-0" />
-                <span className="text-white/80 text-sm">{f}</span>
+                <span className="text-white text-base">{f}</span>
               </li>
             ))}
             <li className="flex items-center gap-3">

@@ -9,6 +9,7 @@ const pains = [
   "Pesquisa tudo sozinho e perde horas sem resultado",
   "Improvisa marca, preço e operação sem estratégia",
   "Não tem estrutura nem ferramentas adequadas",
+  "Não sabe se está escolhendo os produtos certos para lucrar",
 ];
 
 const PainSection = () => (
