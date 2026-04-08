@@ -75,15 +75,13 @@ const ModulesSection = () => {
   }, [activeIndex, thumbStart, visibleCount]);
 
   const scrollPrev = () => {
-    const newStart = thumbStart - 1;
-    if (newStart >= 0) setThumbStart(newStart);
-    else setThumbStart(modules.length - visibleCount);
+    const ns = thumbStart - 1;
+    setThumbStart(ns >= 0 ? ns : modules.length - visibleCount);
   };
 
   const scrollNext = () => {
-    const newStart = thumbStart + 1;
-    if (newStart + visibleCount <= modules.length) setThumbStart(newStart);
-    else setThumbStart(0);
+    const ns = thumbStart + 1;
+    setThumbStart(ns + visibleCount <= modules.length ? ns : 0);
   };
 
   const visibleThumbs = modules.slice(thumbStart, thumbStart + visibleCount);
@@ -132,64 +130,42 @@ const ModulesSection = () => {
           </motion.p>
         </div>
 
-        {/* Featured Card — Large Preview */}
+        {/* ── Featured Card ── */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="relative overflow-hidden"
+          className="relative rounded-2xl overflow-hidden"
           style={{
             background: '#0d1f36',
-            boxShadow: '0 0 32px rgba(0,255,255,0.10), 0 0 80px rgba(0,255,255,0.04)',
-            borderRadius: '16px',
+            border: '1px solid rgba(0,255,255,0.15)',
+            boxShadow: '0 0 40px rgba(0,255,255,0.06)',
           }}
         >
-          {/* Gradient border overlay — border only, no fill */}
-          <div
-            className="absolute inset-0 pointer-events-none z-20"
-            style={{
-              borderRadius: '16px',
-              border: '1px solid transparent',
-              backgroundClip: 'border-box',
-              backgroundImage: 'linear-gradient(135deg, #FFFFFF, #00FFFF)',
-              WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
-              WebkitMaskComposite: 'xor',
-              maskComposite: 'exclude',
-              padding: '1px',
-            }}
-          />
-
-          {/* Two-column layout: image left, content right */}
-          <div className="flex flex-col lg:flex-row">
-            {/* Image area */}
-            <div className="relative lg:w-[58%] overflow-hidden" style={{ minHeight: '280px' }}>
-              {/* Module badge */}
+          <div className="flex flex-col lg:flex-row" style={{ minHeight: '380px' }}>
+            {/* ─ Left: Image ─ */}
+            <div className="relative lg:w-[55%] overflow-hidden">
+              {/* Module badge on image */}
               <div
-                className="absolute top-4 left-4 z-10 px-3 py-1.5 rounded-md"
+                className="absolute top-4 left-4 z-10 px-3 py-1 rounded-md"
                 style={{
-                  background: 'rgba(0,255,255,0.08)',
+                  background: 'rgba(10,25,47,0.75)',
                   border: '1px solid rgba(0,255,255,0.25)',
+                  backdropFilter: 'blur(8px)',
                 }}
               >
-                <AnimatePresence mode="wait">
-                  <motion.span
-                    key={activeIndex}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.3 }}
-                    style={{
-                      color: '#00FFFF',
-                      fontSize: '11px',
-                      letterSpacing: '0.07em',
-                      textTransform: 'uppercase',
-                      fontWeight: 600,
-                    }}
-                  >
-                    Módulo {String(activeIndex + 1).padStart(2, '0')}
-                  </motion.span>
-                </AnimatePresence>
+                <span
+                  style={{
+                    color: '#00FFFF',
+                    fontSize: '11px',
+                    letterSpacing: '0.08em',
+                    textTransform: 'uppercase',
+                    fontWeight: 600,
+                  }}
+                >
+                  Módulo {String(activeIndex + 1).padStart(2, '0')}
+                </span>
               </div>
 
               <AnimatePresence mode="wait">
@@ -197,48 +173,41 @@ const ModulesSection = () => {
                   key={activeIndex}
                   src={active.image}
                   alt={active.title}
-                  initial={{ opacity: 0, scale: 0.97 }}
+                  initial={{ opacity: 0, scale: 1.03 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.97 }}
-                  transition={{ duration: 0.35, ease: 'easeOut' }}
-                  className="w-full h-full object-cover"
-                  style={{
-                    minHeight: '280px',
-                    maxHeight: '420px',
-                    filter: 'brightness(1.05) contrast(1.02)',
-                  }}
+                  exit={{ opacity: 0, scale: 0.98 }}
+                  transition={{ duration: 0.4, ease: 'easeOut' }}
+                  className="block w-full h-full object-cover"
+                  style={{ minHeight: '260px' }}
                 />
               </AnimatePresence>
 
-              {/* Subtle gradient fade to right on desktop */}
+              {/* Fade to content on desktop */}
               <div
-                className="hidden lg:block absolute inset-y-0 right-0 w-24 pointer-events-none"
-                style={{
-                  background: 'linear-gradient(to right, transparent, #0d1f36)',
-                }}
+                className="hidden lg:block absolute inset-y-0 right-0 w-20 pointer-events-none"
+                style={{ background: 'linear-gradient(to right, transparent, #0d1f36)' }}
               />
-              {/* Subtle gradient fade to bottom on mobile */}
+              {/* Fade to content on mobile */}
               <div
-                className="lg:hidden absolute inset-x-0 bottom-0 h-16 pointer-events-none"
-                style={{
-                  background: 'linear-gradient(to bottom, transparent, #0d1f36)',
-                }}
+                className="lg:hidden absolute inset-x-0 bottom-0 h-12 pointer-events-none"
+                style={{ background: 'linear-gradient(to bottom, transparent, #0d1f36)' }}
               />
             </div>
 
-            {/* Content area */}
-            <div className="relative lg:w-[42%] flex flex-col justify-center p-6 md:p-8 lg:p-10">
+            {/* ─ Right: Content ─ */}
+            <div className="relative lg:w-[45%] flex flex-col justify-center px-6 py-6 md:px-10 lg:pl-6 lg:pr-10 lg:py-10">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeIndex}
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
+                  initial={{ opacity: 0, x: 16 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -12 }}
                   transition={{ duration: 0.35, ease: 'easeOut' }}
+                  className="flex flex-col"
                 >
-                  {/* Module number */}
+                  {/* Number indicator */}
                   <span
-                    className="block mb-3"
+                    className="mb-4"
                     style={{
                       color: '#00FFFF',
                       fontSize: '12px',
@@ -252,35 +221,28 @@ const ModulesSection = () => {
 
                   {/* Title */}
                   <h3
-                    className="mb-4"
-                    style={{
-                      fontSize: '22px',
-                      fontWeight: 700,
-                      color: '#ffffff',
-                      lineHeight: 1.25,
-                    }}
+                    className="mb-3 text-xl md:text-2xl font-bold text-white leading-tight"
                   >
                     {active.title}
                   </h3>
 
-                  {/* Divider */}
+                  {/* Accent line */}
                   <div
-                    className="mb-4"
+                    className="mb-5"
                     style={{
-                      width: '40px',
+                      width: '36px',
                       height: '2px',
                       background: 'linear-gradient(90deg, #00FFFF, transparent)',
-                      borderRadius: '2px',
                     }}
                   />
 
                   {/* Description */}
                   <p
-                    className="mb-6"
+                    className="mb-8 leading-relaxed"
                     style={{
                       fontSize: '14px',
-                      color: '#7a9ab8',
-                      lineHeight: 1.7,
+                      color: '#8ba3be',
+                      lineHeight: 1.75,
                     }}
                   >
                     {active.desc}
@@ -289,7 +251,7 @@ const ModulesSection = () => {
                   {/* CTA */}
                   <a
                     href="#planos"
-                    className="inline-flex items-center gap-2 group"
+                    className="inline-flex items-center gap-2 group w-fit"
                     style={{
                       color: '#00FFFF',
                       fontSize: '12px',
@@ -307,82 +269,41 @@ const ModulesSection = () => {
           </div>
         </motion.div>
 
-        {/* Thumbnail cards row */}
+        {/* ── Thumbnail Navigation ── */}
         <div className="flex items-center gap-3 mt-8">
-          {/* Left arrow */}
-          <button
-            onClick={scrollPrev}
-            className="flex-shrink-0 w-9 h-9 rounded-full flex items-center justify-center transition-all duration-300"
-            style={{
-              background: '#112240',
-              border: '1px solid #1e3a5c',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = '#00FFFF';
-              (e.currentTarget.querySelector('svg') as SVGElement).style.color = '#00FFFF';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = '#1e3a5c';
-              (e.currentTarget.querySelector('svg') as SVGElement).style.color = '#7a9ab8';
-            }}
-          >
-            <ChevronLeft className="w-4 h-4" style={{ color: '#7a9ab8', transition: 'color 0.3s' }} />
-          </button>
+          <NavArrow direction="left" onClick={scrollPrev} />
 
-          {/* Thumbnails */}
           <div className="flex-1 grid gap-3" style={{ gridTemplateColumns: `repeat(${visibleCount}, 1fr)` }}>
             {visibleThumbs.map((mod, vi) => {
-              const realIndex = thumbStart + vi;
-              const isActive = realIndex === activeIndex;
-
+              const idx = thumbStart + vi;
+              const isActive = idx === activeIndex;
               return (
                 <button
-                  key={realIndex}
-                  onClick={() => setActiveIndex(realIndex)}
-                  className="text-left overflow-hidden transition-all duration-300"
+                  key={idx}
+                  onClick={() => setActiveIndex(idx)}
+                  className="text-left overflow-hidden rounded-lg transition-all duration-300"
                   style={{
                     background: isActive ? '#112240' : '#0f2540',
                     border: isActive ? '1px solid #00FFFF' : '1px solid #1a3358',
-                    opacity: isActive ? 1 : 0.65,
-                    boxShadow: isActive ? '0 0 16px rgba(0,255,255,0.12)' : 'none',
-                    cursor: 'pointer',
-                    borderRadius: '10px',
+                    opacity: isActive ? 1 : 0.6,
+                    boxShadow: isActive ? '0 0 16px rgba(0,255,255,0.1)' : 'none',
                   }}
                 >
-                  {/* Mini screenshot */}
-                  <div
-                    className="relative overflow-hidden"
-                    style={{
-                      height: '72px',
-                      borderRadius: '8px 8px 0 0',
-                    }}
-                  >
+                  <div className="overflow-hidden" style={{ height: '72px', borderRadius: '7px 7px 0 0' }}>
                     <img
                       src={mod.image}
                       alt={mod.title}
                       className="block w-full h-full object-cover"
-                      style={{ filter: 'brightness(1.05)' }}
                     />
-                    <div
-                      className="absolute inset-0"
-                      style={{ background: 'rgba(0,0,0,0.08)' }}
-                    />
-                    {isActive && (
-                      <div
-                        className="absolute bottom-0 left-0 right-0"
-                        style={{ height: '2px', background: '#00FFFF' }}
-                      />
-                    )}
                   </div>
-                  {/* Body */}
-                  <div className="p-2.5">
+                  <div className="px-2.5 py-2">
                     <p
                       className="truncate"
                       style={{
                         fontSize: '11px',
                         fontWeight: 500,
-                        color: isActive ? '#ffffff' : '#c8d8ea',
-                        marginBottom: '4px',
+                        color: isActive ? '#fff' : '#c8d8ea',
+                        marginBottom: '2px',
                       }}
                     >
                       {mod.title}
@@ -405,25 +326,7 @@ const ModulesSection = () => {
             })}
           </div>
 
-          {/* Right arrow */}
-          <button
-            onClick={scrollNext}
-            className="flex-shrink-0 w-9 h-9 rounded-full flex items-center justify-center transition-all duration-300"
-            style={{
-              background: '#112240',
-              border: '1px solid #1e3a5c',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = '#00FFFF';
-              (e.currentTarget.querySelector('svg') as SVGElement).style.color = '#00FFFF';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = '#1e3a5c';
-              (e.currentTarget.querySelector('svg') as SVGElement).style.color = '#7a9ab8';
-            }}
-          >
-            <ChevronRight className="w-4 h-4" style={{ color: '#7a9ab8', transition: 'color 0.3s' }} />
-          </button>
+          <NavArrow direction="right" onClick={scrollNext} />
         </div>
 
         {/* Dots */}
@@ -444,6 +347,23 @@ const ModulesSection = () => {
         </div>
       </div>
     </section>
+  );
+};
+
+/* ── Arrow button ── */
+const NavArrow = ({ direction, onClick }: { direction: 'left' | 'right'; onClick: () => void }) => {
+  const Icon = direction === 'left' ? ChevronLeft : ChevronRight;
+  return (
+    <button
+      onClick={onClick}
+      className="flex-shrink-0 w-9 h-9 rounded-full flex items-center justify-center transition-colors duration-300 hover:border-[#00FFFF] group"
+      style={{
+        background: '#112240',
+        border: '1px solid #1e3a5c',
+      }}
+    >
+      <Icon className="w-4 h-4 transition-colors duration-300 text-[#7a9ab8] group-hover:text-[#00FFFF]" />
+    </button>
   );
 };
 
