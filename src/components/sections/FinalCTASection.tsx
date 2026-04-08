@@ -16,10 +16,11 @@ const FinalCTASection = () => (
         transition={{ duration: 0.7 }}
         className="max-w-3xl mx-auto text-center space-y-8"
       >
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight gradient-text leading-tight">
-          Chega de improvisar. Seu negócio merece mais direção.
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight">
+          <span className="text-white">Chega de improvisar. </span>
+          <span className="gradient-text">Seu negócio merece mais direção.</span>
         </h2>
-        <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+        <p className="text-lg md:text-xl text-white/85 max-w-2xl mx-auto leading-relaxed">
           Você já perdeu tempo demais tentando sozinho. O Ecossistema EmpreendaJá com Soph reúne tudo 
           que você precisa para começar com clareza, economizar e crescer com organização. 
           Os valores de lançamento são por tempo limitado — aproveite agora.
@@ -34,14 +35,19 @@ const FinalCTASection = () => (
             href={WHATSAPP_LINK}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-secondary-dark px-10 py-5 rounded-xl text-lg inline-flex items-center gap-2"
+            className="px-10 py-5 rounded-xl text-lg inline-flex items-center gap-2 font-bold transition-all duration-300 hover:-translate-y-0.5"
+            style={{
+              background: 'linear-gradient(135deg, #00FF88 0%, #00CC6A 100%)',
+              color: '#0A192F',
+              boxShadow: '0 0 30px rgba(0,255,136,0.25), 0 0 60px rgba(0,255,136,0.08)',
+            }}
           >
             <MessageCircle className="w-5 h-5" />
             Falar no WhatsApp
           </a>
         </div>
 
-        <p className="text-sm text-muted-foreground">
+        <p className="text-sm text-white/60">
           7 dias de garantia • Acesso imediato • Valores de lançamento
         </p>
       </motion.div>

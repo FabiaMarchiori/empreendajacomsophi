@@ -11,7 +11,7 @@ const testimonials = [
 ];
 
 const TestimonialsSection = () => (
-  <section className="relative py-24 overflow-hidden">
+  <section className="relative py-24 overflow-hidden" style={{ background: '#0A192F' }}>
     <div className="container relative z-10 mx-auto px-4">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
@@ -20,7 +20,7 @@ const TestimonialsSection = () => (
         transition={{ duration: 0.6 }}
         className="text-center mb-16"
       >
-        <span className="inline-block px-4 py-1.5 rounded-full bg-cyan-500/10 text-cyan-400 text-sm font-semibold mb-6">
+        <span className="inline-block px-4 py-1.5 rounded-full bg-cyan-500/10 text-white text-sm font-bold mb-6 tracking-wide">
           PROVA SOCIAL
         </span>
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight gradient-text">
@@ -44,12 +44,12 @@ const TestimonialsSection = () => (
                 <Star key={j} className="w-4 h-4 fill-cyan-400 text-cyan-400" />
               ))}
             </div>
-            <p className="text-muted-foreground mb-4 leading-relaxed">"{t.text}"</p>
+            <p className="text-white/85 mb-4 leading-relaxed">"{t.text}"</p>
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-full bg-cyan-500/20 flex items-center justify-center">
                 <span className="text-cyan-400 font-bold text-sm">{t.name.charAt(0)}</span>
               </div>
-              <p className="font-semibold text-foreground">{t.name}</p>
+              <p className="font-semibold text-white">{t.name}</p>
             </div>
           </motion.div>
         ))}
