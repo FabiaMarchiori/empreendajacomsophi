@@ -169,29 +169,29 @@ const ModulesSection = () => {
           </button>
 
           {/* Panel: image left + text right */}
-          <div className="flex flex-col lg:flex-row gap-0 lg:gap-12 items-stretch lg:items-center" style={{ minHeight: '440px' }}>
+          <div
+            className="flex flex-col lg:flex-row gap-0 items-stretch rounded-2xl overflow-hidden"
+            style={{
+              minHeight: '440px',
+              background: '#0d1f36',
+              border: '1px solid rgba(0,255,255,0.12)',
+              boxShadow: '0 0 50px rgba(0,255,255,0.08), 0 8px 32px rgba(0,0,0,0.4)',
+            }}
+          >
             {/* ─ Left: Image ─ */}
-            <div className="lg:w-[50%] flex-shrink-0">
+            <div className="lg:w-[55%] flex-shrink-0 relative overflow-hidden">
               <AnimatePresence mode="wait">
-                <motion.div
+                <motion.img
                   key={activeIndex}
-                  initial={{ opacity: 0, scale: 0.98 }}
+                  src={active.image}
+                  alt={active.title}
+                  initial={{ opacity: 0, scale: 1.02 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.96 }}
+                  exit={{ opacity: 0, scale: 0.98 }}
                   transition={{ duration: 0.4, ease: 'easeOut' }}
-                  className="rounded-2xl overflow-hidden"
-                  style={{
-                    boxShadow: '0 0 50px rgba(0,255,255,0.08), 0 8px 32px rgba(0,0,0,0.4)',
-                    border: '1px solid rgba(0,255,255,0.12)',
-                  }}
-                >
-                  <img
-                    src={active.image}
-                    alt={active.title}
-                    className="block w-full object-contain"
-                    style={{ maxHeight: '440px', background: '#0d1f36' }}
-                  />
-                </motion.div>
+                  className="block w-full h-full object-cover object-top"
+                  style={{ minHeight: '440px' }}
+                />
               </AnimatePresence>
             </div>
 
