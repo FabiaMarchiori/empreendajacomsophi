@@ -16,7 +16,7 @@ const features = [
 ];
 
 const PricingSection = () => (
-  <section id="planos" className="relative py-24 overflow-hidden">
+  <section id="planos" className="relative py-24 overflow-hidden" style={{ background: '#0A192F' }}>
     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-cyan-500/5 rounded-full blur-[150px]" />
     <div className="container relative z-10 mx-auto px-4">
       <motion.div
@@ -26,7 +26,7 @@ const PricingSection = () => (
         transition={{ duration: 0.6 }}
         className="text-center mb-16"
       >
-        <span className="inline-block px-4 py-1.5 rounded-full bg-cyan-500/10 text-cyan-400 text-sm font-semibold mb-6">
+        <span className="inline-block px-4 py-1.5 rounded-full bg-cyan-500/10 text-white text-sm font-bold mb-6 tracking-wide">
           VALORES DE LANÇAMENTO • POR TEMPO LIMITADO
         </span>
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight gradient-text">
@@ -44,23 +44,23 @@ const PricingSection = () => (
           className="card-premium p-8 flex flex-col"
         >
           <div className="mb-6">
-            <h3 className="text-xl font-bold text-foreground mb-1">Plano Mensal</h3>
-            <p className="text-sm text-muted-foreground">Valor de lançamento</p>
+            <h3 className="text-xl font-bold text-white mb-1">Plano Mensal</h3>
+            <p className="text-sm text-white/60">Valor de lançamento</p>
           </div>
           <div className="mb-6">
-            <span className="text-5xl font-extrabold text-foreground">R$ 47</span>
-            <span className="text-muted-foreground">/mês</span>
+            <span className="text-5xl font-extrabold text-white">R$ 47</span>
+            <span className="text-white/60">/mês</span>
           </div>
           <ul className="space-y-3 mb-8 flex-1">
             {features.map((f, i) => (
               <li key={i} className="flex items-center gap-3">
                 <Check className="w-5 h-5 text-cyan-400 shrink-0" />
-                <span className="text-muted-foreground text-sm">{f}</span>
+                <span className="text-white/80 text-sm">{f}</span>
               </li>
             ))}
             <li className="flex items-center gap-3 opacity-50">
-              <X className="w-5 h-5 text-muted-foreground shrink-0" />
-              <span className="text-muted-foreground text-sm line-through">ERP Soph Gestão</span>
+              <X className="w-5 h-5 text-white/40 shrink-0" />
+              <span className="text-white/40 text-sm line-through">ERP Soph Gestão</span>
             </li>
           </ul>
           <a href="#planos" className="btn-secondary-dark w-full py-4 rounded-xl text-center font-bold inline-flex items-center justify-center gap-2">
@@ -75,25 +75,34 @@ const PricingSection = () => (
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="relative card-premium p-8 flex flex-col border-cyan-500/40 glow-cyan-strong"
+          className="relative card-premium p-8 flex flex-col"
+          style={{
+            border: '1px solid rgba(0,239,255,0.4)',
+            boxShadow: '0 0 30px rgba(0,239,255,0.15), 0 0 80px rgba(0,239,255,0.06)',
+          }}
         >
-          <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-5 py-1.5 rounded-full bg-gradient-to-r from-cyan-500 to-cyan-400 text-background text-sm font-bold flex items-center gap-1.5">
+          <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-5 py-1.5 rounded-full text-sm font-bold flex items-center gap-1.5"
+            style={{
+              background: 'linear-gradient(135deg, #FFFFFF 0%, #00EFFF 100%)',
+              color: '#0A192F',
+            }}
+          >
             <Sparkles className="w-4 h-4" />
             MELHOR OFERTA
           </div>
           <div className="mb-6 mt-2">
-            <h3 className="text-xl font-bold text-foreground mb-1">Plano Anual</h3>
-            <p className="text-sm text-muted-foreground">Valor de lançamento + Bônus exclusivo</p>
+            <h3 className="text-xl font-bold text-white mb-1">Plano Anual</h3>
+            <p className="text-sm text-white/60">Valor de lançamento + Bônus exclusivo</p>
           </div>
           <div className="mb-6">
-            <span className="text-5xl font-extrabold text-foreground">R$ 97</span>
-            <span className="text-muted-foreground">/ano</span>
+            <span className="text-5xl font-extrabold text-white">R$ 97</span>
+            <span className="text-white/60">/ano</span>
           </div>
           <ul className="space-y-3 mb-8 flex-1">
             {features.map((f, i) => (
               <li key={i} className="flex items-center gap-3">
                 <Check className="w-5 h-5 text-cyan-400 shrink-0" />
-                <span className="text-muted-foreground text-sm">{f}</span>
+                <span className="text-white/80 text-sm">{f}</span>
               </li>
             ))}
             <li className="flex items-center gap-3">

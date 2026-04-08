@@ -20,10 +20,13 @@ const faqs = [
   { q: "Os valores são de lançamento por tempo limitado?", a: "Sim! Os valores atuais (R$ 47/mês e R$ 97/ano) são preços especiais de lançamento e podem aumentar a qualquer momento." },
   { q: "Tenho garantia?", a: "Sim! Você tem 7 dias de garantia incondicional. Se não gostar, devolvemos 100% do seu dinheiro." },
   { q: "Como falar com o suporte?", a: "Você pode entrar em contato pelo WhatsApp a qualquer momento. Nossa equipe está pronta para te ajudar." },
+  { q: '"É só uma lista?"', a: "Não. O EmpreendaJá é um ecossistema completo com importadoras, ferramentas, IA, precificação, orientações para MEI, logo, marca, marketplaces e muito mais." },
+  { q: '"Vou conseguir usar mesmo começando do zero?"', a: "Sim. O ecossistema foi pensado para quem está começando. A Soph te orienta passo a passo e cada módulo é direto ao ponto." },
+  { q: '"Isso realmente vale a pena?"', a: "Com +260 importadoras, ferramentas gratuitas e tudo organizado em um só lugar, o retorno vem na primeira decisão certa que você tomar." },
 ];
 
 const FAQSection = () => (
-  <section className="relative py-24 overflow-hidden">
+  <section className="relative py-24 overflow-hidden" style={{ background: '#0A192F' }}>
     <div className="container relative z-10 mx-auto px-4">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
@@ -51,10 +54,10 @@ const FAQSection = () => (
               value={`faq-${i}`}
               className="card-premium px-6 border-none"
             >
-              <AccordionTrigger className="text-foreground font-semibold text-left hover:no-underline hover:text-cyan-400 transition-colors py-5">
+              <AccordionTrigger className="text-white font-semibold text-left hover:no-underline hover:text-cyan-400 transition-colors py-5">
                 {faq.q}
               </AccordionTrigger>
-              <AccordionContent className="text-muted-foreground pb-5 leading-relaxed">
+              <AccordionContent className="text-white/75 pb-5 leading-relaxed">
                 {faq.a}
               </AccordionContent>
             </AccordionItem>

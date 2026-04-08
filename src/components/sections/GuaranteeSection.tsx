@@ -22,7 +22,7 @@ const GuaranteeSection = () => (
         <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight gradient-text mb-6">
           7 dias de garantia incondicional
         </h2>
-        <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto">
+        <p className="text-lg text-white/85 leading-relaxed max-w-2xl mx-auto">
           Acesse o ecossistema completo, explore todas as importadoras, use a Soph, navegue pelos módulos. 
           Se dentro de 7 dias você sentir que não é pra você, devolvemos 100% do seu investimento. 
           Sem burocracia, sem perguntas. Sua entrada é segura.

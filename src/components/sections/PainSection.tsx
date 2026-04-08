@@ -2,12 +2,12 @@ import { motion } from "framer-motion";
 import { XCircle } from "lucide-react";
 
 const pains = [
-  "Tenta empreender, mas não sabe por onde começar",
+  "Quer começar, mas não sabe por qual nicho começar",
+  "Tem medo de cair em golpe ao comprar de fornecedores",
+  "Perde dinheiro ao colocar preço nos seus produtos",
+  "Quer parar de perder dinheiro com decisões erradas",
   "Pesquisa tudo sozinho e perde horas sem resultado",
-  "Não sabe onde encontrar bons fornecedores",
-  "Tem medo de investir errado e perder dinheiro",
   "Improvisa marca, preço e operação sem estratégia",
-  "Sente que está sempre um passo atrás",
   "Não tem estrutura nem ferramentas adequadas",
 ];
 
@@ -25,7 +25,7 @@ const PainSection = () => (
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight mb-6 gradient-text">
           Você se identifica com alguma dessas situações?
         </h2>
-        <p className="text-lg text-muted-foreground">
+        <p className="text-lg text-white/90">
           Se ao menos uma dessas frases faz sentido pra você, o Ecossistema EmpreendaJá foi criado exatamente para isso.
         </p>
       </motion.div>
@@ -38,10 +38,10 @@ const PainSection = () => (
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: i * 0.08 }}
-            className="flex items-start gap-4 p-5 rounded-xl bg-card/50 border border-border/50 hover:border-cyan-500/20 transition-all duration-300"
+            className="card-premium flex items-start gap-4 p-5"
           >
-            <XCircle className="w-6 h-6 text-red-400 shrink-0 mt-0.5" />
-            <p className="text-foreground font-medium">{pain}</p>
+            <XCircle className="w-7 h-7 text-red-400 shrink-0 mt-0.5" />
+            <p className="text-white font-semibold text-base">{pain}</p>
           </motion.div>
         ))}
       </div>
