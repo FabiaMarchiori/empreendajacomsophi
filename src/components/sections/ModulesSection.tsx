@@ -49,6 +49,24 @@ const cards = [
   },
 ];
 
+const getCardStyle = (i: number, selectedIndex: number) => {
+  const diff = Math.abs(i - selectedIndex);
+  const isActive = diff === 0;
+  const isNear = diff === 1;
+
+  const scale = isActive ? 1.07 : isNear ? 0.93 : 0.85;
+  const opacity = isActive ? 1 : isNear ? 0.75 : 0.5;
+  const bg = isActive ? '#112240' : isNear ? '#0f2540' : '#0d1f36';
+  const border = isActive ? '1px solid #00FFFF' : '1px solid #1a3358';
+  const shadow = isActive
+    ? '0 0 24px rgba(0,255,255,0.12), 0 0 60px rgba(0,255,255,0.05)'
+    : '0 0 10px rgba(0,0,0,0.2)';
+  const imgOverlay = isActive ? 'rgba(0,0,0,0.08)' : isNear ? 'rgba(0,0,0,0.25)' : 'rgba(0,0,0,0.4)';
+  const imgBorder = isActive ? '1px solid rgba(0,255,255,0.2)' : '1px solid transparent';
+
+  return { scale, opacity, bg, border, shadow, imgOverlay, imgBorder };
+};
+
 const NavArrow = ({
   direction,
   onClick,
@@ -61,24 +79,34 @@ const NavArrow = ({
   <button
     onClick={onClick}
     disabled={disabled}
-    className="w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 disabled:opacity-20 hover:scale-110"
+    className="w-10 h-10 rounded-full flex items-center justify-center disabled:opacity-20"
     style={{
-      background: 'rgba(0,239,255,0.06)',
-      border: '1px solid rgba(0,239,255,0.2)',
-      boxShadow: disabled ? 'none' : '0 0 20px rgba(0,239,255,0.08)',
+      background: '#112240',
+      border: '1px solid #1e3a5c',
+      transition: 'all 0.3s ease',
+    }}
+    onMouseEnter={(e) => {
+      if (!disabled) {
+        e.currentTarget.style.borderColor = '#00FFFF';
+        e.currentTarget.style.color = '#00FFFF';
+      }
+    }}
+    onMouseLeave={(e) => {
+      e.currentTarget.style.borderColor = '#1e3a5c';
+      e.currentTarget.style.color = '';
     }}
   >
     {direction === "prev" ? (
-      <ChevronLeft className="w-6 h-6 text-white" />
+      <ChevronLeft className="w-5 h-5 text-white" />
     ) : (
-      <ChevronRight className="w-6 h-6 text-white" />
+      <ChevronRight className="w-5 h-5 text-white" />
     )}
   </button>
 );
 
 const ModulesSection = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel({
-    align: "start",
+    align: "center",
     loop: false,
     slidesToScroll: 1,
     containScroll: "trimSnaps",
@@ -165,8 +193,7 @@ const ModulesSection = () => {
           <div ref={emblaRef} className="overflow-hidden lg:mx-8">
             <div className="flex gap-5">
               {cards.map((card, i) => {
-                const isNearActive =
-                  Math.abs(i - selectedIndex) <= 1;
+                const s = getCardStyle(i, selectedIndex);
 
                 return (
                   <motion.div
@@ -175,19 +202,18 @@ const ModulesSection = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: i * 0.08 }}
-                    className="group flex-shrink-0 w-[85%] sm:w-[46%] lg:w-[calc(25%-15px)] rounded-2xl overflow-hidden transition-all duration-500 hover:-translate-y-1.5"
+                    className="group flex-shrink-0 w-[85%] sm:w-[46%] lg:w-[calc(25%-15px)] rounded-2xl overflow-hidden"
                     style={{
-                      background: '#102A43',
-                      border: '1px solid rgba(0,239,255,0.1)',
-                      boxShadow: isNearActive
-                        ? '0 0 30px rgba(0,239,255,0.06)'
-                        : '0 0 10px rgba(0,0,0,0.2)',
-                      opacity: isNearActive ? 1 : 0.7,
-                      transform: isNearActive ? undefined : 'scale(0.97)',
+                      background: s.bg,
+                      border: s.border,
+                      boxShadow: s.shadow,
+                      opacity: s.opacity,
+                      transform: `scale(${s.scale})`,
+                      transition: 'all 0.35s cubic-bezier(0.4, 0, 0.2, 1)',
                     }}
                   >
-                    {/* Image area - taller with glow and reduced overlay */}
-                    <div className="relative h-56 overflow-hidden">
+                    {/* Image area */}
+                    <div className="relative h-56 overflow-hidden" style={{ borderBottom: s.imgBorder }}>
                       {/* Cyan glow behind image */}
                       <div
                         className="absolute inset-0 z-0"
@@ -204,11 +230,19 @@ const ModulesSection = () => {
                           filter: 'brightness(1.1) contrast(1.05) saturate(1.1)',
                         }}
                       />
-                      {/* Subtle bottom fade only */}
+                      {/* Dynamic overlay */}
                       <div
-                        className="absolute inset-x-0 bottom-0 h-16 z-[2]"
+                        className="absolute inset-0 z-[2]"
                         style={{
-                          background: 'linear-gradient(180deg, transparent 0%, rgba(16,42,67,0.6) 100%)',
+                          background: s.imgOverlay,
+                          transition: 'background 0.35s cubic-bezier(0.4, 0, 0.2, 1)',
+                        }}
+                      />
+                      {/* Bottom fade */}
+                      <div
+                        className="absolute inset-x-0 bottom-0 h-16 z-[3]"
+                        style={{
+                          background: `linear-gradient(180deg, transparent 0%, ${s.bg} 100%)`,
                         }}
                       />
                     </div>
@@ -234,10 +268,32 @@ const ModulesSection = () => {
           </div>
         </div>
 
-        {/* Mobile arrows */}
-        <div className="flex lg:hidden items-center justify-center gap-4 mt-8">
-          <NavArrow direction="prev" onClick={scrollPrev} disabled={!canScrollPrev} />
-          <NavArrow direction="next" onClick={scrollNext} disabled={!canScrollNext} />
+        {/* Dots + mobile arrows */}
+        <div className="flex items-center justify-center gap-4 mt-10">
+          <div className="flex lg:hidden">
+            <NavArrow direction="prev" onClick={scrollPrev} disabled={!canScrollPrev} />
+          </div>
+
+          {/* Dots */}
+          <div className="flex items-center gap-2">
+            {cards.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => emblaApi?.scrollTo(i)}
+                className="transition-all duration-300"
+                style={{
+                  width: i === selectedIndex ? 16 : 8,
+                  height: 8,
+                  borderRadius: i === selectedIndex ? 3 : 999,
+                  background: i === selectedIndex ? '#00FFFF' : '#1e3a5c',
+                }}
+              />
+            ))}
+          </div>
+
+          <div className="flex lg:hidden">
+            <NavArrow direction="next" onClick={scrollNext} disabled={!canScrollNext} />
+          </div>
         </div>
       </div>
     </section>
