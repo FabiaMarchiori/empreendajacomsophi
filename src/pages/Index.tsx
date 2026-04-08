@@ -9,6 +9,9 @@ import PricingSection from "@/components/sections/PricingSection";
 import GuaranteeSection from "@/components/sections/GuaranteeSection";
 import FAQSection from "@/components/sections/FAQSection";
 import FinalCTASection from "@/components/sections/FinalCTASection";
+import ExpansionSection from "@/components/sections/ExpansionSection";
+import Footer from "@/components/Footer";
+import WhatsAppFloat from "@/components/WhatsAppFloat";
 
 const Index = () => (
   <main className="min-h-screen bg-background overflow-x-hidden">
@@ -18,11 +21,14 @@ const Index = () => (
     <SolutionSection />
     <ModulesSection />
     <BenefitsSection />
+    <ExpansionSection />
     <TestimonialsSection />
     <PricingSection />
     <GuaranteeSection />
     <FAQSection />
     <FinalCTASection />
+    <Footer />
+    <WhatsAppFloat />
   </main>
 );
 

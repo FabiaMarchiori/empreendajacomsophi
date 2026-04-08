@@ -9,6 +9,7 @@ const benefits = [
   "Aprende a criar logo, site e marca com ferramentas gratuitas",
   "Descobre importadoras gigantes que nem imaginava que existiam, com preços baixos para lucrar muito mais",
   "Reduz erros, retrabalho, perda de dinheiro e gastos desnecessários",
+  "Começa a enxergar com mais clareza o que dá lucro e o que está te fazendo perder dinheiro",
 ];
 
 const BenefitsSection = () => (
