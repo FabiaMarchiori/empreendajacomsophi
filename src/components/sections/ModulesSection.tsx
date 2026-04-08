@@ -102,20 +102,22 @@ const ModulesSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="relative h-[220px] md:h-[320px] lg:h-[380px] overflow-hidden"
+          className="relative h-[220px] md:h-[320px] lg:h-[380px] overflow-hidden rounded-xl"
           style={{
             background: '#0d1f36',
-            border: '1px solid transparent',
-            borderImage: 'linear-gradient(135deg, #FFFFFF, #00FFFF) 1',
-            borderRadius: '12px',
             boxShadow: '0 0 32px rgba(0,255,255,0.10), 0 0 80px rgba(0,255,255,0.04)',
           }}
         >
-          {/* Because borderImage breaks borderRadius, use a wrapper approach */}
+          {/* Gradient border overlay */}
           <div
-            className="absolute inset-0 rounded-xl overflow-hidden"
-            style={{ border: '1px solid rgba(0,255,255,0.3)' }}
-          >
+            className="absolute inset-0 rounded-xl pointer-events-none z-20"
+            style={{
+              border: '1px solid transparent',
+              background: 'linear-gradient(#0d1f36, #0d1f36) padding-box, linear-gradient(135deg, #FFFFFF, #00FFFF) border-box',
+              borderRadius: '12px',
+            }}
+          />
+          <div className="absolute inset-0 rounded-xl overflow-hidden">
             {/* Module badge */}
             <div
               className="absolute top-4 left-4 z-10 px-3 py-1.5 rounded-md"
