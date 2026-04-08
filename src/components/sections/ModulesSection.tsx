@@ -145,13 +145,18 @@ const ModulesSection = () => {
             borderRadius: '16px',
           }}
         >
-          {/* Gradient border overlay */}
+          {/* Gradient border overlay — border only, no fill */}
           <div
             className="absolute inset-0 pointer-events-none z-20"
             style={{
-              border: '1px solid transparent',
-              background: 'linear-gradient(#0d1f36, #0d1f36) padding-box, linear-gradient(135deg, #FFFFFF, #00FFFF) border-box',
               borderRadius: '16px',
+              border: '1px solid transparent',
+              backgroundClip: 'border-box',
+              backgroundImage: 'linear-gradient(135deg, #FFFFFF, #00FFFF)',
+              WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+              WebkitMaskComposite: 'xor',
+              maskComposite: 'exclude',
+              padding: '1px',
             }}
           />
 
