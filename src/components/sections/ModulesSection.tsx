@@ -132,7 +132,7 @@ const ModulesSection = () => {
           </motion.p>
         </div>
 
-        {/* ── Featured Card with arrows ── */}
+        {/* ── Featured Panel ── */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -140,179 +140,132 @@ const ModulesSection = () => {
           transition={{ duration: 0.6 }}
           className="relative"
         >
-          {/* Left Arrow - centered on panel */}
+          {/* Left Arrow */}
           <button
             onClick={goPrev}
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 z-20 w-11 h-11 rounded-full flex items-center justify-center transition-all duration-300 group hover:scale-105"
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 z-20 w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 group hover:scale-110"
             style={{
               background: 'rgba(13,31,54,0.95)',
-              border: '1px solid rgba(0,255,255,0.3)',
-              boxShadow: '0 0 20px rgba(0,255,255,0.08)',
+              border: '1px solid #00FFFF',
+              boxShadow: '0 0 24px rgba(0,255,255,0.12)',
               backdropFilter: 'blur(8px)',
             }}
           >
-            <ChevronLeft className="w-5 h-5 transition-colors duration-300 text-[#7a9ab8] group-hover:text-[#00FFFF]" />
+            <ChevronLeft className="w-5 h-5 transition-colors duration-300 text-[#00FFFF] group-hover:text-white" />
           </button>
 
-          {/* Right Arrow - centered on panel */}
+          {/* Right Arrow */}
           <button
             onClick={goNext}
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-20 w-11 h-11 rounded-full flex items-center justify-center transition-all duration-300 group hover:scale-105"
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-20 w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 group hover:scale-110"
             style={{
               background: 'rgba(13,31,54,0.95)',
-              border: '1px solid rgba(0,255,255,0.3)',
-              boxShadow: '0 0 20px rgba(0,255,255,0.08)',
+              border: '1px solid #00FFFF',
+              boxShadow: '0 0 24px rgba(0,255,255,0.12)',
               backdropFilter: 'blur(8px)',
             }}
           >
-            <ChevronRight className="w-5 h-5 transition-colors duration-300 text-[#7a9ab8] group-hover:text-[#00FFFF]" />
+            <ChevronRight className="w-5 h-5 transition-colors duration-300 text-[#00FFFF] group-hover:text-white" />
           </button>
 
-          {/* Card */}
-          <div
-            className="rounded-2xl overflow-hidden"
-            style={{
-              background: '#0d1f36',
-              border: '1px solid rgba(0,255,255,0.15)',
-              boxShadow: '0 0 40px rgba(0,255,255,0.06)',
-            }}
-          >
-            <div className="flex flex-col lg:flex-row" style={{ minHeight: '420px' }}>
-              {/* ─ Left: Image ─ */}
-              <div className="relative lg:w-[55%] overflow-hidden">
-                <div
-                  className="absolute top-4 left-4 z-10 px-3 py-1.5 rounded-md"
+          {/* Panel: image left + text right */}
+          <div className="flex flex-col lg:flex-row gap-0 lg:gap-12 items-stretch lg:items-center" style={{ minHeight: '440px' }}>
+            {/* ─ Left: Image ─ */}
+            <div className="lg:w-[50%] flex-shrink-0">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeIndex}
+                  initial={{ opacity: 0, scale: 0.98 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.96 }}
+                  transition={{ duration: 0.4, ease: 'easeOut' }}
+                  className="rounded-2xl overflow-hidden"
                   style={{
-                    background: 'rgba(10,25,47,0.8)',
-                    border: '1px solid rgba(0,255,255,0.25)',
-                    backdropFilter: 'blur(8px)',
+                    boxShadow: '0 0 50px rgba(0,255,255,0.08), 0 8px 32px rgba(0,0,0,0.4)',
+                    border: '1px solid rgba(0,255,255,0.12)',
                   }}
                 >
-                  <span
+                  <img
+                    src={active.image}
+                    alt={active.title}
+                    className="block w-full object-contain"
+                    style={{ maxHeight: '440px', background: '#0d1f36' }}
+                  />
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            {/* ─ Right: Content ─ */}
+            <div className="lg:w-[50%] flex flex-col justify-center py-8 lg:py-0 lg:pl-2">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeIndex}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -16 }}
+                  transition={{ duration: 0.35, ease: 'easeOut' }}
+                  className="flex flex-col"
+                >
+                  {/* Title with gradient */}
+                  <h3
+                    className="mb-6 text-3xl md:text-4xl lg:text-[2.75rem] font-extrabold leading-tight"
                     style={{
+                      background: 'linear-gradient(135deg, #FFFFFF 30%, #00FFFF 100%)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      backgroundClip: 'text',
+                    }}
+                  >
+                    {active.title}
+                  </h3>
+
+                  {/* Accent line */}
+                  <div
+                    className="mb-8"
+                    style={{
+                      width: '56px',
+                      height: '2px',
+                      background: 'linear-gradient(90deg, #00FFFF, transparent)',
+                    }}
+                  />
+
+                  {/* Description */}
+                  <p
+                    className="mb-10 leading-relaxed"
+                    style={{
+                      fontSize: '17px',
+                      color: '#e2eaf3',
+                      lineHeight: 1.85,
+                    }}
+                  >
+                    {active.desc}
+                  </p>
+
+                  {/* CTA */}
+                  <a
+                    href="#planos"
+                    className="inline-flex items-center gap-2.5 group w-fit px-6 py-3 rounded-lg transition-all duration-300 hover:scale-[1.02]"
+                    style={{
+                      background: 'rgba(0,255,255,0.08)',
+                      border: '1px solid rgba(0,255,255,0.3)',
                       color: '#00FFFF',
-                      fontSize: '11px',
-                      letterSpacing: '0.08em',
+                      fontSize: '14px',
                       textTransform: 'uppercase',
+                      letterSpacing: '0.08em',
                       fontWeight: 600,
                     }}
                   >
-                    Módulo {String(activeIndex + 1).padStart(2, '0')}
-                  </span>
-                </div>
-
-                <AnimatePresence mode="wait">
-                  <motion.img
-                    key={activeIndex}
-                    src={active.image}
-                    alt={active.title}
-                    initial={{ opacity: 0, scale: 1.03 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.98 }}
-                    transition={{ duration: 0.4, ease: 'easeOut' }}
-                    className="block w-full h-full object-cover object-top"
-                    style={{ minHeight: '300px', maxHeight: '420px' }}
-                  />
-                </AnimatePresence>
-
-                {/* Fade to content on desktop */}
-                <div
-                  className="hidden lg:block absolute inset-y-0 right-0 w-24 pointer-events-none"
-                  style={{ background: 'linear-gradient(to right, transparent, #0d1f36)' }}
-                />
-                {/* Fade to content on mobile */}
-                <div
-                  className="lg:hidden absolute inset-x-0 bottom-0 h-16 pointer-events-none"
-                  style={{ background: 'linear-gradient(to bottom, transparent, #0d1f36)' }}
-                />
-              </div>
-
-              {/* ─ Right: Content ─ */}
-              <div className="relative lg:w-[45%] flex flex-col justify-center px-6 py-8 md:px-10 lg:pl-4 lg:pr-12 lg:py-12">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={activeIndex}
-                    initial={{ opacity: 0, x: 16 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -12 }}
-                    transition={{ duration: 0.35, ease: 'easeOut' }}
-                    className="flex flex-col"
-                  >
-                    {/* Module label */}
-                    <span
-                      className="mb-6"
-                      style={{
-                        color: '#00FFFF',
-                        fontSize: '11px',
-                        fontWeight: 600,
-                        letterSpacing: '0.15em',
-                        textTransform: 'uppercase',
-                      }}
-                    >
-                      Módulo {String(activeIndex + 1).padStart(2, '0')} / {String(modules.length).padStart(2, '0')}
-                    </span>
-
-                    {/* Title with gradient */}
-                    <h3
-                      className="mb-4 text-2xl md:text-3xl lg:text-[2rem] font-extrabold leading-tight"
-                      style={{
-                        background: 'linear-gradient(135deg, #FFFFFF 30%, #00FFFF 100%)',
-                        WebkitBackgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent',
-                        backgroundClip: 'text',
-                      }}
-                    >
-                      {active.title}
-                    </h3>
-
-                    {/* Accent line */}
-                    <div
-                      className="mb-6"
-                      style={{
-                        width: '48px',
-                        height: '2px',
-                        background: 'linear-gradient(90deg, #00FFFF, transparent)',
-                      }}
-                    />
-
-                    {/* Description */}
-                    <p
-                      className="mb-10 leading-relaxed"
-                      style={{
-                        fontSize: '15px',
-                        color: '#c8d8ea',
-                        lineHeight: 1.8,
-                      }}
-                    >
-                      {active.desc}
-                    </p>
-
-                    {/* CTA */}
-                    <a
-                      href="#planos"
-                      className="inline-flex items-center gap-2.5 group w-fit px-5 py-2.5 rounded-lg transition-all duration-300"
-                      style={{
-                        background: 'rgba(0,255,255,0.08)',
-                        border: '1px solid rgba(0,255,255,0.25)',
-                        color: '#00FFFF',
-                        fontSize: '13px',
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.08em',
-                        fontWeight: 600,
-                      }}
-                    >
-                      Explorar módulo
-                      <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                    </a>
-                  </motion.div>
-                </AnimatePresence>
-              </div>
+                    Quero esse acesso
+                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                  </a>
+                </motion.div>
+              </AnimatePresence>
             </div>
           </div>
         </motion.div>
 
         {/* ── Thumbnail Navigation ── */}
-        <div className="flex items-center gap-3 mt-8">
+        <div className="flex items-center gap-3 mt-10">
           <NavArrow direction="left" onClick={scrollThumbPrev} />
 
           <div className="flex-1 grid gap-3" style={{ gridTemplateColumns: `repeat(${visibleCount}, 1fr)` }}>
@@ -327,7 +280,7 @@ const ModulesSection = () => {
                   style={{
                     background: isActive ? '#112240' : '#0f2540',
                     border: isActive ? '1px solid #00FFFF' : '1px solid #1a3358',
-                    opacity: isActive ? 1 : 0.6,
+                    opacity: isActive ? 1 : 0.55,
                     boxShadow: isActive ? '0 0 16px rgba(0,255,255,0.1)' : 'none',
                   }}
                 >
@@ -350,18 +303,6 @@ const ModulesSection = () => {
                     >
                       {mod.title}
                     </p>
-                    <span
-                      className="inline-flex items-center gap-1"
-                      style={{
-                        color: '#00FFFF',
-                        fontSize: '9px',
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.05em',
-                        fontWeight: 600,
-                      }}
-                    >
-                      Explorar <ArrowRight className="w-2.5 h-2.5" />
-                    </span>
                   </div>
                 </button>
               );
@@ -392,7 +333,6 @@ const ModulesSection = () => {
   );
 };
 
-/* ── Arrow button for thumbnails ── */
 const NavArrow = ({ direction, onClick }: { direction: 'left' | 'right'; onClick: () => void }) => {
   const Icon = direction === 'left' ? ChevronLeft : ChevronRight;
   return (
