@@ -68,7 +68,6 @@ const ModulesSection = () => {
 
   const active = modules[activeIndex];
 
-  // Keep thumbStart in sync so active card is visible
   useEffect(() => {
     if (activeIndex < thumbStart) setThumbStart(activeIndex);
     else if (activeIndex >= thumbStart + visibleCount)
@@ -78,17 +77,13 @@ const ModulesSection = () => {
   const scrollPrev = () => {
     const newStart = thumbStart - 1;
     if (newStart >= 0) setThumbStart(newStart);
-    else setThumbStart(modules.length - visibleCount); // loop
+    else setThumbStart(modules.length - visibleCount);
   };
 
   const scrollNext = () => {
     const newStart = thumbStart + 1;
     if (newStart + visibleCount <= modules.length) setThumbStart(newStart);
-    else setThumbStart(0); // loop
-  };
-
-  const handleThumbClick = (realIndex: number) => {
-    setActiveIndex(realIndex);
+    else setThumbStart(0);
   };
 
   const visibleThumbs = modules.slice(thumbStart, thumbStart + visibleCount);
@@ -137,17 +132,17 @@ const ModulesSection = () => {
           </motion.p>
         </div>
 
-        {/* Large Preview */}
+        {/* Featured Card — Large Preview */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="relative h-[220px] md:h-[320px] lg:h-[420px] overflow-hidden"
+          className="relative overflow-hidden"
           style={{
             background: '#0d1f36',
             boxShadow: '0 0 32px rgba(0,255,255,0.10), 0 0 80px rgba(0,255,255,0.04)',
-            borderRadius: '12px',
+            borderRadius: '16px',
           }}
         >
           {/* Gradient border overlay */}
@@ -156,98 +151,154 @@ const ModulesSection = () => {
             style={{
               border: '1px solid transparent',
               background: 'linear-gradient(#0d1f36, #0d1f36) padding-box, linear-gradient(135deg, #FFFFFF, #00FFFF) border-box',
-              borderRadius: '12px',
+              borderRadius: '16px',
             }}
           />
 
-          {/* Module badge */}
-          <div
-            className="absolute top-4 left-4 z-10 px-3 py-1.5 rounded-md"
-            style={{
-              background: 'rgba(0,255,255,0.08)',
-              border: '1px solid rgba(0,255,255,0.25)',
-            }}
-          >
-            <AnimatePresence mode="wait">
-              <motion.span
-                key={activeIndex}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.3 }}
+          {/* Two-column layout: image left, content right */}
+          <div className="flex flex-col lg:flex-row">
+            {/* Image area */}
+            <div className="relative lg:w-[58%] overflow-hidden" style={{ minHeight: '280px' }}>
+              {/* Module badge */}
+              <div
+                className="absolute top-4 left-4 z-10 px-3 py-1.5 rounded-md"
                 style={{
-                  color: '#00FFFF',
-                  fontSize: '11px',
-                  letterSpacing: '0.07em',
-                  textTransform: 'uppercase',
-                  fontWeight: 600,
+                  background: 'rgba(0,255,255,0.08)',
+                  border: '1px solid rgba(0,255,255,0.25)',
                 }}
               >
-                {active.title}
-              </motion.span>
-            </AnimatePresence>
-          </div>
+                <AnimatePresence mode="wait">
+                  <motion.span
+                    key={activeIndex}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    style={{
+                      color: '#00FFFF',
+                      fontSize: '11px',
+                      letterSpacing: '0.07em',
+                      textTransform: 'uppercase',
+                      fontWeight: 600,
+                    }}
+                  >
+                    Módulo {String(activeIndex + 1).padStart(2, '0')}
+                  </motion.span>
+                </AnimatePresence>
+              </div>
 
-          {/* Screenshot */}
-          <AnimatePresence mode="wait">
-            <motion.img
-              key={activeIndex}
-              src={active.image}
-              alt={active.title}
-              initial={{ opacity: 0, scale: 0.98 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.98 }}
-              transition={{ duration: 0.35, ease: 'easeOut' }}
-              className="absolute inset-0 w-full h-full object-cover"
-              style={{
-                borderRadius: '12px',
-                border: '1px solid rgba(0,255,255,0.2)',
-                filter: 'brightness(1.05) contrast(1.02)',
-              }}
-            />
-          </AnimatePresence>
+              <AnimatePresence mode="wait">
+                <motion.img
+                  key={activeIndex}
+                  src={active.image}
+                  alt={active.title}
+                  initial={{ opacity: 0, scale: 0.97 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.97 }}
+                  transition={{ duration: 0.35, ease: 'easeOut' }}
+                  className="w-full h-full object-cover"
+                  style={{
+                    minHeight: '280px',
+                    maxHeight: '420px',
+                    filter: 'brightness(1.05) contrast(1.02)',
+                  }}
+                />
+              </AnimatePresence>
 
-          {/* Bottom text bar */}
-          <div
-            className="absolute bottom-0 left-0 right-0 z-10 flex flex-col sm:flex-row sm:justify-between sm:items-end gap-2 sm:gap-4"
-            style={{
-              background: 'rgba(10, 25, 47, 0.85)',
-              backdropFilter: 'blur(4px)',
-              borderTop: '1px solid rgba(0,255,255,0.15)',
-              borderRadius: '0 0 12px 12px',
-              padding: '16px 20px',
-            }}
-          >
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeIndex}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.3 }}
-                className="flex-1 min-w-0"
-              >
-                <h3 style={{ fontSize: '17px', fontWeight: 500, color: '#ffffff', marginBottom: '4px' }}>
-                  {active.title}
-                </h3>
-                <p style={{ fontSize: '13px', color: '#7a9ab8', lineHeight: 1.6 }} className="line-clamp-2">
-                  {active.desc}
-                </p>
-              </motion.div>
-            </AnimatePresence>
-            <a
-              href="#planos"
-              className="flex-shrink-0 inline-flex items-center gap-1.5 whitespace-nowrap"
-              style={{
-                color: '#00FFFF',
-                fontSize: '11px',
-                textTransform: 'uppercase',
-                letterSpacing: '0.06em',
-                fontWeight: 600,
-              }}
-            >
-              Explorar módulo <ArrowRight className="w-3.5 h-3.5" />
-            </a>
+              {/* Subtle gradient fade to right on desktop */}
+              <div
+                className="hidden lg:block absolute inset-y-0 right-0 w-24 pointer-events-none"
+                style={{
+                  background: 'linear-gradient(to right, transparent, #0d1f36)',
+                }}
+              />
+              {/* Subtle gradient fade to bottom on mobile */}
+              <div
+                className="lg:hidden absolute inset-x-0 bottom-0 h-16 pointer-events-none"
+                style={{
+                  background: 'linear-gradient(to bottom, transparent, #0d1f36)',
+                }}
+              />
+            </div>
+
+            {/* Content area */}
+            <div className="relative lg:w-[42%] flex flex-col justify-center p-6 md:p-8 lg:p-10">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeIndex}
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.35, ease: 'easeOut' }}
+                >
+                  {/* Module number */}
+                  <span
+                    className="block mb-3"
+                    style={{
+                      color: '#00FFFF',
+                      fontSize: '12px',
+                      fontWeight: 600,
+                      letterSpacing: '0.12em',
+                      textTransform: 'uppercase',
+                    }}
+                  >
+                    {String(activeIndex + 1).padStart(2, '0')} / {String(modules.length).padStart(2, '0')}
+                  </span>
+
+                  {/* Title */}
+                  <h3
+                    className="mb-4"
+                    style={{
+                      fontSize: '22px',
+                      fontWeight: 700,
+                      color: '#ffffff',
+                      lineHeight: 1.25,
+                    }}
+                  >
+                    {active.title}
+                  </h3>
+
+                  {/* Divider */}
+                  <div
+                    className="mb-4"
+                    style={{
+                      width: '40px',
+                      height: '2px',
+                      background: 'linear-gradient(90deg, #00FFFF, transparent)',
+                      borderRadius: '2px',
+                    }}
+                  />
+
+                  {/* Description */}
+                  <p
+                    className="mb-6"
+                    style={{
+                      fontSize: '14px',
+                      color: '#7a9ab8',
+                      lineHeight: 1.7,
+                    }}
+                  >
+                    {active.desc}
+                  </p>
+
+                  {/* CTA */}
+                  <a
+                    href="#planos"
+                    className="inline-flex items-center gap-2 group"
+                    style={{
+                      color: '#00FFFF',
+                      fontSize: '12px',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.08em',
+                      fontWeight: 600,
+                    }}
+                  >
+                    Explorar módulo
+                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                  </a>
+                </motion.div>
+              </AnimatePresence>
+            </div>
           </div>
         </motion.div>
 
@@ -256,7 +307,7 @@ const ModulesSection = () => {
           {/* Left arrow */}
           <button
             onClick={scrollPrev}
-            className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300"
+            className="flex-shrink-0 w-9 h-9 rounded-full flex items-center justify-center transition-all duration-300"
             style={{
               background: '#112240',
               border: '1px solid #1e3a5c',
@@ -282,7 +333,7 @@ const ModulesSection = () => {
               return (
                 <button
                   key={realIndex}
-                  onClick={() => handleThumbClick(realIndex)}
+                  onClick={() => setActiveIndex(realIndex)}
                   className="text-left overflow-hidden transition-all duration-300"
                   style={{
                     background: isActive ? '#112240' : '#0f2540',
@@ -297,7 +348,7 @@ const ModulesSection = () => {
                   <div
                     className="relative overflow-hidden"
                     style={{
-                      height: '80px',
+                      height: '72px',
                       borderRadius: '8px 8px 0 0',
                     }}
                   >
@@ -309,12 +360,12 @@ const ModulesSection = () => {
                     />
                     <div
                       className="absolute inset-0"
-                      style={{ background: 'rgba(0,0,0,0.10)' }}
+                      style={{ background: 'rgba(0,0,0,0.08)' }}
                     />
                     {isActive && (
                       <div
                         className="absolute bottom-0 left-0 right-0"
-                        style={{ height: '1px', background: 'rgba(0,255,255,0.2)' }}
+                        style={{ height: '2px', background: '#00FFFF' }}
                       />
                     )}
                   </div>
@@ -352,7 +403,7 @@ const ModulesSection = () => {
           {/* Right arrow */}
           <button
             onClick={scrollNext}
-            className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300"
+            className="flex-shrink-0 w-9 h-9 rounded-full flex items-center justify-center transition-all duration-300"
             style={{
               background: '#112240',
               border: '1px solid #1e3a5c',
