@@ -196,7 +196,7 @@ const ModulesSection = () => {
             </div>
 
             {/* ─ Right: Content ─ */}
-            <div className="lg:w-[50%] flex flex-col justify-center py-8 lg:py-0 lg:pl-2">
+            <div className="lg:w-[45%] flex flex-col justify-center py-8 lg:py-0 px-8 lg:px-10">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeIndex}
