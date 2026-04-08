@@ -1,27 +1,45 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
-import { useState, useMemo } from "react";
+import { useState, useEffect } from "react";
 
-import modImportadoras from "@/assets/mod-importadoras.png";
-import modPrecificacao from "@/assets/mod-precificacao.png";
+import modEcossistema from "@/assets/mod-ecossistema.png";
 import modErp from "@/assets/mod-erp.png";
+import modImportadoras from "@/assets/mod-importadoras.png";
+import modSoph from "@/assets/mod-soph.png";
+import modEstruture from "@/assets/mod-estruture.png";
+import modPrecificacao from "@/assets/mod-precificacao.png";
 import modPresenca from "@/assets/mod-presenca.png";
 
 const modules = [
+  {
+    image: modEcossistema,
+    title: "Ecossistema EmpreendaJá",
+    desc: "Conheça todos os pilares do ecossistema e entenda como cada módulo se conecta para transformar sua operação comercial.",
+  },
+  {
+    image: modErp,
+    title: "ERP Soph Gestão",
+    desc: "Tenha visão operacional do negócio com indicadores, gráficos e gestão mais estruturada para crescer com controle.",
+  },
   {
     image: modImportadoras,
     title: "Central de Importadoras",
     desc: "Explore as categorias e encontre importadoras organizadas para comprar com mais clareza, agilidade e segurança.",
   },
   {
+    image: modSoph,
+    title: "Inteligência Soph",
+    desc: "Use inteligência artificial para tomar decisões mais rápidas, identificar oportunidades e automatizar processos do seu negócio.",
+  },
+  {
+    image: modEstruture,
+    title: "Estruture seu Negócio",
+    desc: "Organize a base da sua operação com ferramentas e orientações para estruturar processos, metas e crescimento sustentável.",
+  },
+  {
     image: modPrecificacao,
     title: "Central de Precificação",
     desc: "Calcule preços com mais lógica, entendendo margem, taxas, impostos e lucratividade para vender sem comprometer o caixa.",
-  },
-  {
-    image: modErp,
-    title: "ERP Soph Gestão",
-    desc: "Tenha visão operacional do negócio com indicadores, gráficos e gestão mais estruturada para crescer com controle.",
   },
   {
     image: modPresenca,
@@ -30,24 +48,47 @@ const modules = [
   },
 ];
 
+const useVisibleCount = () => {
+  const [count, setCount] = useState(4);
+  useEffect(() => {
+    const update = () => {
+      setCount(window.innerWidth < 640 ? 2 : window.innerWidth < 1024 ? 3 : 4);
+    };
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+  return count;
+};
+
 const ModulesSection = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [thumbStart, setThumbStart] = useState(0);
+  const visibleCount = useVisibleCount();
 
   const active = modules[activeIndex];
 
-  const visibleCount = typeof window !== "undefined"
-    ? window.innerWidth < 640 ? 2 : window.innerWidth < 1024 ? 3 : 4
-    : 4;
-
-  const canPrev = thumbStart > 0;
-  const canNext = thumbStart + visibleCount < modules.length;
+  // Keep thumbStart in sync so active card is visible
+  useEffect(() => {
+    if (activeIndex < thumbStart) setThumbStart(activeIndex);
+    else if (activeIndex >= thumbStart + visibleCount)
+      setThumbStart(activeIndex - visibleCount + 1);
+  }, [activeIndex, thumbStart, visibleCount]);
 
   const scrollPrev = () => {
-    if (canPrev) setThumbStart(t => t - 1);
+    const newStart = thumbStart - 1;
+    if (newStart >= 0) setThumbStart(newStart);
+    else setThumbStart(modules.length - visibleCount); // loop
   };
+
   const scrollNext = () => {
-    if (canNext) setThumbStart(t => t + 1);
+    const newStart = thumbStart + 1;
+    if (newStart + visibleCount <= modules.length) setThumbStart(newStart);
+    else setThumbStart(0); // loop
+  };
+
+  const handleThumbClick = (realIndex: number) => {
+    setActiveIndex(realIndex);
   };
 
   const visibleThumbs = modules.slice(thumbStart, thumbStart + visibleCount);
@@ -102,114 +143,111 @@ const ModulesSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="relative h-[220px] md:h-[320px] lg:h-[380px] overflow-hidden rounded-xl"
+          className="relative h-[220px] md:h-[320px] lg:h-[420px] overflow-hidden"
           style={{
             background: '#0d1f36',
             boxShadow: '0 0 32px rgba(0,255,255,0.10), 0 0 80px rgba(0,255,255,0.04)',
+            borderRadius: '12px',
           }}
         >
           {/* Gradient border overlay */}
           <div
-            className="absolute inset-0 rounded-xl pointer-events-none z-20"
+            className="absolute inset-0 pointer-events-none z-20"
             style={{
               border: '1px solid transparent',
               background: 'linear-gradient(#0d1f36, #0d1f36) padding-box, linear-gradient(135deg, #FFFFFF, #00FFFF) border-box',
               borderRadius: '12px',
             }}
           />
-          <div className="absolute inset-0 rounded-xl overflow-hidden">
-            {/* Module badge */}
-            <div
-              className="absolute top-4 left-4 z-10 px-3 py-1.5 rounded-md"
-              style={{
-                background: 'rgba(0,255,255,0.08)',
-                border: '1px solid rgba(0,255,255,0.25)',
-              }}
-            >
-              <AnimatePresence mode="wait">
-                <motion.span
-                  key={activeIndex}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.3 }}
-                  style={{
-                    color: '#00FFFF',
-                    fontSize: '11px',
-                    letterSpacing: '0.07em',
-                    textTransform: 'uppercase',
-                    fontWeight: 600,
-                  }}
-                >
-                  {active.title}
-                </motion.span>
-              </AnimatePresence>
-            </div>
 
-            {/* Screenshot */}
+          {/* Module badge */}
+          <div
+            className="absolute top-4 left-4 z-10 px-3 py-1.5 rounded-md"
+            style={{
+              background: 'rgba(0,255,255,0.08)',
+              border: '1px solid rgba(0,255,255,0.25)',
+            }}
+          >
             <AnimatePresence mode="wait">
-              <motion.div
+              <motion.span
                 key={activeIndex}
-                initial={{ opacity: 0, scale: 0.98 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.98 }}
-                transition={{ duration: 0.35, ease: 'easeOut' }}
-                className="absolute inset-0 flex items-center justify-center p-4 md:p-6 lg:p-8"
-              >
-                <img
-                  src={active.image}
-                  alt={active.title}
-                  className="max-h-full max-w-[85%] object-cover rounded-lg"
-                  style={{
-                    border: '1px solid rgba(0,255,255,0.2)',
-                    filter: 'brightness(1.05) contrast(1.02)',
-                  }}
-                />
-              </motion.div>
-            </AnimatePresence>
-
-            {/* Bottom text bar */}
-            <div
-              className="absolute bottom-0 left-0 right-0 z-10 flex flex-col sm:flex-row sm:justify-between sm:items-end gap-2 sm:gap-4"
-              style={{
-                background: 'rgba(10, 25, 47, 0.85)',
-                backdropFilter: 'blur(4px)',
-                borderTop: '1px solid rgba(0,255,255,0.15)',
-                borderRadius: '0 0 12px 12px',
-                padding: '16px 20px',
-              }}
-            >
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeIndex}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="flex-1 min-w-0"
-                >
-                  <h3 style={{ fontSize: '17px', fontWeight: 500, color: '#ffffff', marginBottom: '4px' }}>
-                    {active.title}
-                  </h3>
-                  <p style={{ fontSize: '13px', color: '#7a9ab8', lineHeight: 1.6 }} className="line-clamp-2">
-                    {active.desc}
-                  </p>
-                </motion.div>
-              </AnimatePresence>
-              <a
-                href="#planos"
-                className="flex-shrink-0 inline-flex items-center gap-1.5 whitespace-nowrap"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
                 style={{
                   color: '#00FFFF',
                   fontSize: '11px',
+                  letterSpacing: '0.07em',
                   textTransform: 'uppercase',
-                  letterSpacing: '0.06em',
                   fontWeight: 600,
                 }}
               >
-                Explorar módulo <ArrowRight className="w-3.5 h-3.5" />
-              </a>
-            </div>
+                {active.title}
+              </motion.span>
+            </AnimatePresence>
+          </div>
+
+          {/* Screenshot */}
+          <AnimatePresence mode="wait">
+            <motion.img
+              key={activeIndex}
+              src={active.image}
+              alt={active.title}
+              initial={{ opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.98 }}
+              transition={{ duration: 0.35, ease: 'easeOut' }}
+              className="absolute inset-0 w-full h-full object-cover"
+              style={{
+                borderRadius: '12px',
+                border: '1px solid rgba(0,255,255,0.2)',
+                filter: 'brightness(1.05) contrast(1.02)',
+              }}
+            />
+          </AnimatePresence>
+
+          {/* Bottom text bar */}
+          <div
+            className="absolute bottom-0 left-0 right-0 z-10 flex flex-col sm:flex-row sm:justify-between sm:items-end gap-2 sm:gap-4"
+            style={{
+              background: 'rgba(10, 25, 47, 0.85)',
+              backdropFilter: 'blur(4px)',
+              borderTop: '1px solid rgba(0,255,255,0.15)',
+              borderRadius: '0 0 12px 12px',
+              padding: '16px 20px',
+            }}
+          >
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeIndex}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                className="flex-1 min-w-0"
+              >
+                <h3 style={{ fontSize: '17px', fontWeight: 500, color: '#ffffff', marginBottom: '4px' }}>
+                  {active.title}
+                </h3>
+                <p style={{ fontSize: '13px', color: '#7a9ab8', lineHeight: 1.6 }} className="line-clamp-2">
+                  {active.desc}
+                </p>
+              </motion.div>
+            </AnimatePresence>
+            <a
+              href="#planos"
+              className="flex-shrink-0 inline-flex items-center gap-1.5 whitespace-nowrap"
+              style={{
+                color: '#00FFFF',
+                fontSize: '11px',
+                textTransform: 'uppercase',
+                letterSpacing: '0.06em',
+                fontWeight: 600,
+              }}
+            >
+              Explorar módulo <ArrowRight className="w-3.5 h-3.5" />
+            </a>
           </div>
         </motion.div>
 
@@ -218,22 +256,21 @@ const ModulesSection = () => {
           {/* Left arrow */}
           <button
             onClick={scrollPrev}
-            disabled={!canPrev}
-            className="flex-shrink-0 w-9 h-9 rounded-full flex items-center justify-center transition-all duration-300 disabled:opacity-20"
+            className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300"
             style={{
               background: '#112240',
               border: '1px solid #1e3a5c',
             }}
             onMouseEnter={(e) => {
-              if (canPrev) {
-                e.currentTarget.style.borderColor = '#00FFFF';
-              }
+              e.currentTarget.style.borderColor = '#00FFFF';
+              (e.currentTarget.querySelector('svg') as SVGElement).style.color = '#00FFFF';
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.borderColor = '#1e3a5c';
+              (e.currentTarget.querySelector('svg') as SVGElement).style.color = '#7a9ab8';
             }}
           >
-            <ChevronLeft className="w-4 h-4" style={{ color: '#7a9ab8' }} />
+            <ChevronLeft className="w-4 h-4" style={{ color: '#7a9ab8', transition: 'color 0.3s' }} />
           </button>
 
           {/* Thumbnails */}
@@ -245,28 +282,41 @@ const ModulesSection = () => {
               return (
                 <button
                   key={realIndex}
-                  onClick={() => setActiveIndex(realIndex)}
-                  className="text-left rounded-[10px] overflow-hidden transition-all duration-300"
+                  onClick={() => handleThumbClick(realIndex)}
+                  className="text-left overflow-hidden transition-all duration-300"
                   style={{
                     background: isActive ? '#112240' : '#0f2540',
                     border: isActive ? '1px solid #00FFFF' : '1px solid #1a3358',
                     opacity: isActive ? 1 : 0.65,
                     boxShadow: isActive ? '0 0 16px rgba(0,255,255,0.12)' : 'none',
                     cursor: 'pointer',
+                    borderRadius: '10px',
                   }}
                 >
                   {/* Mini screenshot */}
-                  <div className="relative h-16 overflow-hidden">
+                  <div
+                    className="relative overflow-hidden"
+                    style={{
+                      height: '80px',
+                      borderRadius: '8px 8px 0 0',
+                    }}
+                  >
                     <img
                       src={mod.image}
                       alt={mod.title}
-                      className="w-full h-full object-cover"
+                      className="block w-full h-full object-cover"
                       style={{ filter: 'brightness(1.05)' }}
                     />
                     <div
                       className="absolute inset-0"
                       style={{ background: 'rgba(0,0,0,0.10)' }}
                     />
+                    {isActive && (
+                      <div
+                        className="absolute bottom-0 left-0 right-0"
+                        style={{ height: '1px', background: 'rgba(0,255,255,0.2)' }}
+                      />
+                    )}
                   </div>
                   {/* Body */}
                   <div className="p-2.5">
@@ -302,22 +352,21 @@ const ModulesSection = () => {
           {/* Right arrow */}
           <button
             onClick={scrollNext}
-            disabled={!canNext}
-            className="flex-shrink-0 w-9 h-9 rounded-full flex items-center justify-center transition-all duration-300 disabled:opacity-20"
+            className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300"
             style={{
               background: '#112240',
               border: '1px solid #1e3a5c',
             }}
             onMouseEnter={(e) => {
-              if (canNext) {
-                e.currentTarget.style.borderColor = '#00FFFF';
-              }
+              e.currentTarget.style.borderColor = '#00FFFF';
+              (e.currentTarget.querySelector('svg') as SVGElement).style.color = '#00FFFF';
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.borderColor = '#1e3a5c';
+              (e.currentTarget.querySelector('svg') as SVGElement).style.color = '#7a9ab8';
             }}
           >
-            <ChevronRight className="w-4 h-4" style={{ color: '#7a9ab8' }} />
+            <ChevronRight className="w-4 h-4" style={{ color: '#7a9ab8', transition: 'color 0.3s' }} />
           </button>
         </div>
 
