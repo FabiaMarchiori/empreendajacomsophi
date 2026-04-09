@@ -7,13 +7,13 @@ const WhatsAppFloat = () => (
     href={WHATSAPP_LINK}
     target="_blank"
     rel="noopener noreferrer"
-    className="fixed bottom-5 right-5 z-50 w-[60px] h-[60px] rounded-[16px] overflow-hidden transition-all duration-300 hover:scale-105 hover:brightness-110"
+    className="fixed bottom-5 right-5 z-50 w-[62px] h-[62px] rounded-[14px] overflow-hidden transition-all duration-300 hover:scale-105 hover:brightness-110 relative"
     style={{
-      boxShadow: '0 4px 14px rgba(37,211,102,0.4), 0 0 30px rgba(37,211,102,0.15)',
+      boxShadow: '0 4px 14px rgba(37,211,102,0.45), 0 0 30px rgba(37,211,102,0.18)',
     }}
     aria-label="Falar no WhatsApp"
   >
-    <img src={whatsappIcon} alt="WhatsApp" className="w-[130%] h-[130%] object-cover absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+    <img src={whatsappIcon} alt="WhatsApp" className="w-[150%] h-[150%] object-cover absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
   </a>
 );
 
