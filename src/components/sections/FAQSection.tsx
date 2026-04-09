@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { MessageCircle } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -64,17 +63,6 @@ const FAQSection = () => (
           ))}
         </Accordion>
 
-        <div className="text-center mt-10">
-          <a
-            href={WHATSAPP_LINK}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-secondary-dark px-8 py-4 rounded-xl inline-flex items-center gap-2 font-semibold"
-          >
-            <MessageCircle className="w-5 h-5" />
-            Falar no WhatsApp
-          </a>
-        </div>
       </motion.div>
     </div>
   </section>
