@@ -14,22 +14,24 @@ import Footer from "@/components/Footer";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
 
 const Index = () => (
-  <main className="min-h-screen bg-background overflow-x-hidden">
-    <Navbar />
-    <HeroSection />
-    <PainSection />
-    <SolutionSection />
-    <ModulesSection />
-    <BenefitsSection />
-    <ExpansionSection />
-    <TestimonialsSection />
-    <PricingSection />
-    <GuaranteeSection />
-    <FAQSection />
-    <FinalCTASection />
-    <Footer />
+  <div className="min-h-screen bg-background">
+    <main className="overflow-x-hidden">
+      <Navbar />
+      <HeroSection />
+      <PainSection />
+      <SolutionSection />
+      <ModulesSection />
+      <BenefitsSection />
+      <ExpansionSection />
+      <TestimonialsSection />
+      <PricingSection />
+      <GuaranteeSection />
+      <FAQSection />
+      <FinalCTASection />
+      <Footer />
+    </main>
     <WhatsAppFloat />
-  </main>
+  </div>
 );
 
 export default Index;
