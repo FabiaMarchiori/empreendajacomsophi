@@ -13,7 +13,7 @@ const WhatsAppFloat = () => (
     }}
     aria-label="Falar no WhatsApp"
   >
-    <img src={whatsappIcon} alt="WhatsApp" className="w-full h-full object-cover" />
+    <img src={whatsappIcon} alt="WhatsApp" className="w-[130%] h-[130%] object-cover absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
   </a>
 );
 
