@@ -35,19 +35,3 @@ const Index = () => (
 );
 
 export default Index;
-    <PainSection />
-    <SolutionSection />
-    <ModulesSection />
-    <BenefitsSection />
-    <ExpansionSection />
-    <TestimonialsSection />
-    <PricingSection />
-    <GuaranteeSection />
-    <FAQSection />
-    <FinalCTASection />
-    <Footer />
-    <WhatsAppFloat />
-  </main>
-);
-
-export default Index;
