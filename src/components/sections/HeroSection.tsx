@@ -201,16 +201,18 @@ const HeroSection = () => {
                   className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px"
                   style={{ background: 'linear-gradient(90deg, transparent, rgba(0,239,255,0.4), transparent)' }}
                 />
-                <video
-                  src="/videos/hero-demo.mp4"
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  preload="metadata"
-                  className="w-full h-auto rounded-lg"
-                  style={{ objectFit: 'cover' }}
-                />
+                <div className="relative w-full rounded-lg overflow-hidden" style={{ aspectRatio: '16/9', maxHeight: '380px' }}>
+                  <video
+                    src="/videos/hero-demo.mp4"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    preload="metadata"
+                    className="absolute inset-0 w-full h-full rounded-lg"
+                    style={{ objectFit: 'cover' }}
+                  />
+                </div>
               </div>
 
               {/* Tablet mockup */}
