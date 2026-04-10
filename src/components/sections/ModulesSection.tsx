@@ -189,8 +189,8 @@ const ModulesSection = () => {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.98 }}
                   transition={{ duration: 0.4, ease: 'easeOut' }}
-                  className="block w-full h-full object-cover object-top"
-                  style={{ minHeight: '440px' }}
+                  className="block w-full h-full object-contain object-top"
+                  style={{ minHeight: '300px' }}
                 />
               </AnimatePresence>
             </div>
@@ -288,7 +288,7 @@ const ModulesSection = () => {
                     <img
                       src={mod.image}
                       alt={mod.title}
-                      className="block w-full h-full object-cover object-top"
+                      className="block w-full h-full object-contain object-top"
                     />
                   </div>
                   <div className="px-2.5 py-2">

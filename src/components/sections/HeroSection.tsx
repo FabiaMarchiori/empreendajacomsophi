@@ -161,7 +161,7 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
-            className="relative hidden lg:flex items-center justify-center"
+            className="relative flex items-center justify-center"
           >
             {/* Glow behind */}
             <div
