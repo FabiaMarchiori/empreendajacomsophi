@@ -5,24 +5,9 @@ const Navbar = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/40">
       <div className="container mx-auto px-6 h-16 flex items-center justify-between">
         {/* Brand */}
-        <div className="flex flex-col items-start gap-1">
-          <a
-            href="/"
-            className="text-2xl font-extrabold tracking-tight"
-            style={{
-              background: 'linear-gradient(90deg, #FFFFFF 0%, #F2FBFF 45%, #00FFFF 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-            }}
-          >
-            EmpreendaJá com Soph
-          </a>
-          <div className="flex items-center gap-2">
-            <img src="/images/icon-5.png" alt="Ícone Soph" className="w-7 h-7 rounded-md" />
-            <img src="/images/icon-6.png" alt="Ícone Soph" className="w-7 h-7 rounded-md" />
-          </div>
-        </div>
+        <a href="/" className="flex items-center">
+          <img src="/images/logo.png" alt="EmpreendaJá com Soph" className="h-10 w-auto" />
+        </a>
 
         {/* Links */}
         <div className="hidden md:flex items-center gap-10">
