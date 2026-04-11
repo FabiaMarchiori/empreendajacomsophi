@@ -6,7 +6,7 @@ const Navbar = () => {
       <div className="container mx-auto px-6 h-20 flex items-center justify-between">
         {/* Brand */}
         <a href="/" className="flex items-center">
-          <img src="/images/logo.png" alt="EmpreendaJá com Soph" className="h-[50px] md:h-[72px] w-auto" />
+          <img src="/images/logo.png" alt="EmpreendaJá com Soph" className="h-[44px] md:h-[54px] w-auto" />
         </a>
 
         {/* Links */}
