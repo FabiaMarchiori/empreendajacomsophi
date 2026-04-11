@@ -3,10 +3,10 @@ const WHATSAPP_LINK = "https://wa.me/5511983348749?text=Pagina%20de%20vendas";
 const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/40">
-      <div className="container mx-auto px-6 h-16 flex items-center justify-between">
+      <div className="container mx-auto px-6 h-20 flex items-center justify-between">
         {/* Brand */}
         <a href="/" className="flex items-center">
-          <img src="/images/logo.png" alt="EmpreendaJá com Soph" className="h-10 w-auto" />
+          <img src="/images/logo.png" alt="EmpreendaJá com Soph" className="h-[50px] md:h-[72px] w-auto" />
         </a>
 
         {/* Links */}
