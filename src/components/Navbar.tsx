@@ -8,7 +8,7 @@ const Navbar = () => {
           <img
             src="/images/logo.png"
             alt="EmpreendaJá com Soph"
-            className="block h-auto w-[320px] lg:w-[400px] shrink-0 object-contain object-left"
+            className="block h-auto w-[240px] sm:w-[260px] md:w-[280px] lg:w-[300px] xl:w-[320px] shrink-0 object-contain object-left"
           />
         </a>
 
