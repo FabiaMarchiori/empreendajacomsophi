@@ -63,7 +63,7 @@ const PricingSection = () => (
               <span className="text-white/40 text-sm line-through">ERP Soph Gestão</span>
             </li>
           </ul>
-          <a href="https://pay.kiwify.com.br/DBIcfmJ" target="_blank" rel="noopener noreferrer" className="btn-secondary-dark w-full py-4 rounded-xl text-center font-bold inline-flex items-center justify-center gap-2">
+          <a href="https://pay.kiwify.com.br/gNROnVP" target="_blank" rel="noopener noreferrer" className="btn-secondary-dark w-full py-4 rounded-xl text-center font-bold inline-flex items-center justify-center gap-2">
             Assinar Mensal
             <ArrowRight className="w-4 h-4" />
           </a>
@@ -110,7 +110,7 @@ const PricingSection = () => (
               <span className="text-cyan-400 text-sm font-semibold">🎁 BÔNUS: ERP Soph Gestão</span>
             </li>
           </ul>
-          <a href="https://pay.kiwify.com.br/kiRKscR" target="_blank" rel="noopener noreferrer" className="btn-glow w-full py-4 rounded-xl text-center font-bold text-lg inline-flex items-center justify-center gap-2">
+          <a href="https://pay.kiwify.com.br/I4VDoSk" target="_blank" rel="noopener noreferrer" className="btn-glow w-full py-4 rounded-xl text-center font-bold text-lg inline-flex items-center justify-center gap-2">
             Assinar Anual com Bônus
             <ArrowRight className="w-5 h-5" />
           </a>
