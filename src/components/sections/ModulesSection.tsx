@@ -112,7 +112,7 @@ const ModulesSection = () => {
                       <img
                         src={capaVideo}
                         alt="Veja por dentro do Ecossistema EmpreendaJá com Soph"
-                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        className="absolute inset-0 w-full h-full object-contain object-center bg-black transition-transform duration-500 group-hover:scale-[1.02]"
                       />
                       <div className="absolute inset-0 flex items-center justify-center bg-black/10 transition-colors duration-300 group-hover:bg-black/20">
                         <div
