@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Package, Calculator, LayoutDashboard, Bot } from "lucide-react";
+import { ArrowRight, Package, Calculator, LayoutDashboard, Bot, Play } from "lucide-react";
+import { useState } from "react";
+import capaVideo from "@/assets/capa_video.png";
 
 const benefits = [
   {
