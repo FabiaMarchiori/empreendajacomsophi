@@ -27,6 +27,8 @@ const benefits = [
 ];
 
 const ModulesSection = () => {
+  const [isPlaying, setIsPlaying] = useState(false);
+
   return (
     <section className="relative py-24 lg:py-32 overflow-hidden" style={{ background: "#0a192f" }}>
       {/* Ambient glow */}
