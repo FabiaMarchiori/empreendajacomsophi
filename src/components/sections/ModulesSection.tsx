@@ -93,14 +93,42 @@ const ModulesSection = () => {
                   />
 
                   {/* YouTube Short Embed */}
-                  <iframe
-                    src="https://www.youtube.com/embed/K_ZQ1pTcNNs?autoplay=0&controls=1&rel=0&modestbranding=1&playsinline=1"
-                    title="EmpreendaJá com Soph"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    className="absolute inset-0 w-full h-full"
-                    style={{ border: "none" }}
-                  />
+                  {isPlaying ? (
+                    <iframe
+                      src="https://www.youtube.com/embed/K_ZQ1pTcNNs?autoplay=1&controls=1&rel=0&modestbranding=1&playsinline=1"
+                      title="EmpreendaJá com Soph"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="absolute inset-0 w-full h-full"
+                      style={{ border: "none" }}
+                    />
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => setIsPlaying(true)}
+                      aria-label="Reproduzir vídeo"
+                      className="group absolute inset-0 w-full h-full cursor-pointer overflow-hidden"
+                    >
+                      <img
+                        src={capaVideo}
+                        alt="Veja por dentro do Ecossistema EmpreendaJá com Soph"
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/10 transition-colors duration-300 group-hover:bg-black/20">
+                        <div
+                          className="flex items-center justify-center w-20 h-20 rounded-full transition-transform duration-300 group-hover:scale-110"
+                          style={{
+                            background: "rgba(0,255,255,0.18)",
+                            border: "2px solid #00FFFF",
+                            boxShadow: "0 0 30px rgba(0,255,255,0.6), 0 0 60px rgba(0,255,255,0.3)",
+                            backdropFilter: "blur(4px)",
+                          }}
+                        >
+                          <Play className="w-8 h-8 ml-1" style={{ color: "#00FFFF", fill: "#00FFFF" }} />
+                        </div>
+                      </div>
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
