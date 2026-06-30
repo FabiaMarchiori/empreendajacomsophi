@@ -243,7 +243,7 @@ const HeroSection = () => {
                       border: '1px solid rgba(0,239,255,0.1)',
                     }}
                   >
-                    <span className="text-sm font-semibold text-white truncate">{n.name}</span>
+                    <span className="text-sm font-semibold text-white leading-tight">{n.name}</span>
                     <span
                       className="text-[11px] font-bold px-2 py-0.5 rounded-md shrink-0"
                       style={{
