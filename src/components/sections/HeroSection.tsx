@@ -87,7 +87,7 @@ const HeroSection = () => {
               transition={{ duration: 0.5 }}
             >
               <span className="inline-block px-4 py-1.5 rounded-full bg-primary/15 text-white text-xs font-bold tracking-[0.2em] uppercase">
-                Ecossistema Exclusivo
+                260+ Importadoras já mapeadas
               </span>
             </motion.div>
 
@@ -119,9 +119,7 @@ const HeroSection = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-base md:text-lg leading-relaxed max-w-lg text-white/90"
             >
-              Mais de 260+ Importadoras diretas com 15 nichos lucrativos,
-              sua sócia digital Soph, gestão ERP, precificação inteligente e módulos para estruturar
-              seu negócio em um só lugar. Pare de buscar, comece a lucrar.
+              Acesso direto às maiores importadoras da 25 de Março, organizadas por nicho — com a Soph, sua sócia digital, ao seu lado em cada decisão.
             </motion.p>
 
             {/* Buttons */}
