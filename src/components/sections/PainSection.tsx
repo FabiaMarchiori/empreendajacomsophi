@@ -6,7 +6,6 @@ const pains = [
   "Tem medo de cair em golpe ao comprar de fornecedores",
   "Perde dinheiro por não saber precificar com margem real",
   "Pesquisa tudo sozinho e perde horas sem resultado",
-  "Não tem estrutura nem ferramentas para profissionalizar",
 ];
 
 const PainSection = () => (
