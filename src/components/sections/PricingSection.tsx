@@ -59,14 +59,14 @@ const PricingSection = () => (
               </li>
             ))}
             <li className="flex items-start gap-3">
-              <Check className="w-5 h-5 text-cyan-400 shrink-0 mt-0.5" />
-              <span className="text-white text-base">
+              <X className="w-5 h-5 text-red-400 shrink-0 mt-0.5" />
+              <span className="text-white/60 text-base line-through">
                 ERP Soph Gestão
-                <span className="ml-2 inline-block px-2 py-0.5 rounded-md text-[11px] font-bold align-middle"
-                  style={{ background: 'rgba(0,239,255,0.12)', color: '#00EFFF', border: '1px solid rgba(0,239,255,0.25)' }}
-                >
-                  + R$ 47 à parte
-                </span>
+              </span>
+              <span className="ml-auto inline-block px-2 py-0.5 rounded-md text-[11px] font-bold align-middle shrink-0"
+                style={{ background: 'rgba(0,239,255,0.12)', color: '#00EFFF', border: '1px solid rgba(0,239,255,0.25)' }}
+              >
+                Upgrade no Anual
               </span>
             </li>
           </ul>
