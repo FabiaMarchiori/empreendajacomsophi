@@ -36,14 +36,14 @@ const ExpansionSection = () => (
         className="text-center mb-14 max-w-3xl mx-auto"
       >
         <span className="inline-block px-4 py-1.5 rounded-full bg-cyan-500/10 text-white text-sm font-bold mb-6 tracking-wide">
-          EXPANSÃO DO ECOSSISTEMA
+          BÔNUS FUTUROS DO ECOSSISTEMA
         </span>
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight mb-6">
-          <span className="text-white">Mais fornecedores. </span>
-          <span className="gradient-text">Mais oportunidades.</span>
+          <span className="text-white">O ecossistema continua </span>
+          <span className="gradient-text">crescendo com você</span>
         </h2>
         <p className="text-lg text-white leading-relaxed">
-          Além das importadoras da 25 de Março, novos acessos e fornecedores serão liberados para ampliar ainda mais suas oportunidades de compra, margem e crescimento.
+          Já assinante, você acompanha a chegada de novos fornecedores e nichos que serão liberados ao longo do tempo para ampliar suas oportunidades de compra e margem.
         </p>
       </motion.div>
 
@@ -107,14 +107,14 @@ const ExpansionSection = () => (
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.4, delay: 0.4 }}
-        className="max-w-3xl mx-auto px-6 py-4 rounded-xl text-center"
+        className="max-w-3xl mx-auto px-6 py-3 rounded-xl text-center"
         style={{
-          background: 'rgba(0,239,255,0.06)',
-          border: '1px solid rgba(0,239,255,0.15)',
+          background: 'rgba(255,255,255,0.03)',
+          border: '1px solid rgba(255,255,255,0.08)',
         }}
       >
-        <p className="text-white font-semibold text-sm md:text-base">
-          ⚠️ Os acessos acima fazem parte da expansão do ecossistema e <span className="text-cyan-400">não estão inclusos na assinatura atual</span>.
+        <p className="text-white/70 text-xs md:text-sm">
+          Esses acessos ainda não estão inclusos na assinatura atual — serão liberados gradualmente conforme a expansão do ecossistema.
         </p>
       </motion.div>
     </div>

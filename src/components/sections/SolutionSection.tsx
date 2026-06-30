@@ -23,14 +23,14 @@ const SolutionSection = () => (
         className="text-center mb-16 max-w-3xl mx-auto"
       >
         <span className="inline-block px-4 py-1.5 rounded-full bg-cyan-500/10 text-white text-sm font-bold mb-6 tracking-wide">
-          A SOLUÇÃO
+          TUDO EM UM SÓ LUGAR
         </span>
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight mb-6">
-          <span className="text-white">Não é apenas uma lista. É o </span>
-          <span className="gradient-text">ecossistema completo.</span>
+          <span className="text-white">Da escolha do nicho à </span>
+          <span className="gradient-text">primeira venda com lucro</span>
         </h2>
         <p className="text-lg text-white/85">
-          Você não compra apenas contatos. Você entra em um ambiente estruturado para transformar sua forma de empreender.
+          Fornecedores verificados, precificação inteligente, gestão e uma sócia digital que te orienta em cada decisão — tudo conectado para acelerar seu negócio.
         </p>
       </motion.div>
 

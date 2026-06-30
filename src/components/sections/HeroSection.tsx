@@ -87,7 +87,7 @@ const HeroSection = () => {
               transition={{ duration: 0.5 }}
             >
               <span className="inline-block px-4 py-1.5 rounded-full bg-primary/15 text-white text-xs font-bold tracking-[0.2em] uppercase">
-                Ecossistema Exclusivo
+                260+ Importadoras já mapeadas
               </span>
             </motion.div>
 
@@ -119,9 +119,7 @@ const HeroSection = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-base md:text-lg leading-relaxed max-w-lg text-white/90"
             >
-              Mais de 260+ Importadoras diretas com 15 nichos lucrativos,
-              sua sócia digital Soph, gestão ERP, precificação inteligente e módulos para estruturar
-              seu negócio em um só lugar. Pare de buscar, comece a lucrar.
+              Acesso direto às maiores importadoras da 25 de Março, organizadas por nicho — com a Soph, sua sócia digital, ao seu lado em cada decisão.
             </motion.p>
 
             {/* Buttons */}
@@ -151,19 +149,35 @@ const HeroSection = () => {
                   color: '#00EFFF',
                 }}
               >
-                Ver como funciona
+                Ver por dentro
               </a>
+            </motion.div>
+
+            {/* Trust row */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.45 }}
+              className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-white/70"
+            >
+              <span className="inline-flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+                7 dias de garantia
+              </span>
+              <span className="inline-flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+                Acesso imediato
+              </span>
             </motion.div>
           </div>
 
-          {/* Right column - Device Mockups */}
+          {/* Right column - Central de Importadoras panel */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
             className="relative flex items-center justify-center"
           >
-            {/* Glow behind */}
             <div
               className="absolute inset-0 rounded-3xl"
               style={{
@@ -172,96 +186,88 @@ const HeroSection = () => {
               }}
             />
 
-            {/* Notebook mockup */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.9, rotateY: -8 }}
-              animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-              transition={{ duration: 1.2, delay: 0.5, ease: "easeOut" }}
-              className="relative w-full"
-              style={{ perspective: '1200px' }}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
+              className="relative w-full rounded-2xl overflow-hidden"
+              style={{
+                background: 'linear-gradient(145deg, #0f2744 0%, #091b30 100%)',
+                border: '1px solid rgba(0,239,255,0.2)',
+                boxShadow: '0 0 60px rgba(0,239,255,0.1), 0 30px 60px rgba(0,0,0,0.5)',
+              }}
             >
-              <div
-                className="relative rounded-xl overflow-hidden"
-                style={{
-                  background: 'linear-gradient(145deg, #0f2744 0%, #091b30 100%)',
-                  border: '1px solid rgba(0,239,255,0.15)',
-                  boxShadow: '0 0 60px rgba(0,239,255,0.08), 0 30px 60px rgba(0,0,0,0.5)',
-                  padding: '8px',
-                }}
-              >
-                {/* Top bar */}
-                <div className="flex items-center gap-2 px-3 py-2 mb-1">
-                  <div className="w-3 h-3 rounded-full bg-red-400/60" />
-                  <div className="w-3 h-3 rounded-full bg-yellow-400/60" />
-                  <div className="w-3 h-3 rounded-full bg-green-400/60" />
-                  <div className="flex-1 mx-4 h-5 rounded-full" style={{ background: 'rgba(255,255,255,0.05)' }} />
+              {/* Top bar */}
+              <div className="flex items-center justify-between gap-3 px-5 py-3 border-b" style={{ borderColor: 'rgba(0,239,255,0.12)' }}>
+                <div className="flex items-center gap-2">
+                  <div className="w-2.5 h-2.5 rounded-full bg-red-400/70" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-yellow-400/70" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-green-400/70" />
                 </div>
-                {/* Top glow line */}
-                <div
-                  className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px"
-                  style={{ background: 'linear-gradient(90deg, transparent, rgba(0,239,255,0.4), transparent)' }}
-                />
-                <video
-                  src="/videos/hero-demo.mp4"
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  preload="metadata"
-                  className="w-full h-auto aspect-video rounded-lg"
-                  style={{ objectFit: 'cover' }}
-                />
+                <span className="text-[11px] font-bold tracking-[0.18em] uppercase text-cyan-300/90">
+                  Central de Importadoras
+                </span>
+                <span className="w-12" />
               </div>
 
-              {/* Tablet mockup */}
-              <motion.div
-                initial={{ opacity: 0, x: 60, y: 30 }}
-                animate={{ opacity: 1, x: 0, y: 0 }}
-                transition={{ duration: 1, delay: 0.8, ease: "easeOut" }}
-                className="absolute -bottom-6 -right-4 w-[45%] rounded-lg overflow-hidden"
-                style={{
-                  background: '#0d1f36',
-                  border: '1px solid rgba(0,239,255,0.2)',
-                  boxShadow: '0 0 30px rgba(0,239,255,0.1), 0 15px 40px rgba(0,0,0,0.5)',
-                  padding: '4px',
-                }}
-              >
-                <video
-                  src="/videos/hero-demo.mp4"
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  preload="metadata"
-                  className="w-full h-auto rounded"
-                  style={{ maxHeight: '140px', objectFit: 'cover', objectPosition: 'top' }}
-                />
-              </motion.div>
+              {/* Header stats */}
+              <div className="grid grid-cols-2 gap-3 px-5 pt-5">
+                <div className="rounded-xl px-4 py-3" style={{ background: 'rgba(0,239,255,0.06)', border: '1px solid rgba(0,239,255,0.18)' }}>
+                  <div className="text-2xl font-extrabold text-white leading-none">260+</div>
+                  <div className="text-[11px] mt-1 text-cyan-300/90 font-semibold tracking-wide uppercase">Importadoras</div>
+                </div>
+                <div className="rounded-xl px-4 py-3" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)' }}>
+                  <div className="text-2xl font-extrabold text-white leading-none">15</div>
+                  <div className="text-[11px] mt-1 text-white/70 font-semibold tracking-wide uppercase">Nichos ativos</div>
+                </div>
+              </div>
 
-              {/* Mobile mockup */}
-              <motion.div
-                initial={{ opacity: 0, x: -40, y: 40 }}
-                animate={{ opacity: 1, x: 0, y: 0 }}
-                transition={{ duration: 1, delay: 1, ease: "easeOut" }}
-                className="absolute -bottom-4 -left-2 w-[22%] rounded-xl overflow-hidden"
-                style={{
-                  background: '#0d1f36',
-                  border: '1px solid rgba(0,239,255,0.2)',
-                  boxShadow: '0 0 20px rgba(0,239,255,0.08), 0 10px 30px rgba(0,0,0,0.5)',
-                  padding: '3px',
-                }}
-              >
-                <video
-                  src="/videos/hero-demo.mp4"
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  preload="metadata"
-                  className="w-full h-auto rounded-lg"
-                  style={{ maxHeight: '120px', objectFit: 'cover', objectPosition: 'top' }}
-                />
-              </motion.div>
+              {/* Niche cards */}
+              <div className="grid grid-cols-2 gap-3 p-5">
+                {[
+                  { name: "Bolsas", count: 32 },
+                  { name: "Moda Feminina", count: 58 },
+                  { name: "Semijoias", count: 24 },
+                  { name: "Calçados", count: 41 },
+                  { name: "Papelaria Fofa", count: 18 },
+                  { name: "Eletrônicos", count: 22 },
+                ].map((n, i) => (
+                  <motion.div
+                    key={n.name}
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: 0.7 + i * 0.07 }}
+                    className="rounded-lg px-3 py-2.5 flex items-center justify-between"
+                    style={{
+                      background: 'rgba(255,255,255,0.03)',
+                      border: '1px solid rgba(0,239,255,0.1)',
+                    }}
+                  >
+                    <span className="text-sm font-semibold text-white truncate">{n.name}</span>
+                    <span
+                      className="text-[11px] font-bold px-2 py-0.5 rounded-md shrink-0"
+                      style={{
+                        background: 'rgba(0,239,255,0.12)',
+                        color: '#00EFFF',
+                        border: '1px solid rgba(0,239,255,0.25)',
+                      }}
+                    >
+                      {n.count}
+                    </span>
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* Footer */}
+              <div className="px-5 pb-5">
+                <div className="flex items-center justify-between text-[11px] text-white/60">
+                  <span className="inline-flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+                    Atualizado hoje
+                  </span>
+                  <span className="text-cyan-300/80 font-semibold">+ novos nichos em breve</span>
+                </div>
+              </div>
             </motion.div>
           </motion.div>
         </div>

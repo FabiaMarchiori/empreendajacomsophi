@@ -58,9 +58,16 @@ const PricingSection = () => (
                 <span className="text-white text-base">{f}</span>
               </li>
             ))}
-            <li className="flex items-center gap-3 opacity-50">
-              <X className="w-5 h-5 text-white/40 shrink-0" />
-              <span className="text-white/40 text-sm line-through">ERP Soph Gestão</span>
+            <li className="flex items-start gap-3">
+              <Check className="w-5 h-5 text-cyan-400 shrink-0 mt-0.5" />
+              <span className="text-white text-base">
+                ERP Soph Gestão
+                <span className="ml-2 inline-block px-2 py-0.5 rounded-md text-[11px] font-bold align-middle"
+                  style={{ background: 'rgba(0,239,255,0.12)', color: '#00EFFF', border: '1px solid rgba(0,239,255,0.25)' }}
+                >
+                  + R$ 47 à parte
+                </span>
+              </span>
             </li>
           </ul>
           <a href="https://pay.kiwify.com.br/gNROnVP" target="_blank" rel="noopener noreferrer" className="btn-secondary-dark w-full py-4 rounded-xl text-center font-bold inline-flex items-center justify-center gap-2">
