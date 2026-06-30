@@ -87,7 +87,7 @@ const HeroSection = () => {
               transition={{ duration: 0.5 }}
             >
               <span className="inline-block px-4 py-1.5 rounded-full bg-primary/15 text-white text-xs font-bold tracking-[0.2em] uppercase">
-                260+ Importadoras já mapeadas
+                320+ importadoras já Validadas
               </span>
             </motion.div>
 
@@ -213,11 +213,11 @@ const HeroSection = () => {
               {/* Header stats */}
               <div className="grid grid-cols-2 gap-3 px-5 pt-5">
                 <div className="rounded-xl px-4 py-3" style={{ background: 'rgba(0,239,255,0.06)', border: '1px solid rgba(0,239,255,0.18)' }}>
-                  <div className="text-2xl font-extrabold text-white leading-none">260+</div>
+                  <div className="text-2xl font-extrabold text-white leading-none">320+</div>
                   <div className="text-[11px] mt-1 text-cyan-300/90 font-semibold tracking-wide uppercase">Importadoras</div>
                 </div>
                 <div className="rounded-xl px-4 py-3" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)' }}>
-                  <div className="text-2xl font-extrabold text-white leading-none">15</div>
+                  <div className="text-2xl font-extrabold text-white leading-none">14</div>
                   <div className="text-[11px] mt-1 text-white/70 font-semibold tracking-wide uppercase">Nichos ativos</div>
                 </div>
               </div>
@@ -225,12 +225,12 @@ const HeroSection = () => {
               {/* Niche cards */}
               <div className="grid grid-cols-2 gap-3 p-5">
                 {[
-                  { name: "Bolsas", count: 32 },
+                  { name: "Papelaria Fofa", count: 29 },
+                  { name: "Bolsas, Mochilas e Malas", count: 66 },
+                  { name: "Semijoias", count: 39 },
+                  { name: "Games e Eletrônicos", count: 24 },
                   { name: "Moda Feminina", count: 58 },
-                  { name: "Semijoias", count: 24 },
-                  { name: "Calçados", count: 41 },
-                  { name: "Papelaria Fofa", count: 18 },
-                  { name: "Eletrônicos", count: 22 },
+                  { name: "E muito mais", count: "+" },
                 ].map((n, i) => (
                   <motion.div
                     key={n.name}
@@ -243,7 +243,7 @@ const HeroSection = () => {
                       border: '1px solid rgba(0,239,255,0.1)',
                     }}
                   >
-                    <span className="text-sm font-semibold text-white truncate">{n.name}</span>
+                    <span className="text-sm font-semibold text-white leading-tight">{n.name}</span>
                     <span
                       className="text-[11px] font-bold px-2 py-0.5 rounded-md shrink-0"
                       style={{
