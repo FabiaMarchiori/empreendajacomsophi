@@ -149,8 +149,25 @@ const HeroSection = () => {
                   color: '#00EFFF',
                 }}
               >
-                Ver como funciona
+                Ver por dentro
               </a>
+            </motion.div>
+
+            {/* Trust row */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.45 }}
+              className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-white/70"
+            >
+              <span className="inline-flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+                7 dias de garantia
+              </span>
+              <span className="inline-flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+                Acesso imediato
+              </span>
             </motion.div>
           </div>
 
