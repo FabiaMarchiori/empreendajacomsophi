@@ -87,7 +87,7 @@ const HeroSection = () => {
               transition={{ duration: 0.5 }}
             >
               <span className="inline-block px-4 py-1.5 rounded-full bg-primary/15 text-white text-xs font-bold tracking-[0.2em] uppercase">
-                260+ Importadoras já mapeadas
+                320+ importadoras já Validadas
               </span>
             </motion.div>
 
