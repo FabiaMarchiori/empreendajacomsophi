@@ -2,14 +2,10 @@ import { motion } from "framer-motion";
 import { Sparkles } from "lucide-react";
 
 const benefits = [
-  "Passa a colocar o preço certo para vender com lucro real",
-  "Começa a entender taxas, custos e marketplaces",
-  "Começa a controlar entradas e saídas para parar de vender no escuro",
-  "Aprende a abrir seu CNPJ sem gastar nada",
-  "Aprende a criar logo, site e marca com ferramentas gratuitas",
-  "Descobre importadoras gigantes que nem imaginava que existiam, com preços baixos para lucrar muito mais",
-  "Reduz erros, retrabalho, perda de dinheiro e gastos desnecessários",
-  "Começa a enxergar com mais clareza o que dá lucro e o que está te fazendo perder dinheiro",
+  "Descobre importadoras gigantes com preços que multiplicam sua margem",
+  "Coloca o preço certo e para de vender no prejuízo sem perceber",
+  "Estrutura CNPJ, marca e operação com ferramentas gratuitas e direção clara",
+  "Enxerga com clareza o que dá lucro e o que está sangrando seu caixa",
 ];
 
 const BenefitsSection = () => (

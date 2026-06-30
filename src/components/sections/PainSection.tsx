@@ -4,12 +4,9 @@ import { XCircle } from "lucide-react";
 const pains = [
   "Quer começar, mas não sabe por qual nicho começar",
   "Tem medo de cair em golpe ao comprar de fornecedores",
-  "Perde dinheiro ao colocar preço nos seus produtos",
-  "Quer parar de perder dinheiro com decisões erradas",
+  "Perde dinheiro por não saber precificar com margem real",
   "Pesquisa tudo sozinho e perde horas sem resultado",
-  "Improvisa marca, preço e operação sem estratégia",
-  "Não tem estrutura nem ferramentas adequadas",
-  "Não sabe se está escolhendo os produtos certos para lucrar",
+  "Não tem estrutura nem ferramentas para profissionalizar",
 ];
 
 const PainSection = () => (
