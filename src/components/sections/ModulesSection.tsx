@@ -1,55 +1,111 @@
-import { motion } from "framer-motion";
-import { ArrowRight, Package, Calculator, LayoutDashboard, Bot, Play } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
+import { Bot, Calculator, LayoutDashboard, Package, Play } from "lucide-react";
 import { useState } from "react";
 import capaVideo from "@/assets/capa_video.png";
 
-const benefits = [
+const pillars = [
   {
     icon: Package,
-    title: "Central de Importadoras",
-    desc: "Acesse a 'mina de ouro' com mais de 260 importadoras diretas, organizadas por nichos lucrativos.",
+    title: "CENTRAL DE FORNECEDORES",
+    description: "Mais de 320 fornecedores e importadoras organizados por categorias para facilitar sua pesquisa.",
   },
   {
     icon: Calculator,
-    title: "Precificação Inteligente",
-    desc: "Pare de perder dinheiro. Calcule preços, taxas e lucros de forma automática e segura.",
+    title: "PRECIFICAÇÃO",
+    description: "Organize custos, margem e outros dados importantes para chegar a um preço de venda mais consciente.",
   },
   {
     icon: LayoutDashboard,
-    title: "ERP Soph Gestão",
-    desc: "Organize sua casa. Controle vendas, estoque e financeiro em um sistema simples e intuitivo.",
+    title: "GESTÃO DO NEGÓCIO",
+    description: "Recursos para acompanhar áreas como produtos, vendas, estoque, clientes, caixa e operação.",
   },
   {
     icon: Bot,
-    title: "Soph IA",
-    desc: "Tenha uma sócia digital 24h por dia para tirar dúvidas e orientar o crescimento do seu negócio.",
+    title: "SOPH — SUA SÓCIA DIGITAL",
+    description: "Uma camada de assistência criada para apoiar você ao longo da sua jornada dentro da plataforma.",
   },
 ];
 
 const ModulesSection = () => {
   const [isPlaying, setIsPlaying] = useState(false);
+  const reduced = !!useReducedMotion();
+  const reveal = (delay = 0, distance = 18) => ({
+    initial: reduced ? false : { opacity: 0, y: distance },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true, amount: 0.25 },
+    transition: { duration: 0.5, delay: reduced ? 0 : delay, ease: "easeOut" as const },
+  });
 
   return (
-    <section className="relative py-24 lg:py-32 overflow-hidden" style={{ background: "#0a192f" }}>
-      {/* Ambient glow */}
-      <div className="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full blur-[160px] pointer-events-none"
-        style={{ background: "rgba(0,255,255,0.06)" }}
-      />
+    <>
+      <section className="relative overflow-hidden bg-deep py-24">
+        <div className="pointer-events-none absolute left-1/2 top-0 h-[420px] w-[700px] -translate-x-1/2 rounded-full bg-cyan-500/3 blur-[150px]" />
 
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* ── LEFT: iPhone Mockup with Video ── */}
+        <div className="container relative z-10 mx-auto px-4">
+          <motion.div {...reveal()} className="mx-auto mb-12 max-w-4xl text-center md:mb-14">
+            <span className="mb-6 inline-block rounded-full bg-cyan-500/10 px-4 py-1.5 text-sm font-bold tracking-wide text-white">
+              MUITO ALÉM DOS FORNECEDORES
+            </span>
+            <h2 className="mb-6 text-3xl font-extrabold tracking-tight text-white md:text-4xl lg:text-5xl">
+              Você entra pelos fornecedores. E encontra <span className="gradient-text">muito mais.</span>
+            </h2>
+            <p className="mx-auto max-w-3xl text-base leading-relaxed text-white/80 sm:text-lg">
+              Além da Central de Fornecedores, o EmpreendaJá reúne ferramentas para ajudar você a precificar, organizar
+              e administrar seu negócio — com a Soph como camada de assistência dentro da plataforma.
+            </p>
+          </motion.div>
+
+          <div className="mx-auto grid max-w-5xl gap-4 md:grid-cols-2">
+            {pillars.map((pillar, i) => (
+              <motion.div
+                key={pillar.title}
+                {...reveal(0.08 + i * 0.07)}
+                whileHover={reduced ? undefined : { y: -4 }}
+                className="card-premium group flex items-start gap-4 p-5 sm:p-6"
+              >
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-cyan-300/20 bg-cyan-300/[0.07] shadow-[0_0_18px_rgba(0,239,255,0.08)] transition-colors duration-300 group-hover:border-cyan-300/35 group-hover:bg-cyan-300/[0.1]">
+                  <pillar.icon className="h-5 w-5 text-cyan-300" />
+                </div>
+                <div className="min-w-0">
+                  <h3 className="text-sm font-extrabold uppercase tracking-[0.1em] text-white sm:text-base">
+                    {pillar.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-white/65 sm:text-base">{pillar.description}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.p
+            {...reveal(0.22, 12)}
+            className="mx-auto mt-12 max-w-3xl text-center text-base font-bold leading-relaxed text-white/85 sm:text-lg"
+          >
+            <span className="text-cyan-300">Fornecedores</span> para encontrar. Ferramentas para administrar. Soph para
+            acompanhar.
+          </motion.p>
+        </div>
+      </section>
+
+      <section className="relative overflow-hidden py-24 lg:py-32" style={{ background: "#0a192f" }}>
+        {/* Ambient glow */}
+        <div
+          className="pointer-events-none absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[160px]"
+          style={{ background: "rgba(0,255,255,0.06)" }}
+        />
+
+        <div className="container relative z-10 mx-auto px-6">
+          {/* ── iPhone Mockup with Video ── */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, ease: "easeOut" }}
-            className="flex justify-center lg:justify-start"
+            className="flex justify-center"
           >
             <div className="relative">
               {/* Outer glow */}
               <div
-                className="absolute inset-0 rounded-[3rem] blur-3xl opacity-60 pointer-events-none"
+                className="pointer-events-none absolute inset-0 rounded-[3rem] opacity-60 blur-3xl"
                 style={{
                   background: "radial-gradient(circle, #00FFFF 0%, transparent 70%)",
                   transform: "scale(1.15)",
@@ -71,25 +127,17 @@ const ModulesSection = () => {
                 }}
               >
                 {/* Side buttons */}
-                <div className="absolute left-[-3px] top-[110px] w-[3px] h-[32px] rounded-l-sm bg-[#1a1a1a]" />
-                <div className="absolute left-[-3px] top-[160px] w-[3px] h-[55px] rounded-l-sm bg-[#1a1a1a]" />
-                <div className="absolute left-[-3px] top-[225px] w-[3px] h-[55px] rounded-l-sm bg-[#1a1a1a]" />
-                <div className="absolute right-[-3px] top-[140px] w-[3px] h-[80px] rounded-r-sm bg-[#1a1a1a]" />
+                <div className="absolute left-[-3px] top-[110px] h-[32px] w-[3px] rounded-l-sm bg-[#1a1a1a]" />
+                <div className="absolute left-[-3px] top-[160px] h-[55px] w-[3px] rounded-l-sm bg-[#1a1a1a]" />
+                <div className="absolute left-[-3px] top-[225px] h-[55px] w-[3px] rounded-l-sm bg-[#1a1a1a]" />
+                <div className="absolute right-[-3px] top-[140px] h-[80px] w-[3px] rounded-r-sm bg-[#1a1a1a]" />
 
                 {/* Screen */}
-                <div
-                  className="relative w-full h-full overflow-hidden bg-black"
-                  style={{ borderRadius: "2.3rem" }}
-                >
+                <div className="relative h-full w-full overflow-hidden bg-black" style={{ borderRadius: "2.3rem" }}>
                   {/* Dynamic Island */}
                   <div
-                    className="absolute top-2 left-1/2 -translate-x-1/2 z-20"
-                    style={{
-                      width: "100px",
-                      height: "28px",
-                      background: "#000",
-                      borderRadius: "999px",
-                    }}
+                    className="absolute left-1/2 top-2 z-20 -translate-x-1/2"
+                    style={{ width: "100px", height: "28px", background: "#000", borderRadius: "999px" }}
                   />
 
                   {/* YouTube Short Embed */}
@@ -99,7 +147,7 @@ const ModulesSection = () => {
                       title="EmpreendaJá com Soph"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
-                      className="absolute inset-0 w-full h-full"
+                      className="absolute inset-0 h-full w-full"
                       style={{ border: "none" }}
                     />
                   ) : (
@@ -107,16 +155,16 @@ const ModulesSection = () => {
                       type="button"
                       onClick={() => setIsPlaying(true)}
                       aria-label="Reproduzir vídeo"
-                      className="group absolute inset-0 w-full h-full cursor-pointer overflow-hidden"
+                      className="group absolute inset-0 h-full w-full cursor-pointer overflow-hidden"
                     >
                       <img
                         src={capaVideo}
                         alt="Veja por dentro do Ecossistema EmpreendaJá com Soph"
-                        className="absolute inset-0 w-full h-full object-contain object-center bg-black transition-transform duration-500 group-hover:scale-[1.02]"
+                        className="absolute inset-0 h-full w-full bg-black object-contain object-center transition-transform duration-500 group-hover:scale-[1.02]"
                       />
                       <div className="absolute inset-0 flex items-center justify-center bg-black/10 transition-colors duration-300 group-hover:bg-black/20">
                         <div
-                          className="flex items-center justify-center w-20 h-20 rounded-full transition-transform duration-300 group-hover:scale-110"
+                          className="flex h-20 w-20 items-center justify-center rounded-full transition-transform duration-300 group-hover:scale-110"
                           style={{
                             background: "rgba(0,255,255,0.18)",
                             border: "2px solid #00FFFF",
@@ -124,7 +172,7 @@ const ModulesSection = () => {
                             backdropFilter: "blur(4px)",
                           }}
                         >
-                          <Play className="w-8 h-8 ml-1" style={{ color: "#00FFFF", fill: "#00FFFF" }} />
+                          <Play className="ml-1 h-8 w-8" style={{ color: "#00FFFF", fill: "#00FFFF" }} />
                         </div>
                       </div>
                     </button>
@@ -133,108 +181,9 @@ const ModulesSection = () => {
               </div>
             </div>
           </motion.div>
-
-          {/* ── RIGHT: Content ── */}
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-          >
-            {/* Badge */}
-            <span
-              className="inline-block text-xs font-semibold tracking-[0.25em] uppercase mb-5"
-              style={{ color: "rgba(255,255,255,0.5)" }}
-            >
-              EXPLORAÇÃO PROFUNDA
-            </span>
-
-            {/* Title */}
-            <h2 className="text-4xl md:text-5xl lg:text-[3.25rem] font-extrabold tracking-tight leading-[1.1] mb-5">
-              <span className="text-white">O que você </span>
-              <span className="gradient-text">acessará</span>
-            </h2>
-
-            {/* Subtitle */}
-            <p
-              className="text-base md:text-lg leading-relaxed mb-10"
-              style={{ color: "rgba(255,255,255,0.7)" }}
-            >
-              Veja por dentro como o Ecossistema EmpreendaJá com Soph funciona e como ele vai transformar sua operação comercial.
-            </p>
-
-            {/* Benefits list */}
-            <div className="flex flex-col gap-5 mb-10">
-              {benefits.map((b, i) => {
-                const Icon = b.icon;
-                return (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: 0.1 + i * 0.1 }}
-                    className="flex items-start gap-4"
-                  >
-                    <div
-                      className="shrink-0 w-12 h-12 rounded-xl flex items-center justify-center"
-                      style={{
-                        background: "rgba(0,255,255,0.1)",
-                        border: "1px solid rgba(0,255,255,0.3)",
-                        boxShadow: "0 0 16px rgba(0,255,255,0.12)",
-                      }}
-                    >
-                      <Icon className="w-5 h-5" style={{ color: "#00FFFF" }} />
-                    </div>
-                    <div className="flex-1 pt-0.5">
-                      <h3 className="text-white font-bold text-lg mb-1">{b.title}</h3>
-                      <p
-                        className="text-sm leading-relaxed"
-                        style={{ color: "rgba(255,255,255,0.65)" }}
-                      >
-                        {b.desc}
-                      </p>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </div>
-
-            {/* CTA */}
-            <motion.a
-              href="#planos"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.6 }}
-              className="group relative inline-flex items-center justify-center gap-3 px-8 py-5 rounded-xl font-extrabold text-base md:text-lg tracking-wide uppercase overflow-hidden transition-transform duration-300 hover:scale-[1.03] w-full sm:w-auto"
-              style={{
-                background: "linear-gradient(135deg, #00FFFF 0%, #00c4d6 100%)",
-                color: "#0a192f",
-                boxShadow:
-                  "0 0 30px rgba(0,255,255,0.4), 0 0 60px rgba(0,255,255,0.2), 0 8px 24px rgba(0,0,0,0.3)",
-                animation: "ctaPulse 2.5s ease-in-out infinite",
-              }}
-            >
-              <span className="relative z-10">QUERO ESSE ACESSO AGORA</span>
-              <ArrowRight className="w-5 h-5 relative z-10 transition-transform duration-300 group-hover:translate-x-1" />
-            </motion.a>
-          </motion.div>
         </div>
-      </div>
-
-      {/* Pulse keyframes */}
-      <style>{`
-        @keyframes ctaPulse {
-          0%, 100% {
-            box-shadow: 0 0 30px rgba(0,255,255,0.4), 0 0 60px rgba(0,255,255,0.2), 0 8px 24px rgba(0,0,0,0.3);
-          }
-          50% {
-            box-shadow: 0 0 45px rgba(0,255,255,0.6), 0 0 90px rgba(0,255,255,0.35), 0 8px 24px rgba(0,0,0,0.3);
-          }
-        }
-      `}</style>
-    </section>
+      </section>
+    </>
   );
 };
 
