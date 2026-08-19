@@ -91,10 +91,14 @@ const SolutionSection = () => {
                 key={category.name}
                 {...entrance(0.12 + i * 0.06, 14)}
                 whileHover={reduced ? undefined : { y: -4 }}
-                className="group min-w-[78%] max-w-[290px] snap-center rounded-2xl border border-cyan-300/10 bg-white/[0.025] p-5 transition-colors duration-300 hover:border-cyan-300/30 hover:bg-cyan-300/[0.045] sm:min-w-[56%] md:min-w-0 md:max-w-none"
+                whileTap={reduced ? undefined : { scale: 0.985 }}
+                className="group min-w-[78%] max-w-[290px] snap-center rounded-2xl border border-cyan-300/15 bg-gradient-to-br from-white/[0.055] via-white/[0.025] to-cyan-300/[0.025] p-5 shadow-[0_18px_45px_rgba(0,0,0,0.22),0_0_24px_rgba(0,239,255,0.035)] transition-[border-color,background-color,box-shadow] duration-300 hover:border-cyan-300/35 hover:shadow-[0_24px_55px_rgba(0,0,0,0.32),0_0_34px_rgba(0,239,255,0.1)] focus-within:border-cyan-300/35 sm:min-w-[56%] md:min-w-0 md:max-w-none"
               >
-                <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full border border-cyan-200/25 bg-gradient-to-br from-white/10 via-cyan-300/10 to-slate-400/5 shadow-[0_0_24px_rgba(0,239,255,0.08)] transition-colors duration-300 group-hover:border-cyan-200/45">
-                  <category.icon className="h-6 w-6 text-cyan-200" strokeWidth={1.7} />
+                <div className="relative mb-4 flex h-14 w-14 items-center justify-center">
+                  <div className="absolute inset-1 rounded-full bg-cyan-300/10 blur-xl transition-[transform,opacity] duration-300 group-hover:scale-125 group-hover:bg-cyan-300/20 group-focus-within:scale-125 group-focus-within:bg-cyan-300/20" />
+                  <div className="relative flex h-14 w-14 items-center justify-center rounded-full border border-cyan-200/25 bg-gradient-to-br from-white/10 via-cyan-300/10 to-slate-400/5 shadow-[0_0_24px_rgba(0,239,255,0.08)] transition-[transform,border-color,box-shadow] duration-300 group-hover:scale-[1.04] group-hover:border-cyan-200/50 group-hover:shadow-[0_0_30px_rgba(0,239,255,0.16)] group-focus-within:scale-[1.04]">
+                    <category.icon className="h-6 w-6 text-cyan-200" strokeWidth={1.7} />
+                  </div>
                 </div>
                 <h3 className="min-h-12 text-base font-bold leading-snug text-white">{category.name}</h3>
                 <p className="mt-2 text-sm font-semibold text-cyan-300/85">{category.count} importadoras</p>
@@ -109,8 +113,13 @@ const SolutionSection = () => {
 
         <div className="mx-auto mt-10 grid max-w-6xl gap-x-8 gap-y-6 sm:grid-cols-2 lg:grid-cols-4">
           {benefits.map((benefit, i) => (
-            <motion.div key={benefit.title} {...entrance(0.1 + i * 0.06, 12)} className="flex items-start gap-3">
-              <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-cyan-300/15 bg-cyan-300/[0.06]">
+            <motion.div
+              key={benefit.title}
+              {...entrance(0.1 + i * 0.06, 12)}
+              whileHover={reduced ? undefined : { y: -2 }}
+              className="group flex items-start gap-3"
+            >
+              <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-cyan-300/15 bg-cyan-300/[0.06] transition-[border-color,background-color] duration-300 group-hover:border-cyan-300/30 group-hover:bg-cyan-300/[0.09]">
                 <benefit.icon className="h-4 w-4 text-cyan-300" />
               </div>
               <div>
