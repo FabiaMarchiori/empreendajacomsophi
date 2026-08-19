@@ -2,10 +2,22 @@ import { motion, useReducedMotion } from "framer-motion";
 import { XCircle } from "lucide-react";
 
 const pains = [
-  "Compra sempre dos mesmos fornecedores e encontra poucas opções para comparar.",
-  "Tem receio de cair em golpes ao comprar de fornecedores que ainda não conhece.",
-  "Tem dificuldade para saber se o preço de venda realmente deixa margem.",
-  "Passa horas pesquisando fornecedores e ainda termina sem saber por onde comprar.",
+  {
+    label: "Poucas opções",
+    text: "Compra sempre dos mesmos fornecedores e encontra poucas opções para comparar.",
+  },
+  {
+    label: "Segurança",
+    text: "Tem receio de cair em golpes ao comprar de fornecedores que ainda não conhece.",
+  },
+  {
+    label: "Decisão",
+    text: "Encontra fornecedores, mas tem dificuldade para comparar opções e decidir onde comprar.",
+  },
+  {
+    label: "Tempo",
+    text: "Passa horas pesquisando fornecedores e ainda termina sem saber por onde comprar.",
+  },
 ];
 
 const PainSection = () => {
@@ -27,15 +39,15 @@ const PainSection = () => {
             negócio.
           </h2>
           <p className="mx-auto max-w-3xl text-base leading-relaxed text-white/80 sm:text-lg">
-            Mas, para quem vende ou quer começar a vender, encontrar boas opções, comparar fornecedores e comprar com
-            mais segurança ainda pode consumir tempo e gerar insegurança.
+            Para quem vende ou quer começar a vender, encontrar boas opções, comparar fornecedores e decidir onde
+            comprar nem sempre é tão simples quanto deveria.
           </p>
         </motion.div>
 
         <div className="mx-auto grid max-w-5xl gap-4 md:grid-cols-2">
           {pains.map((pain, i) => (
             <motion.div
-              key={pain}
+              key={pain.label}
               initial={reduced ? false : { opacity: 0, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
@@ -43,7 +55,12 @@ const PainSection = () => {
               className="card-premium flex items-start gap-4 p-5 sm:p-6"
             >
               <XCircle className="mt-0.5 h-7 w-7 shrink-0 text-red-400" />
-              <p className="text-base font-semibold leading-relaxed text-white">{pain}</p>
+              <div className="min-w-0">
+                <p className="mb-1.5 text-[10px] font-extrabold uppercase leading-none tracking-[0.16em] text-cyan-300/85 sm:text-[11px]">
+                  {pain.label}
+                </p>
+                <p className="text-base font-semibold leading-relaxed text-white">{pain.text}</p>
+              </div>
             </motion.div>
           ))}
         </div>
