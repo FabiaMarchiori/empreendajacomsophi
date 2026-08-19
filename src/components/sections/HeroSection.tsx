@@ -183,7 +183,7 @@ const HeroSection = () => {
       />
 
       <div className="relative z-10 mx-auto w-full max-w-[1440px] px-5 py-12 sm:px-6 lg:px-8 lg:py-20">
-        <div className="grid items-center gap-10 min-[960px]:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] min-[960px]:gap-10 xl:gap-12">
+        <div className="grid items-center gap-10 min-[960px]:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] min-[960px]:gap-10 xl:gap-16">
           {/* Content */}
           <div className="min-w-0 space-y-6">
             <motion.p
@@ -197,10 +197,13 @@ const HeroSection = () => {
               {...fade(0.08)}
               className="max-w-[16ch] text-[2.1rem] font-extrabold leading-[1.1] tracking-tight text-white sm:text-[2.6rem] lg:text-[3.35rem]"
             >
-              Seu próximo fornecedor pode estar aqui.
+              Seu próximo <span className="gradient-text">fornecedor</span> pode estar aqui.
             </motion.h1>
 
-            <motion.p {...fade(0.16)} className="max-w-xl text-base leading-relaxed text-white/90 sm:text-lg">
+            <motion.p
+              {...fade(0.16)}
+              className="max-w-xl text-[1.0625rem] leading-[1.65] text-white/90 sm:text-lg sm:leading-relaxed"
+            >
               <span
                 className="mr-1 text-2xl font-extrabold sm:text-3xl"
                 style={{
@@ -250,7 +253,7 @@ const HeroSection = () => {
           </div>
 
           {/* Card */}
-          <div className="min-w-0 min-[960px]:w-full min-[960px]:max-w-[560px] min-[960px]:justify-self-end">
+          <div className="min-w-0 min-[960px]:w-full min-[960px]:max-w-[560px] min-[960px]:justify-self-end xl:origin-right xl:scale-[1.1]">
             <ImportersCard />
           </div>
         </div>
