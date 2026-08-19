@@ -1,5 +1,5 @@
 import { motion, useReducedMotion } from "framer-motion";
-import { Bot, Calculator, LayoutDashboard, Package, Play } from "lucide-react";
+import { Bot, Calculator, CheckCircle2, LayoutDashboard, Package, Play } from "lucide-react";
 import { useState } from "react";
 import capaVideo from "@/assets/capa_video.png";
 
@@ -86,22 +86,38 @@ const ModulesSection = () => {
         </div>
       </section>
 
-      <section className="relative overflow-hidden py-24 lg:py-32" style={{ background: "#0a192f" }}>
+      <section className="relative overflow-hidden py-20 lg:py-24" style={{ background: "#0a192f" }}>
         {/* Ambient glow */}
         <div
-          className="pointer-events-none absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[160px]"
+          className="pointer-events-none absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[160px] lg:left-[72%]"
           style={{ background: "rgba(0,255,255,0.06)" }}
         />
 
-        <div className="container relative z-10 mx-auto px-6">
+        <div className="container relative z-10 mx-auto grid items-center gap-12 px-6 lg:grid-cols-[minmax(0,0.82fr)_minmax(340px,1.18fr)] lg:gap-10 xl:gap-14">
+          <motion.div {...reveal()} className="mx-auto max-w-xl text-center lg:mx-0 lg:text-left">
+            <span className="mb-5 inline-block text-xs font-extrabold uppercase tracking-[0.22em] text-cyan-300">
+              VEJA POR DENTRO
+            </span>
+            <h2 className="text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl lg:text-[2.75rem]">
+              Conheça o EmpreendaJá <span className="gradient-text">antes de entrar.</span>
+            </h2>
+            <p className="mt-6 text-base leading-relaxed text-white/75 sm:text-lg">
+              Veja como a plataforma funciona por dentro e conheça alguns dos recursos que você encontra para pesquisar
+              fornecedores, organizar o negócio e avançar com mais clareza.
+            </p>
+            <div className="mx-auto mt-7 flex max-w-lg items-start gap-3 border-t border-cyan-300/10 pt-5 text-left lg:mx-0">
+              <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-cyan-300" />
+              <p className="text-sm font-semibold leading-relaxed text-white/60">
+                Fornecedores, gestão, precificação e Soph — dentro da experiência real da plataforma.
+              </p>
+            </div>
+          </motion.div>
+
           {/* ── iPhone Mockup with Video ── */}
-          <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-            className="flex justify-center"
-          >
+          <motion.div {...reveal(0.1, 24)} className="flex flex-col items-center justify-center">
+            <span className="mb-5 inline-block rounded-full border border-cyan-300/15 bg-cyan-300/[0.06] px-4 py-1.5 text-[11px] font-extrabold uppercase tracking-[0.18em] text-cyan-200/85">
+              TOUR REAL DA PLATAFORMA
+            </span>
             <div className="relative">
               {/* Outer glow */}
               <div
