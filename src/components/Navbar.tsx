@@ -17,7 +17,7 @@ const Navbar = () => {
             Início
           </a>
           <a href="#ecossistema" className="text-base font-semibold text-white/80 hover:text-white transition-colors">
-            Ecossistema
+            Plataforma
           </a>
           <a href="#planos" className="text-base font-semibold text-white/80 hover:text-white transition-colors">
             Planos

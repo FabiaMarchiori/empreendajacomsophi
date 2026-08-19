@@ -183,7 +183,7 @@ const HeroSection = () => {
       />
 
       <div className="relative z-10 mx-auto w-full max-w-[1440px] px-5 py-12 sm:px-6 lg:px-8 lg:py-20">
-        <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(340px,440px)] lg:gap-14">
+        <div className="grid items-center gap-10 min-[960px]:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] min-[960px]:gap-10 xl:gap-12">
           {/* Content */}
           <div className="min-w-0 space-y-6">
             <motion.p
@@ -250,7 +250,7 @@ const HeroSection = () => {
           </div>
 
           {/* Card */}
-          <div className="min-w-0">
+          <div className="min-w-0 min-[960px]:w-full min-[960px]:max-w-[560px] min-[960px]:justify-self-end">
             <ImportersCard />
           </div>
         </div>
