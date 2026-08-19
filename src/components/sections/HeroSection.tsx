@@ -172,7 +172,7 @@ const HeroSection = () => {
 
   return (
     <section
-      className="relative flex min-h-[calc(100svh-6rem)] items-center overflow-hidden pt-24"
+      className="relative flex items-center overflow-hidden pt-24 lg:min-h-[calc(100svh-2rem)]"
       style={{ background: "#0A192F" }}
     >
       {/* Soft ambient glows */}
