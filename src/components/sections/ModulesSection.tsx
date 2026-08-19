@@ -93,7 +93,7 @@ const ModulesSection = () => {
           style={{ background: "rgba(0,255,255,0.06)" }}
         />
 
-        <div className="container relative z-10 mx-auto grid items-center gap-10 px-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(340px,1.1fr)] lg:gap-10 xl:gap-14">
+        <div className="container relative z-10 mx-auto grid max-w-5xl items-center gap-10 px-6 lg:grid-cols-[minmax(0,1fr)_300px] lg:gap-16">
           <motion.div {...reveal()} className="mx-auto max-w-xl text-center lg:mx-0 lg:text-left">
             <span className="mb-5 inline-block text-xs font-extrabold uppercase tracking-[0.22em] text-cyan-300">
               VEJA POR DENTRO
@@ -109,7 +109,7 @@ const ModulesSection = () => {
           {/* ── iPhone Mockup with Video ── */}
           <motion.div
             {...reveal(0.1, 24)}
-            className="flex flex-col items-center justify-center lg:justify-self-end lg:pr-8 xl:pr-14"
+            className="flex flex-col items-center justify-center"
           >
             <span className="mb-5 inline-block rounded-full border border-cyan-300/15 bg-cyan-300/[0.06] px-4 py-1.5 text-[11px] font-extrabold uppercase tracking-[0.18em] text-cyan-200/85">
               TOUR DA PLATAFORMA

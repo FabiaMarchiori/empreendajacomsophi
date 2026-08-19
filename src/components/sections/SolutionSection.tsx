@@ -90,18 +90,30 @@ const SolutionSection = () => {
               <motion.div
                 key={category.name}
                 {...entrance(0.12 + i * 0.06, 14)}
-                whileHover={reduced ? undefined : { y: -4 }}
-                whileTap={reduced ? undefined : { scale: 0.985 }}
-                className="group min-w-[78%] max-w-[290px] snap-center rounded-2xl border border-cyan-300/15 bg-gradient-to-br from-white/[0.055] via-white/[0.025] to-cyan-300/[0.025] p-5 shadow-[0_18px_45px_rgba(0,0,0,0.22),0_0_24px_rgba(0,239,255,0.035)] transition-[border-color,background-color,box-shadow] duration-300 hover:border-cyan-300/35 hover:shadow-[0_24px_55px_rgba(0,0,0,0.32),0_0_34px_rgba(0,239,255,0.1)] focus-within:border-cyan-300/35 sm:min-w-[56%] md:min-w-0 md:max-w-none"
+                whileHover={reduced ? undefined : { y: -5, transition: { duration: 0.3 } }}
+                whileTap={reduced ? undefined : { scale: 0.98 }}
+                className="group relative min-w-[78%] max-w-[290px] snap-center overflow-hidden rounded-2xl border border-cyan-300/30 bg-[#0b2139] p-5 shadow-[0_22px_55px_rgba(0,0,0,0.4),0_0_34px_rgba(0,239,255,0.13),inset_0_1px_0_rgba(103,232,249,0.16)] transition-[border-color,background-color,box-shadow] duration-300 hover:border-cyan-200/60 hover:bg-[#0d2944] hover:shadow-[0_28px_65px_rgba(0,0,0,0.48),0_0_46px_rgba(0,239,255,0.24),inset_0_1px_0_rgba(165,243,252,0.28)] focus-within:border-cyan-200/60 sm:min-w-[56%] md:min-w-0 md:max-w-none"
               >
-                <div className="relative mb-4 flex h-14 w-14 items-center justify-center">
-                  <div className="absolute inset-1 rounded-full bg-cyan-300/10 blur-xl transition-[transform,opacity] duration-300 group-hover:scale-125 group-hover:bg-cyan-300/20 group-focus-within:scale-125 group-focus-within:bg-cyan-300/20" />
-                  <div className="relative flex h-14 w-14 items-center justify-center rounded-full border border-cyan-200/25 bg-gradient-to-br from-white/10 via-cyan-300/10 to-slate-400/5 shadow-[0_0_24px_rgba(0,239,255,0.08)] transition-[transform,border-color,box-shadow] duration-300 group-hover:scale-[1.04] group-hover:border-cyan-200/50 group-hover:shadow-[0_0_30px_rgba(0,239,255,0.16)] group-focus-within:scale-[1.04]">
-                    <category.icon className="h-6 w-6 text-cyan-200" strokeWidth={1.7} />
+                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_8%,rgba(34,211,238,0.16),transparent_42%)] opacity-90 transition-opacity duration-300 group-hover:opacity-100" />
+                <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/70 to-transparent shadow-[0_0_12px_rgba(103,232,249,0.65)]" />
+
+                <div className="relative z-10 mb-5 flex h-16 w-16 items-center justify-center">
+                  <motion.div
+                    className="absolute -inset-2 rounded-full bg-cyan-300/25 blur-2xl transition-colors duration-300 group-hover:bg-cyan-200/40"
+                    animate={reduced ? undefined : { opacity: [0.65, 0.95, 0.65], scale: [1, 1.08, 1] }}
+                    transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: i * 0.35 }}
+                  />
+                  <div
+                    className={`absolute inset-0 rounded-full border border-cyan-200/30 bg-cyan-300/[0.07] shadow-[0_0_26px_rgba(0,239,255,0.2),inset_0_0_18px_rgba(0,239,255,0.08)] transition-[transform,border-color,box-shadow] duration-300 group-hover:border-cyan-100/60 group-hover:shadow-[0_0_36px_rgba(0,239,255,0.34),inset_0_0_20px_rgba(0,239,255,0.14)] ${reduced ? "" : "group-hover:scale-110"}`}
+                  />
+                  <div
+                    className={`relative flex h-12 w-12 items-center justify-center rounded-full border border-white/15 bg-gradient-to-br from-cyan-100/20 via-cyan-300/10 to-slate-950/40 shadow-[inset_0_1px_0_rgba(255,255,255,0.14),0_8px_22px_rgba(0,0,0,0.3)] transition-transform duration-300 ${reduced ? "" : "group-hover:scale-105"}`}
+                  >
+                    <category.icon className="h-7 w-7 text-cyan-100 drop-shadow-[0_0_8px_rgba(103,232,249,0.5)]" strokeWidth={1.8} />
                   </div>
                 </div>
-                <h3 className="min-h-12 text-base font-bold leading-snug text-white">{category.name}</h3>
-                <p className="mt-2 text-sm font-semibold text-cyan-300/85">{category.count} importadoras</p>
+                <h3 className="relative z-10 min-h-12 text-base font-bold leading-snug text-white">{category.name}</h3>
+                <p className="relative z-10 mt-2 text-sm font-semibold text-cyan-200">{category.count} importadoras</p>
               </motion.div>
             ))}
           </div>
