@@ -1,149 +1,148 @@
-import { motion } from "framer-motion";
-import { Check, X, MessageCircle, ArrowRight, Sparkles } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
+import { ArrowRight, Check, MessageCircle, Sparkles } from "lucide-react";
 
 const WHATSAPP_LINK = "https://wa.me/5511983348749?text=Pagina%20de%20vendas";
 
 const features = [
-  "Central de Importadoras (+260)",
-  "15 Nichos organizados",
-  "Soph — IA orientadora",
-  "Criar seu MEI",
-  "Criar sua Logo",
-  "Registrar sua Marca",
-  "Vender nos Marketplaces",
-  "Ferramentas Gratuitas",
+  "Central de Fornecedores com mais de 320 opções",
+  "Categorias e nichos organizados",
   "Precificação",
+  "Gestão do negócio",
+  "Soph — sua sócia digital",
+  "Guias e ferramentas para quem empreende",
 ];
 
-const PricingSection = () => (
-  <section id="planos" className="relative py-24 overflow-hidden" style={{ background: '#0A192F' }}>
-    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-cyan-500/5 rounded-full blur-[150px]" />
-    <div className="container relative z-10 mx-auto px-4">
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className="text-center mb-16"
-      >
-        <span className="inline-block px-4 py-1.5 rounded-full bg-cyan-500/10 text-white text-sm font-bold mb-6 tracking-wide">
-          VALORES DE LANÇAMENTO • POR TEMPO LIMITADO
-        </span>
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight gradient-text">
-          Escolha o plano ideal para você
-        </h2>
-      </motion.div>
+const PricingSection = () => {
+  const reduced = useReducedMotion();
 
-      <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto items-stretch">
-        {/* Mensal */}
-        <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="card-premium p-8 flex flex-col"
-        >
-          <div className="mb-6">
-            <h3 className="text-xl font-bold text-white mb-1">Plano Mensal</h3>
-            <p className="text-base text-white">Valor de lançamento</p>
-          </div>
-          <div className="mb-6">
-            <span className="text-5xl font-extrabold text-white">R$ 47</span>
-            <span className="text-white">/mês</span>
-          </div>
-          <ul className="space-y-3 mb-8 flex-1">
-            {features.map((f, i) => (
-              <li key={i} className="flex items-center gap-3">
-                <Check className="w-5 h-5 text-cyan-400 shrink-0" />
-                <span className="text-white text-base">{f}</span>
-              </li>
-            ))}
-            <li className="flex items-start gap-3">
-              <X className="w-5 h-5 text-red-400 shrink-0 mt-0.5" />
-              <span className="text-white/60 text-base line-through">
-                ERP Soph Gestão
-              </span>
-              <span className="ml-auto inline-block px-2 py-0.5 rounded-md text-[11px] font-bold align-middle shrink-0"
-                style={{ background: 'rgba(0,239,255,0.12)', color: '#00EFFF', border: '1px solid rgba(0,239,255,0.25)' }}
-              >
-                Upgrade no Anual
-              </span>
-            </li>
-          </ul>
-          <a href="https://pay.kiwify.com.br/gNROnVP" target="_blank" rel="noopener noreferrer" className="btn-secondary-dark w-full py-4 rounded-xl text-center font-bold inline-flex items-center justify-center gap-2">
-            Assinar Mensal
-            <ArrowRight className="w-4 h-4" />
-          </a>
-        </motion.div>
+  const entrance = (x: number, delay = 0) => ({
+    initial: reduced ? { opacity: 0 } : { opacity: 0, x },
+    whileInView: reduced ? { opacity: 1 } : { opacity: 1, x: 0 },
+    viewport: { once: true, amount: 0.25 },
+    transition: { duration: reduced ? 0.01 : 0.55, delay: reduced ? 0 : delay, ease: "easeOut" as const },
+  });
 
-        {/* Anual */}
-        <motion.div
-          initial={{ opacity: 0, x: 30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="relative card-premium p-8 flex flex-col"
-          style={{
-            border: '1px solid rgba(0,239,255,0.4)',
-            boxShadow: '0 0 30px rgba(0,239,255,0.15), 0 0 80px rgba(0,239,255,0.06)',
-          }}
+  return (
+    <section id="planos" className="relative overflow-hidden bg-[#0A192F] py-20 md:py-24">
+      <div className="pointer-events-none absolute left-1/2 top-0 h-[400px] w-[800px] -translate-x-1/2 rounded-full bg-cyan-500/5 blur-[150px]" />
+      <div className="container relative z-10 mx-auto px-4">
+        <motion.header
+          initial={reduced ? { opacity: 0 } : { opacity: 0, y: 24 }}
+          whileInView={reduced ? { opacity: 1 } : { opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.45 }}
+          transition={{ duration: reduced ? 0.01 : 0.55, ease: "easeOut" }}
+          className="mx-auto mb-12 max-w-3xl text-center md:mb-14"
         >
-          <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-5 py-1.5 rounded-full text-sm font-bold flex items-center gap-1.5"
-            style={{
-              background: 'linear-gradient(135deg, #FFFFFF 0%, #00EFFF 100%)',
-              color: '#0A192F',
-            }}
+          <span className="mb-5 inline-block rounded-full bg-cyan-500/10 px-4 py-1.5 text-sm font-bold tracking-wide text-white">
+            PLANOS DO EMPREENDAJÁ
+          </span>
+          <h2 className="text-3xl font-extrabold leading-tight tracking-tight text-white md:text-4xl lg:text-5xl">
+            Escolha como você quer acessar a plataforma.
+          </h2>
+        </motion.header>
+
+        <div className="mx-auto grid max-w-4xl items-stretch gap-8 md:grid-cols-2">
+          <motion.article
+            {...entrance(-24)}
+            className="card-premium flex flex-col p-6 transition-[transform,border-color] duration-300 [@media(hover:hover)_and_(pointer:fine)]:hover:-translate-y-0.5 [@media(hover:hover)_and_(pointer:fine)]:hover:border-cyan-300/25 sm:p-8"
           >
-            <Sparkles className="w-4 h-4" />
-            MELHOR OFERTA
-          </div>
-          <div className="mb-6 mt-2">
-            <h3 className="text-xl font-bold text-white mb-1">Plano Anual</h3>
-            <p className="text-base text-white">Valor de lançamento + Bônus exclusivo</p>
-          </div>
-          <div className="mb-6">
-            <span className="text-5xl font-extrabold text-white">R$ 97</span>
-            <span className="text-white">/ano</span>
-          </div>
-          <ul className="space-y-3 mb-8 flex-1">
-            {features.map((f, i) => (
-              <li key={i} className="flex items-center gap-3">
-                <Check className="w-5 h-5 text-cyan-400 shrink-0" />
-                <span className="text-white text-base">{f}</span>
+            <header className="mb-6">
+              <h3 className="mb-1.5 text-xl font-bold text-white">Plano Mensal</h3>
+              <p className="text-base text-white/70">Para quem prefere começar mês a mês.</p>
+            </header>
+
+            <div className="mb-7">
+              <span className="text-5xl font-extrabold tracking-tight text-white">R$ 47</span>
+              <span className="text-white/70">/mês</span>
+            </div>
+
+            <ul className="mb-8 flex-1 space-y-3.5">
+              {features.map((feature) => (
+                <li key={feature} className="flex items-start gap-3">
+                  <Check aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-cyan-400" />
+                  <span className="text-base leading-snug text-white/85">{feature}</span>
+                </li>
+              ))}
+            </ul>
+
+            <a
+              href="https://pay.kiwify.com.br/gNROnVP"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-secondary-dark inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-xl px-5 py-4 text-center font-bold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A192F]"
+            >
+              Assinar Mensal
+              <ArrowRight aria-hidden="true" className="h-4 w-4" />
+            </a>
+          </motion.article>
+
+          <motion.article
+            {...entrance(24, 0.06)}
+            className="card-premium relative flex flex-col border-cyan-300/40 p-6 shadow-[0_0_30px_rgba(0,239,255,0.13),0_0_70px_rgba(0,239,255,0.05)] transition-[transform,border-color,box-shadow] duration-300 [@media(hover:hover)_and_(pointer:fine)]:hover:-translate-y-0.5 [@media(hover:hover)_and_(pointer:fine)]:hover:border-cyan-300/55 [@media(hover:hover)_and_(pointer:fine)]:hover:shadow-[0_0_34px_rgba(0,239,255,0.17),0_0_76px_rgba(0,239,255,0.06)] sm:p-8"
+          >
+            <div className="absolute -top-4 left-1/2 flex -translate-x-1/2 items-center gap-1.5 whitespace-nowrap rounded-full bg-gradient-to-br from-white to-cyan-300 px-5 py-1.5 text-sm font-bold text-[#0A192F]">
+              <Sparkles aria-hidden="true" className="h-4 w-4" />
+              MAIS VANTAJOSO
+            </div>
+
+            <header className="mb-6 mt-2">
+              <h3 className="mb-1.5 text-xl font-bold text-white">Plano Anual</h3>
+              <p className="text-base text-white/70">Para quem quer mais economia no acesso.</p>
+            </header>
+
+            <div className="mb-7">
+              <div>
+                <span className="text-5xl font-extrabold tracking-tight text-white">R$ 97</span>
+                <span className="text-white/70">/ano</span>
+              </div>
+              <p className="mt-2 text-sm font-medium text-cyan-200/80">Equivale a aproximadamente R$ 8,08/mês</p>
+            </div>
+
+            <ul className="mb-8 flex-1 space-y-3.5">
+              {features.map((feature) => (
+                <li key={feature} className="flex items-start gap-3">
+                  <Check aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-cyan-400" />
+                  <span className="text-base leading-snug text-white/85">{feature}</span>
+                </li>
+              ))}
+              <li className="flex items-start gap-3 rounded-lg border border-cyan-300/15 bg-cyan-400/[0.06] px-3 py-2.5">
+                <Check aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-cyan-300" />
+                <span className="text-base font-semibold leading-snug text-cyan-200">Inclui Soph Gestão</span>
               </li>
-            ))}
-            <li className="flex items-center gap-3">
-              <Check className="w-5 h-5 text-cyan-400 shrink-0" />
-              <span className="text-cyan-400 text-sm font-semibold">🎁 BÔNUS: ERP Soph Gestão</span>
-            </li>
-          </ul>
-          <a href="https://pay.kiwify.com.br/I4VDoSk" target="_blank" rel="noopener noreferrer" className="btn-glow w-full py-4 rounded-xl text-center font-bold text-lg inline-flex items-center justify-center gap-2">
-            Assinar Anual com Bônus
-            <ArrowRight className="w-5 h-5" />
+            </ul>
+
+            <a
+              href="https://pay.kiwify.com.br/I4VDoSk"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-glow inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-xl px-5 py-4 text-center text-lg font-bold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A192F]"
+            >
+              Assinar Plano Anual
+              <ArrowRight aria-hidden="true" className="h-5 w-5" />
+            </a>
+          </motion.article>
+        </div>
+
+        <motion.div
+          initial={reduced ? { opacity: 0 } : { opacity: 0, y: 16 }}
+          whileInView={reduced ? { opacity: 1 } : { opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: reduced ? 0.01 : 0.45, delay: reduced ? 0 : 0.18 }}
+          className="mt-10 text-center"
+        >
+          <a
+            href={WHATSAPP_LINK}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 font-semibold text-cyan-400 transition-colors hover:text-cyan-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-4 focus-visible:ring-offset-[#0A192F]"
+          >
+            <MessageCircle aria-hidden="true" className="h-5 w-5" />
+            Tem dúvidas? Fale no WhatsApp
           </a>
         </motion.div>
       </div>
-
-      {/* WhatsApp */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: 0.3 }}
-        className="text-center mt-10"
-      >
-        <a
-          href={WHATSAPP_LINK}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 text-cyan-400 hover:text-cyan-300 font-semibold transition-colors"
-        >
-          <MessageCircle className="w-5 h-5" />
-          Tem dúvidas? Fale no WhatsApp
-        </a>
-      </motion.div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 export default PricingSection;
