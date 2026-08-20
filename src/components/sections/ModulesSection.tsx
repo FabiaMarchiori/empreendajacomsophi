@@ -86,34 +86,34 @@ const ModulesSection = () => {
         </div>
       </section>
 
-      <section className="relative overflow-hidden py-20 lg:py-24" style={{ background: "#0a192f" }}>
+      <section className="relative overflow-hidden py-14 lg:py-16" style={{ background: "#0a192f" }}>
         {/* Ambient glow */}
         <div
-          className="pointer-events-none absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[160px] lg:left-[72%]"
+          className="pointer-events-none absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[160px] lg:left-[70%]"
           style={{ background: "rgba(0,255,255,0.06)" }}
         />
 
-        <div className="container relative z-10 mx-auto grid max-w-5xl grid-cols-1 items-center justify-center gap-10 px-6 min-[900px]:grid-cols-[minmax(0,1fr)_260px] min-[900px]:gap-14 lg:gap-16">
-          <motion.div {...reveal()} className="mx-auto max-w-xl text-center min-[900px]:mx-0 min-[900px]:max-w-[30rem] min-[900px]:text-left">
+        <div className="container relative z-10 mx-auto grid max-w-[1060px] grid-cols-1 items-center justify-center gap-10 px-6 min-[900px]:grid-cols-[minmax(0,1fr)_auto] min-[900px]:gap-12">
+          <motion.div {...reveal()} className="mx-auto max-w-xl text-center min-[900px]:mx-0 min-[900px]:max-w-[34rem] min-[900px]:text-left">
 
             <span className="mb-5 inline-block text-xs font-extrabold uppercase tracking-[0.22em] text-cyan-300">
               VEJA POR DENTRO
             </span>
-            <h2 className="text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-[2rem] lg:text-[2.25rem]">
-              Conheça a plataforma <span className="gradient-text">por dentro.</span>
+            <h2 className="text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-[2rem] lg:text-[2.1rem]">
+              Veja o EmpreendaJá <span className="gradient-text">por dentro.</span>
             </h2>
-            <p className="mt-5 text-base leading-relaxed text-white/75">
-              Veja como o EmpreendaJá funciona e conheça alguns dos recursos disponíveis na plataforma.
+            <p className="mt-4 text-base leading-relaxed text-white/75">
+              Conheça, em poucos minutos, alguns dos principais recursos da plataforma.
             </p>
           </motion.div>
 
           {/* ── iPhone Mockup with Video ── */}
           <motion.div
             {...reveal(0.1, 24)}
-            className="flex w-full max-w-[300px] flex-col items-center justify-center justify-self-center min-[900px]:max-w-[260px]"
+            className="flex w-full max-w-[300px] flex-col items-center justify-center justify-self-center min-[900px]:max-w-[225px]"
           >
 
-            <span className="mb-5 inline-block rounded-full border border-cyan-300/15 bg-cyan-300/[0.06] px-4 py-1.5 text-[11px] font-extrabold uppercase tracking-[0.18em] text-cyan-200/85">
+            <span className="mb-4 inline-block rounded-full border border-cyan-300/15 bg-cyan-300/[0.06] px-4 py-1.5 text-[11px] font-extrabold uppercase tracking-[0.18em] text-cyan-200/85">
               TOUR DA PLATAFORMA
             </span>
             <div className="relative">
@@ -128,7 +128,8 @@ const ModulesSection = () => {
 
               {/* iPhone Frame */}
               <div
-                className="relative mx-auto h-[620px] w-[300px] p-[14px] min-[900px]:h-[537px] min-[900px]:w-[260px] min-[900px]:p-[12px]"
+                className="relative mx-auto h-[620px] w-[300px] p-[14px] min-[900px]:h-[465px] min-[900px]:w-[225px] min-[900px]:p-[10px]"
+
                 style={{
                   background: "linear-gradient(145deg, #1a1a1a 0%, #2a2a2a 50%, #0f0f0f 100%)",
                   borderRadius: "3rem",
