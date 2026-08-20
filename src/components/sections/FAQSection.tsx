@@ -9,19 +9,19 @@ import {
 const WHATSAPP_LINK = "https://wa.me/5511983348749?text=Pagina%20de%20vendas";
 
 const faqs = [
-  { q: "O que está incluso no plano mensal?", a: "O plano mensal inclui: Central de Importadoras (+260 fornecedores), 15 Nichos, Soph (IA orientadora), Criar seu MEI, Criar sua Logo, Registrar sua Marca, Vender nos Marketplaces, Ferramentas Gratuitas e Precificação. O ERP Soph Gestão NÃO está incluído no plano mensal." },
-  { q: "O que está incluso no plano anual?", a: "O plano anual inclui tudo do mensal mais o bônus exclusivo de lançamento: ERP Soph Gestão, um sistema completo para gerenciar seu negócio." },
-  { q: "O ERP Soph Gestão está incluso em qual plano?", a: "O ERP Soph Gestão é um bônus exclusivo de lançamento do plano anual (R$ 97/ano). Ele NÃO está incluído no plano mensal." },
-  { q: "O acesso é imediato?", a: "Sim! Após a confirmação do pagamento, você recebe acesso imediato a todo o ecossistema." },
-  { q: "Vou ter acesso às importadoras e nichos?", a: "Sim. Ambos os planos incluem acesso completo à Central de Importadoras com mais de 260 fornecedores e aos 15 nichos organizados." },
-  { q: "A Soph está incluída?", a: "Sim! A Soph, nossa IA orientadora, está incluída em ambos os planos para guiar suas decisões." },
-  { q: "O ecossistema ajuda com MEI, logo, marca e marketplaces?", a: "Sim. Temos módulos dedicados para cada um desses temas, com orientações práticas e diretas." },
-  { q: "Os valores são de lançamento por tempo limitado?", a: "Sim! Os valores atuais (R$ 47/mês e R$ 97/ano) são preços especiais de lançamento e podem aumentar a qualquer momento." },
-  { q: "Tenho garantia?", a: "Sim! Você tem 7 dias de garantia incondicional. Se não gostar, devolvemos 100% do seu dinheiro." },
-  { q: "Como falar com o suporte?", a: "Você pode entrar em contato pelo WhatsApp a qualquer momento. Nossa equipe está pronta para te ajudar." },
-  { q: '"É só uma lista?"', a: "Não. O EmpreendaJá é um ecossistema completo com importadoras, ferramentas, IA, precificação, orientações para MEI, logo, marca, marketplaces e muito mais." },
-  { q: '"Vou conseguir usar mesmo começando do zero?"', a: "Sim. O ecossistema foi pensado para quem está começando. A Soph te orienta passo a passo e cada módulo é direto ao ponto." },
-  { q: '"Isso realmente vale a pena?"', a: "Com +260 importadoras, ferramentas gratuitas e tudo organizado em um só lugar, o retorno vem na primeira decisão certa que você tomar." },
+  { q: "O que está incluso no plano mensal?", a: "O plano mensal dá acesso à Central de Fornecedores com mais de 320 opções, categorias organizadas, Precificação, Soph — sua sócia digital, além de guias e ferramentas para ajudar na organização e nas decisões do seu negócio." },
+  { q: "O que está incluso no plano anual?", a: "O plano anual inclui todos os recursos do plano mensal e também o Soph Gestão, além de oferecer melhor custo para quem deseja permanecer na plataforma por mais tempo." },
+  { q: "O Soph Gestão está incluso em qual plano?", a: "O Soph Gestão está incluído no Plano Anual. No Plano Mensal, esse recurso não faz parte da assinatura." },
+  { q: "O acesso é imediato?", a: "Sim. Após a confirmação do pagamento, você recebe acesso aos recursos incluídos no plano contratado." },
+  { q: "Vou ter acesso aos fornecedores da plataforma?", a: "Sim. Os dois planos incluem acesso à Central de Fornecedores, com mais de 320 opções organizadas por diferentes categorias para facilitar sua pesquisa e comparação." },
+  { q: "Os fornecedores são atualizados?", a: "Sim. Novos fornecedores são adicionados periodicamente, e os fornecedores já cadastrados também passam por revisões para manter as informações da Central atualizadas." },
+  { q: "A Soph está incluída?", a: "Sim. A Soph está disponível nos dois planos para orientar você dentro da plataforma e ajudar com dúvidas e próximos passos relacionados ao seu negócio." },
+  { q: "A plataforma também ajuda com MEI, marca e marketplaces?", a: "Sim. O EmpreendaJá reúne guias e orientações práticas sobre temas importantes para quem está começando ou estruturando um negócio, incluindo MEI, marca, identidade e vendas em marketplaces." },
+  { q: "Tenho garantia?", a: "Sim. Você tem 7 dias para conhecer a plataforma. Se decidir não continuar dentro desse prazo, poderá solicitar o cancelamento conforme as condições da garantia." },
+  { q: "Posso cancelar o plano mensal quando quiser?", a: "Sim. O plano mensal pode ser cancelado sem fidelidade, conforme as condições da assinatura." },
+  { q: "Como falar com o suporte?", a: "Se precisar de ajuda, você pode entrar em contato com nossa equipe pelo WhatsApp." },
+  { q: "É só uma lista de fornecedores?", a: "Não. A Central de Fornecedores é uma das áreas do EmpreendaJá. A plataforma também reúne recursos de precificação, organização, orientação com a Soph, guias e ferramentas para apoiar diferentes etapas do seu negócio." },
+  { q: "Consigo usar mesmo se estiver começando do zero?", a: "Sim. O EmpreendaJá foi pensado também para quem está começando. Os recursos são organizados para facilitar os próximos passos, e a Soph pode ajudar você a encontrar orientações dentro da plataforma." },
 ];
 
 const FAQSection = () => (
