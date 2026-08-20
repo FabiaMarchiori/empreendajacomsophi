@@ -1,5 +1,15 @@
-import { motion } from "framer-motion";
-import { Star, Quote } from "lucide-react";
+import { useEffect, useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import { Quote } from "lucide-react";
+
+import {
+  type CarouselApi,
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 const testimonials = [
   { name: "Alik Nunes", text: "O material é excelente! Extremamente organizado e com a relação dos melhores fornecedores. Amei demais! O atendimento também é excelente." },
@@ -10,52 +20,114 @@ const testimonials = [
   { name: "Joseane", text: "Gente, pode comprar das lojas que estão na lista, é super confiável. Atenciosos, às vezes demoram para responder devido à demanda, mas vem tudo certinho. Com certeza comprarei mais. Fiz compras de Make e Acessórios." },
 ];
 
-const TestimonialsSection = () => (
-  <section className="relative py-24 overflow-hidden" style={{ background: '#0A192F' }}>
-    <div className="container relative z-10 mx-auto px-4">
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className="text-center mb-16"
-      >
-        <span className="inline-block px-4 py-1.5 rounded-full bg-cyan-500/10 text-white text-sm font-bold mb-6 tracking-wide">
-          PROVA SOCIAL
-        </span>
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight gradient-text">
-          Quem já está dentro, aprova
-        </h2>
-      </motion.div>
+const TestimonialsSection = () => {
+  const reduced = useReducedMotion();
+  const [api, setApi] = useState<CarouselApi>();
+  const [current, setCurrent] = useState(0);
+  const [count, setCount] = useState(0);
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-        {testimonials.map((t, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: i * 0.1 }}
-            className="card-premium p-6 relative"
+  useEffect(() => {
+    if (!api) return;
+
+    const updatePosition = () => {
+      setCurrent(api.selectedScrollSnap());
+      setCount(api.scrollSnapList().length);
+    };
+
+    updatePosition();
+    api.on("select", updatePosition);
+    api.on("reInit", updatePosition);
+
+    return () => {
+      api.off("select", updatePosition);
+      api.off("reInit", updatePosition);
+    };
+  }, [api]);
+
+  return (
+    <section className="relative overflow-hidden bg-[#0A192F] py-20 md:py-24">
+      <div className="pointer-events-none absolute left-1/2 top-1/2 h-[520px] w-[760px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-500/[0.035] blur-[150px]" />
+      <div className="container relative z-10 mx-auto px-4">
+        <motion.header
+          initial={reduced ? { opacity: 0 } : { opacity: 0, y: 24 }}
+          whileInView={reduced ? { opacity: 1 } : { opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: reduced ? 0.01 : 0.55, ease: "easeOut" }}
+          className="mx-auto mb-12 max-w-3xl text-center md:mb-14"
+        >
+          <span className="mb-5 inline-block rounded-full bg-cyan-500/10 px-4 py-1.5 text-sm font-bold tracking-wide text-white">
+            QUEM JÁ CONFIOU, CONTA
+          </span>
+          <h2 className="text-3xl font-extrabold leading-tight tracking-tight text-white md:text-4xl lg:text-5xl">
+            Experiências reais de quem já comprou com a gente.
+          </h2>
+          <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-white/70 md:text-lg">
+            Relatos de clientes que já utilizaram nossos materiais e fornecedores ao longo dessa jornada.
+          </p>
+        </motion.header>
+
+        <motion.div
+          initial={reduced ? { opacity: 0 } : { opacity: 0, y: 20 }}
+          whileInView={reduced ? { opacity: 1 } : { opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: reduced ? 0.01 : 0.5, ease: "easeOut" }}
+          className="mx-auto max-w-6xl"
+        >
+          <Carousel
+            setApi={setApi}
+            opts={{ align: "start", loop: false, skipSnaps: false }}
+            aria-label="Depoimentos de clientes"
+            className="px-0 md:px-11"
           >
-            <Quote className="w-8 h-8 text-cyan-500/20 absolute top-4 right-4" />
-            <div className="flex gap-1 mb-4">
-              {[...Array(5)].map((_, j) => (
-                <Star key={j} className="w-4 h-4 fill-cyan-400 text-cyan-400" />
+            <CarouselContent className="-ml-4 items-stretch">
+              {testimonials.map((testimonial, index) => (
+                <CarouselItem
+                  key={testimonial.name}
+                  aria-label={(index + 1) + " de " + testimonials.length}
+                  className="basis-[88%] pl-4 sm:basis-1/2 lg:basis-1/3"
+                >
+                  <article className="group relative flex h-full min-h-[19rem] flex-col overflow-hidden rounded-2xl border border-cyan-300/15 bg-[#0b2139]/90 p-6 shadow-[0_20px_48px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(103,232,249,0.1)] transition-[transform,border-color,box-shadow] duration-300 [@media(hover:hover)_and_(pointer:fine)]:hover:-translate-y-0.5 [@media(hover:hover)_and_(pointer:fine)]:hover:border-cyan-300/30 [@media(hover:hover)_and_(pointer:fine)]:hover:shadow-[0_24px_54px_rgba(0,0,0,0.34),0_0_28px_rgba(0,239,255,0.08),inset_0_1px_0_rgba(103,232,249,0.14)]">
+                    <Quote aria-hidden="true" className="absolute right-5 top-5 h-8 w-8 text-cyan-300/15" />
+                    <p className="relative z-10 mb-7 pr-6 leading-relaxed text-white/80">“{testimonial.text}”</p>
+                    <footer className="mt-auto flex items-center gap-3 border-t border-white/[0.07] pt-5">
+                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-cyan-300/15 bg-cyan-500/10">
+                        <span className="text-sm font-bold text-cyan-300">{testimonial.name.charAt(0)}</span>
+                      </div>
+                      <p className="font-semibold text-white">{testimonial.name}</p>
+                    </footer>
+                  </article>
+                </CarouselItem>
               ))}
-            </div>
-            <p className="text-white/85 mb-4 leading-relaxed">"{t.text}"</p>
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-cyan-500/20 flex items-center justify-center">
-                <span className="text-cyan-400 font-bold text-sm">{t.name.charAt(0)}</span>
-              </div>
-              <p className="font-semibold text-white">{t.name}</p>
-            </div>
-          </motion.div>
-        ))}
+            </CarouselContent>
+
+            <CarouselPrevious
+              aria-label="Ver depoimentos anteriores"
+              className="left-0 hidden h-9 w-9 border-cyan-300/20 bg-[#0b2139] text-cyan-200 hover:border-cyan-300/40 hover:bg-[#0d2944] focus-visible:ring-2 focus-visible:ring-cyan-300 md:flex"
+            />
+            <CarouselNext
+              aria-label="Ver próximos depoimentos"
+              className="right-0 hidden h-9 w-9 border-cyan-300/20 bg-[#0b2139] text-cyan-200 hover:border-cyan-300/40 hover:bg-[#0d2944] focus-visible:ring-2 focus-visible:ring-cyan-300 md:flex"
+            />
+          </Carousel>
+
+          <div className="mt-7 flex items-center justify-center gap-2" aria-label={"Depoimento " + (current + 1) + " de " + count}>
+            {Array.from({ length: count }).map((_, index) => (
+              <button
+                key={index}
+                type="button"
+                onClick={() => api?.scrollTo(index)}
+                aria-label={"Ir para o depoimento " + (index + 1)}
+                aria-current={index === current ? "true" : undefined}
+                className={"h-2 rounded-full transition-[width,background-color] duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A192F] " + (
+                  index === current ? "w-6 bg-cyan-300" : "w-2 bg-white/25 hover:bg-white/40"
+                )}
+              />
+            ))}
+          </div>
+        </motion.div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 export default TestimonialsSection;
