@@ -1,4 +1,12 @@
-import { motion, useInView, useReducedMotion, animate } from "framer-motion";
+import {
+  motion,
+  type MotionValue,
+  useInView,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+  useTransform,
+} from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
@@ -11,71 +19,120 @@ const NICHES = [
   { name: "E muito mais", count: "+" },
 ];
 
-/* Animated supplier counter: 0 -> 320 */
-const Counter = ({ start, reduced }: { start: boolean; reduced: boolean }) => {
-  const [value, setValue] = useState(reduced ? 320 : 0);
+const NicheRow = ({
+  niche,
+  index,
+  inView,
+  reduced,
+  desktopMotion,
+  scrollProgress,
+}: {
+  niche: (typeof NICHES)[number];
+  index: number;
+  inView: boolean;
+  reduced: boolean;
+  desktopMotion: boolean;
+  scrollProgress: MotionValue<number>;
+}) => {
+  const start = 0.38 + index * 0.035;
+  const opacity = useTransform(scrollProgress, [0, start, start + 0.14, 1], [0.78, 0.78, 1, 1]);
+  const y = useTransform(scrollProgress, [0, start, start + 0.14, 1], [3, 3, 0, 0]);
 
-  useEffect(() => {
-    if (!start) return;
-    if (reduced) {
-      setValue(320);
-      return;
-    }
-    const controls = animate(0, 320, {
-      duration: 1.4,
-      ease: "easeOut",
-      onUpdate: (v) => setValue(Math.round(v)),
-    });
-    return () => controls.stop();
-  }, [start, reduced]);
-
-  return <>{value}</>;
+  return (
+    <motion.div
+      initial={reduced ? false : { opacity: 0, y: 10 }}
+      animate={inView || reduced ? { opacity: 1, y: 0 } : undefined}
+      transition={{ duration: 0.35, delay: reduced ? 0 : 0.5 + index * 0.08 }}
+      className="flex items-center justify-between rounded-lg px-3 py-2.5 transition-colors duration-500"
+      style={{
+        background: "rgba(255,255,255,0.03)",
+        border: "1px solid rgba(0,239,255,0.1)",
+        opacity: desktopMotion ? opacity : 1,
+        y: desktopMotion ? y : 0,
+      }}
+    >
+      <span className="text-[13px] font-semibold leading-tight text-white sm:text-sm">{niche.name}</span>
+      <span
+        className="shrink-0 rounded-md px-2 py-0.5 text-[11px] font-bold"
+        style={{
+          background: "rgba(0,239,255,0.12)",
+          color: "#00EFFF",
+          border: "1px solid rgba(0,239,255,0.25)",
+        }}
+      >
+        {niche.count}
+      </span>
+    </motion.div>
+  );
 };
 
-const ImportersCard = () => {
+const ImportersCard = ({ scrollProgress }: { scrollProgress: MotionValue<number> }) => {
   const ref = useRef<HTMLDivElement>(null);
   const reduced = !!useReducedMotion();
   const inView = useInView(ref, { once: true, amount: 0.35 });
-  const [highlight, setHighlight] = useState(-1);
+  const [desktopMotion, setDesktopMotion] = useState(false);
+  const [hoverMotion, setHoverMotion] = useState(false);
+  const panelScale = useTransform(scrollProgress, [0, 0.36, 0.72, 1], [1, 1.028, 1.018, 1]);
+  const panelY = useTransform(scrollProgress, [0, 0.4, 0.75, 1], [0, -5, -2, 0]);
+  const glowOpacity = useTransform(scrollProgress, [0, 0.38, 0.72, 1], [0.72, 1, 0.84, 0.72]);
+  const primaryScale = useTransform(scrollProgress, [0, 0.22, 0.42, 1], [1, 1, 1.025, 1]);
+  const primaryGlow = useTransform(scrollProgress, [0, 0.22, 0.45, 1], [0.18, 0.18, 0.34, 0.18]);
+  const primaryShadow = useTransform(primaryGlow, (value) => `0 0 24px rgba(0,239,255,${value})`);
+  const secondaryOpacity = useTransform(scrollProgress, [0, 0.3, 0.5, 1], [0.84, 0.84, 1, 1]);
 
   useEffect(() => {
-    if (!inView || reduced) return;
-    // brief simulated navigation through categories, then rest
-    const timers: number[] = [];
-    [0, 1, 2].forEach((step, i) => {
-      timers.push(
-        window.setTimeout(() => setHighlight(step), 2000 + i * 900),
-        window.setTimeout(() => setHighlight(-1), 2000 + i * 900 + 700),
-      );
-    });
-    return () => timers.forEach(clearTimeout);
-  }, [inView, reduced]);
+    const desktopMedia = window.matchMedia("(min-width: 960px)");
+    const hoverMedia = window.matchMedia("(hover: hover) and (pointer: fine)");
+    const update = () => {
+      setDesktopMotion(desktopMedia.matches && !reduced);
+      setHoverMotion(desktopMedia.matches && hoverMedia.matches && !reduced);
+    };
+
+    update();
+    desktopMedia.addEventListener("change", update);
+    hoverMedia.addEventListener("change", update);
+    return () => {
+      desktopMedia.removeEventListener("change", update);
+      hoverMedia.removeEventListener("change", update);
+    };
+  }, [reduced]);
 
   return (
     <motion.div
       ref={ref}
-      initial={reduced ? false : { opacity: 0, y: 24 }}
+      initial={reduced ? false : { opacity: 0.86, y: 12 }}
       animate={inView || reduced ? { opacity: 1, y: 0 } : undefined}
       transition={{ duration: 0.7, ease: "easeOut" }}
       className="relative w-full will-change-transform"
     >
-      <div
+      <motion.div className="relative w-full" style={desktopMotion ? { scale: panelScale, y: panelY } : undefined}>
+        <motion.div
         aria-hidden
         className="pointer-events-none absolute -inset-6 rounded-[2rem]"
         style={{
           background: "radial-gradient(ellipse at center, rgba(0,239,255,0.13) 0%, transparent 70%)",
           filter: "blur(50px)",
+          opacity: desktopMotion ? glowOpacity : 0.72,
         }}
       />
 
-      <div
-        className="relative w-full overflow-hidden rounded-2xl"
-        style={{
-          background: "linear-gradient(145deg, #0f2744 0%, #091b30 100%)",
-          border: "1px solid rgba(0,239,255,0.2)",
-          boxShadow: "0 0 60px rgba(0,239,255,0.08), 0 30px 60px rgba(0,0,0,0.45)",
-        }}
-      >
+        <motion.div
+          whileHover={
+            hoverMotion
+              ? {
+                  y: -2,
+                  boxShadow: "0 0 68px rgba(0,239,255,0.12), 0 34px 64px rgba(0,0,0,0.46)",
+                }
+              : undefined
+          }
+          transition={{ duration: 0.3, ease: "easeOut" }}
+          className="relative w-full overflow-hidden rounded-2xl"
+          style={{
+            background: "linear-gradient(145deg, #0f2744 0%, #091b30 100%)",
+            border: "1px solid rgba(0,239,255,0.2)",
+            boxShadow: "0 0 60px rgba(0,239,255,0.08), 0 30px 60px rgba(0,0,0,0.45)",
+          }}
+        >
         {/* Top bar */}
         <div
           className="flex items-center justify-between gap-3 border-b px-4 py-3 sm:px-5"
@@ -94,54 +151,49 @@ const ImportersCard = () => {
 
         {/* Stats */}
         <div className="grid grid-cols-2 gap-3 px-4 pt-5 sm:px-5">
-          <div
+          <motion.div
             className="rounded-xl px-4 py-3"
-            style={{ background: "rgba(0,239,255,0.06)", border: "1px solid rgba(0,239,255,0.18)" }}
+            style={{
+              background: "rgba(0,239,255,0.06)",
+              border: "1px solid rgba(0,239,255,0.18)",
+              scale: desktopMotion ? primaryScale : 1,
+              boxShadow: desktopMotion ? primaryShadow : "0 0 24px rgba(0,239,255,0.18)",
+            }}
           >
             <div className="text-2xl font-extrabold leading-none text-white tabular-nums">
-              <Counter start={inView} reduced={reduced} />
+              320
             </div>
             <div className="mt-1 text-[11px] font-semibold uppercase tracking-wide text-cyan-300/90">
               Fornecedores
             </div>
-          </div>
-          <div
+          </motion.div>
+          <motion.div
             className="rounded-xl px-4 py-3"
-            style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)" }}
+            style={{
+              background: "rgba(255,255,255,0.03)",
+              border: "1px solid rgba(255,255,255,0.08)",
+              opacity: desktopMotion ? secondaryOpacity : 1,
+            }}
           >
             <div className="text-2xl font-extrabold leading-none text-white">14</div>
             <div className="mt-1 text-[11px] font-semibold uppercase tracking-wide text-white/70">
               Nichos ativos
             </div>
-          </div>
+          </motion.div>
         </div>
 
         {/* Niches */}
         <div className="grid grid-cols-2 gap-3 p-4 sm:p-5">
           {NICHES.map((n, i) => (
-            <motion.div
+            <NicheRow
               key={n.name}
-              initial={reduced ? false : { opacity: 0, y: 10 }}
-              animate={inView || reduced ? { opacity: 1, y: 0 } : undefined}
-              transition={{ duration: 0.35, delay: reduced ? 0 : 0.5 + i * 0.08 }}
-              className="flex items-center justify-between rounded-lg px-3 py-2.5 transition-colors duration-500"
-              style={{
-                background: highlight === i ? "rgba(0,239,255,0.09)" : "rgba(255,255,255,0.03)",
-                border: `1px solid ${highlight === i ? "rgba(0,239,255,0.4)" : "rgba(0,239,255,0.1)"}`,
-              }}
-            >
-              <span className="text-[13px] font-semibold leading-tight text-white sm:text-sm">{n.name}</span>
-              <span
-                className="shrink-0 rounded-md px-2 py-0.5 text-[11px] font-bold"
-                style={{
-                  background: "rgba(0,239,255,0.12)",
-                  color: "#00EFFF",
-                  border: "1px solid rgba(0,239,255,0.25)",
-                }}
-              >
-                {n.count}
-              </span>
-            </motion.div>
+              niche={n}
+              index={i}
+              inView={inView}
+              reduced={reduced}
+              desktopMotion={desktopMotion}
+              scrollProgress={scrollProgress}
+            />
           ))}
         </div>
 
@@ -154,24 +206,29 @@ const ImportersCard = () => {
             <span className="font-semibold text-cyan-300/80">+ novos nichos em breve</span>
           </div>
         </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </motion.div>
   );
 };
 
 const HeroSection = () => {
+  const sectionRef = useRef<HTMLElement>(null);
   const reduced = !!useReducedMotion();
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end start"] });
+  const smoothProgress = useSpring(scrollYProgress, { stiffness: 105, damping: 24, mass: 0.35 });
   const fade = (delay: number) =>
     reduced
       ? {}
       : {
-          initial: { opacity: 0, y: 18 },
+          initial: { opacity: 0.96, y: 6 },
           animate: { opacity: 1, y: 0 },
-          transition: { duration: 0.55, delay, ease: "easeOut" as const },
+          transition: { duration: 0.4, delay: delay * 0.45, ease: "easeOut" as const },
         };
 
   return (
     <section
+      ref={sectionRef}
       className="relative flex items-center overflow-hidden pt-24 lg:min-h-[calc(100svh-2rem)]"
       style={{ background: "#0A192F" }}
     >
@@ -254,7 +311,7 @@ const HeroSection = () => {
 
           {/* Card */}
           <div className="min-w-0 min-[960px]:w-full min-[960px]:max-w-[560px] min-[960px]:justify-self-end xl:origin-right xl:scale-[1.1]">
-            <ImportersCard />
+            <ImportersCard scrollProgress={smoothProgress} />
           </div>
         </div>
       </div>
