@@ -90,24 +90,50 @@ const SolutionSection = () => {
               <motion.div
                 key={category.name}
                 {...entrance(0.12 + i * 0.06, 14)}
-                whileHover={reduced ? undefined : { y: -5, transition: { duration: 0.3 } }}
-                whileTap={reduced ? undefined : { scale: 0.98 }}
-                className="group relative min-w-[78%] max-w-[290px] snap-center overflow-hidden rounded-2xl border border-cyan-300/30 bg-[#0b2139] p-5 shadow-[0_22px_55px_rgba(0,0,0,0.4),0_0_34px_rgba(0,239,255,0.13),inset_0_1px_0_rgba(103,232,249,0.16)] transition-[border-color,background-color,box-shadow] duration-300 hover:border-cyan-200/60 hover:bg-[#0d2944] hover:shadow-[0_28px_65px_rgba(0,0,0,0.48),0_0_46px_rgba(0,239,255,0.24),inset_0_1px_0_rgba(165,243,252,0.28)] focus-within:border-cyan-200/60 sm:min-w-[56%] md:min-w-0 md:max-w-none"
+                variants={{
+                  hover: {
+                    y: reduced ? 0 : -4,
+                    borderColor: "rgba(165, 243, 252, 0.58)",
+                    backgroundColor: "#0d2944",
+                    boxShadow:
+                      "0 26px 58px rgba(0,0,0,0.46), 0 0 40px rgba(0,239,255,0.2), inset 0 1px 0 rgba(165,243,252,0.24)",
+                    transition: { duration: reduced ? 0 : 0.28, ease: "easeOut" },
+                  },
+                  tap: {
+                    scale: reduced ? 1 : 0.98,
+                    borderColor: "rgba(103, 232, 249, 0.5)",
+                    boxShadow:
+                      "0 18px 42px rgba(0,0,0,0.42), 0 0 38px rgba(0,239,255,0.2), inset 0 1px 0 rgba(103,232,249,0.2)",
+                    transition: { duration: reduced ? 0 : 0.12 },
+                  },
+                }}
+                whileHover="hover"
+                whileTap="tap"
+                className="relative min-w-[78%] max-w-[290px] snap-center overflow-hidden rounded-2xl border border-cyan-300/30 bg-[#0b2139] p-5 shadow-[0_22px_55px_rgba(0,0,0,0.4),0_0_34px_rgba(0,239,255,0.13),inset_0_1px_0_rgba(103,232,249,0.16)] sm:min-w-[56%] md:min-w-0 md:max-w-none"
               >
-                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_8%,rgba(34,211,238,0.16),transparent_42%)] opacity-90 transition-opacity duration-300 group-hover:opacity-100" />
+                <motion.div
+                  variants={{ hover: { opacity: 1 }, tap: { opacity: 1 } }}
+                  className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_8%,rgba(34,211,238,0.16),transparent_42%)] opacity-90"
+                />
                 <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/70 to-transparent shadow-[0_0_12px_rgba(103,232,249,0.65)]" />
 
                 <div className="relative z-10 mb-5 flex h-20 w-20 items-center justify-center">
                   <motion.div
-                    className="absolute -inset-1 rounded-full bg-cyan-300/25 blur-2xl transition-colors duration-300 group-hover:bg-cyan-200/40"
-                    animate={reduced ? undefined : { opacity: [0.65, 0.95, 0.65], scale: [1, 1.08, 1] }}
-                    transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: i * 0.35 }}
+                    variants={{ hover: { opacity: 1 }, tap: { opacity: 1 } }}
+                    className="absolute -inset-1 rounded-full bg-cyan-300/30 blur-2xl"
+                    animate={reduced ? undefined : { opacity: [0.58, 0.82, 0.58] }}
+                    transition={{ duration: 5.6, repeat: Infinity, ease: "easeInOut", delay: i * 0.35 }}
                   />
-                  <img
+                  <motion.img
                     src={category.image}
                     alt=""
                     aria-hidden="true"
-                    className={`relative h-20 w-20 rounded-full object-cover shadow-[0_10px_28px_rgba(0,0,0,0.35),0_0_24px_rgba(0,239,255,0.22)] transition-[transform,filter] duration-300 group-hover:brightness-110 ${reduced ? "" : "group-hover:-translate-y-0.5 group-hover:scale-105"}`}
+                    variants={{
+                      hover: { y: reduced ? 0 : -2, scale: reduced ? 1 : 1.03, filter: "brightness(1.08)" },
+                      tap: { scale: reduced ? 1 : 0.99, filter: "brightness(1.06)" },
+                    }}
+                    transition={{ duration: reduced ? 0 : 0.28, ease: "easeOut" }}
+                    className="relative h-20 w-20 rounded-full object-cover shadow-[0_10px_28px_rgba(0,0,0,0.35),0_0_24px_rgba(0,239,255,0.22)]"
                   />
                 </div>
                 <h3 className="relative z-10 min-h-12 text-base font-bold leading-snug text-white">{category.name}</h3>
