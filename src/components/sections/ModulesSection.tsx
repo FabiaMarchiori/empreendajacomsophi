@@ -93,16 +93,16 @@ const ModulesSection = () => {
           style={{ background: "rgba(0,255,255,0.06)" }}
         />
 
-        <div className="container relative z-10 mx-auto grid max-w-5xl grid-cols-1 items-center justify-center gap-10 px-6 min-[900px]:grid-cols-[minmax(0,1fr)_300px] min-[900px]:gap-14 lg:gap-16">
-          <motion.div {...reveal()} className="mx-auto max-w-xl text-center min-[900px]:mx-0 min-[900px]:text-left">
+        <div className="container relative z-10 mx-auto grid max-w-5xl grid-cols-1 items-center justify-center gap-10 px-6 min-[900px]:grid-cols-[minmax(0,1fr)_260px] min-[900px]:gap-14 lg:gap-16">
+          <motion.div {...reveal()} className="mx-auto max-w-xl text-center min-[900px]:mx-0 min-[900px]:max-w-[30rem] min-[900px]:text-left">
 
             <span className="mb-5 inline-block text-xs font-extrabold uppercase tracking-[0.22em] text-cyan-300">
               VEJA POR DENTRO
             </span>
-            <h2 className="text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl lg:text-[2.75rem]">
+            <h2 className="text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-[2rem] lg:text-[2.25rem]">
               Conheça a plataforma <span className="gradient-text">por dentro.</span>
             </h2>
-            <p className="mt-6 text-base leading-relaxed text-white/75 sm:text-lg">
+            <p className="mt-5 text-base leading-relaxed text-white/75">
               Veja como o EmpreendaJá funciona e conheça alguns dos recursos disponíveis na plataforma.
             </p>
           </motion.div>
@@ -110,7 +110,7 @@ const ModulesSection = () => {
           {/* ── iPhone Mockup with Video ── */}
           <motion.div
             {...reveal(0.1, 24)}
-            className="flex w-full max-w-[300px] flex-col items-center justify-center justify-self-center min-[900px]:justify-self-end"
+            className="flex w-full max-w-[300px] flex-col items-center justify-center justify-self-center min-[900px]:max-w-[260px]"
           >
 
             <span className="mb-5 inline-block rounded-full border border-cyan-300/15 bg-cyan-300/[0.06] px-4 py-1.5 text-[11px] font-extrabold uppercase tracking-[0.18em] text-cyan-200/85">
@@ -128,18 +128,16 @@ const ModulesSection = () => {
 
               {/* iPhone Frame */}
               <div
-                className="relative mx-auto"
+                className="relative mx-auto h-[620px] w-[300px] p-[14px] min-[900px]:h-[537px] min-[900px]:w-[260px] min-[900px]:p-[12px]"
                 style={{
-                  width: "300px",
-                  height: "620px",
                   background: "linear-gradient(145deg, #1a1a1a 0%, #2a2a2a 50%, #0f0f0f 100%)",
                   borderRadius: "3rem",
-                  padding: "14px",
                   boxShadow:
                     "0 0 60px rgba(0,255,255,0.35), 0 0 120px rgba(0,255,255,0.15), inset 0 0 2px rgba(255,255,255,0.1), 0 25px 50px rgba(0,0,0,0.6)",
                   border: "1px solid rgba(0,255,255,0.25)",
                 }}
               >
+
                 {/* Side buttons */}
                 <div className="absolute left-[-3px] top-[110px] h-[32px] w-[3px] rounded-l-sm bg-[#1a1a1a]" />
                 <div className="absolute left-[-3px] top-[160px] h-[55px] w-[3px] rounded-l-sm bg-[#1a1a1a]" />
