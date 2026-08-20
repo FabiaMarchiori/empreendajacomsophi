@@ -17,13 +17,11 @@ const FinalCTASection = () => (
         className="max-w-3xl mx-auto text-center space-y-8"
       >
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight">
-          <span className="text-white">Chega de improvisar. </span>
-          <span className="gradient-text">Seu negócio merece mais direção.</span>
+          <span className="text-white">Seu negócio não precisa depender de </span>
+          <span className="gradient-text">tentativa e erro.</span>
         </h2>
         <p className="text-lg md:text-xl text-white/85 max-w-2xl mx-auto leading-relaxed">
-          Você já perdeu tempo demais tentando sozinho. O Ecossistema EmpreendaJá com Soph reúne tudo 
-          que você precisa para começar com clareza, economizar e crescer com organização. 
-          Os valores de lançamento são por tempo limitado — aproveite agora.
+          Tenha fornecedores, ferramentas e orientação reunidos em uma plataforma para ajudar você a comprar, precificar, organizar e tomar decisões com mais clareza.
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">

@@ -7,7 +7,7 @@ const Footer = () => (
         className="h-auto w-[200px] sm:w-[260px] mx-auto object-contain"
       />
       <p className="text-sm text-white/70 max-w-lg mx-auto leading-relaxed">
-        © 2024 EmpreendaJá. Todos os direitos reservados. O ecossistema mais completo para o empreendedor digital.
+        EmpreendaJá com Soph — fornecedores, ferramentas e orientação para quem empreende. © 2026 EmpreendaJá com Soph. Todos os direitos reservados.
       </p>
     </div>
   </footer>

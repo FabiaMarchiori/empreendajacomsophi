@@ -36,14 +36,14 @@ const ExpansionSection = () => (
         className="text-center mb-14 max-w-3xl mx-auto"
       >
         <span className="inline-block px-4 py-1.5 rounded-full bg-cyan-500/10 text-white text-sm font-bold mb-6 tracking-wide">
-          BÔNUS FUTUROS DO ECOSSISTEMA
+          NOVIDADES QUE ESTÃO POR VIR
         </span>
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight mb-6">
-          <span className="text-white">O ecossistema continua </span>
-          <span className="gradient-text">crescendo com você</span>
+          <span className="text-white">A plataforma continua crescendo </span>
+          <span className="gradient-text">com você.</span>
         </h2>
         <p className="text-lg text-white leading-relaxed">
-          Já assinante, você acompanha a chegada de novos fornecedores e nichos que serão liberados ao longo do tempo para ampliar suas oportunidades de compra e margem.
+          Novos recursos estão sendo preparados para ampliar ainda mais as possibilidades dentro do EmpreendaJá.
         </p>
       </motion.div>
 
@@ -114,7 +114,7 @@ const ExpansionSection = () => (
         }}
       >
         <p className="text-white/70 text-xs md:text-sm">
-          Esses acessos ainda não estão inclusos na assinatura atual — serão liberados gradualmente conforme a expansão do ecossistema.
+          Esses recursos ainda não fazem parte da assinatura atual e serão disponibilizados gradualmente conforme forem lançados na plataforma.
         </p>
       </motion.div>
     </div>

@@ -20,12 +20,10 @@ const GuaranteeSection = () => (
           className="mx-auto mb-8"
         />
         <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight gradient-text mb-6">
-          7 dias de garantia incondicional
+          7 dias para conhecer a plataforma com tranquilidade.
         </h2>
         <p className="text-lg text-white/85 leading-relaxed max-w-2xl mx-auto">
-          Acesse o ecossistema completo, explore todas as importadoras, use a Soph, navegue pelos módulos. 
-          Se dentro de 7 dias você sentir que não é pra você, devolvemos 100% do seu investimento. 
-          Sem burocracia, sem perguntas. Sua entrada é segura.
+          Acesse o EmpreendaJá, conheça os recursos e veja se a plataforma faz sentido para o seu negócio. Se decidir não continuar dentro do prazo de 7 dias, você poderá solicitar o cancelamento conforme as condições da garantia.
         </p>
       </motion.div>
     </div>
