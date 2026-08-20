@@ -93,7 +93,7 @@ const ModulesSection = () => {
           style={{ background: "rgba(0,255,255,0.06)" }}
         />
 
-        <div className="container relative z-10 mx-auto grid max-w-[1060px] grid-cols-1 items-center justify-center gap-10 px-6 min-[900px]:grid-cols-[minmax(0,1fr)_auto] min-[900px]:gap-12">
+        <div className="container relative z-10 mx-auto grid max-w-[1060px] grid-cols-1 items-center justify-center gap-10 px-6 min-[900px]:grid-cols-[minmax(0,32rem)_auto] min-[900px]:justify-center min-[900px]:gap-14">
           <motion.div {...reveal()} className="mx-auto max-w-xl text-center min-[900px]:mx-0 min-[900px]:max-w-[34rem] min-[900px]:text-left">
 
             <span className="mb-5 inline-block text-xs font-extrabold uppercase tracking-[0.22em] text-cyan-300">
