@@ -2,24 +2,24 @@ import { motion, useReducedMotion } from "framer-motion";
 import {
   ArrowDown,
   Contact,
-  Gamepad2,
-  Gem,
-  Gift,
   MapPinned,
-  Notebook,
-  Paintbrush,
   Scale,
   Search,
-  ShoppingBag,
 } from "lucide-react";
+import bolsasMochilasMalas from "@/assets/categories/bolsas-mochilas-malas.png";
+import bijuteriasSemijoias from "@/assets/categories/bijuterias-semijoias.png";
+import gamesEletronicos from "@/assets/categories/games-eletronicos.png";
+import maquiagem from "@/assets/categories/maquiagem.png";
+import papelariaFofa from "@/assets/categories/papelaria-fofa.png";
+import presentesPelucias from "@/assets/categories/presentes-pelucias.png";
 
 const categories = [
-  { icon: ShoppingBag, name: "Bolsas, Mochilas e Malas", count: 66 },
-  { icon: Gem, name: "Bijuterias e Semijoias", count: 39 },
-  { icon: Gift, name: "Presentes e Pelúcias", count: 34 },
-  { icon: Paintbrush, name: "Maquiagem", count: 30 },
-  { icon: Notebook, name: "Papelaria Fofa", count: 29 },
-  { icon: Gamepad2, name: "Games e Eletrônicos", count: 24 },
+  { image: bolsasMochilasMalas, name: "Bolsas, Mochilas e Malas", count: 66 },
+  { image: bijuteriasSemijoias, name: "Bijuterias e Semijoias", count: 39 },
+  { image: presentesPelucias, name: "Presentes e Pelúcias", count: 34 },
+  { image: maquiagem, name: "Maquiagem", count: 30 },
+  { image: papelariaFofa, name: "Papelaria Fofa", count: 29 },
+  { image: gamesEletronicos, name: "Games e Eletrônicos", count: 24 },
 ];
 
 const benefits = [
@@ -97,20 +97,18 @@ const SolutionSection = () => {
                 <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_8%,rgba(34,211,238,0.16),transparent_42%)] opacity-90 transition-opacity duration-300 group-hover:opacity-100" />
                 <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/70 to-transparent shadow-[0_0_12px_rgba(103,232,249,0.65)]" />
 
-                <div className="relative z-10 mb-5 flex h-16 w-16 items-center justify-center">
+                <div className="relative z-10 mb-5 flex h-20 w-20 items-center justify-center">
                   <motion.div
-                    className="absolute -inset-2 rounded-full bg-cyan-300/25 blur-2xl transition-colors duration-300 group-hover:bg-cyan-200/40"
+                    className="absolute -inset-1 rounded-full bg-cyan-300/25 blur-2xl transition-colors duration-300 group-hover:bg-cyan-200/40"
                     animate={reduced ? undefined : { opacity: [0.65, 0.95, 0.65], scale: [1, 1.08, 1] }}
                     transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: i * 0.35 }}
                   />
-                  <div
-                    className={`absolute inset-0 rounded-full border border-cyan-200/30 bg-cyan-300/[0.07] shadow-[0_0_26px_rgba(0,239,255,0.2),inset_0_0_18px_rgba(0,239,255,0.08)] transition-[transform,border-color,box-shadow] duration-300 group-hover:border-cyan-100/60 group-hover:shadow-[0_0_36px_rgba(0,239,255,0.34),inset_0_0_20px_rgba(0,239,255,0.14)] ${reduced ? "" : "group-hover:scale-110"}`}
+                  <img
+                    src={category.image}
+                    alt=""
+                    aria-hidden="true"
+                    className={`relative h-20 w-20 rounded-full object-cover shadow-[0_10px_28px_rgba(0,0,0,0.35),0_0_24px_rgba(0,239,255,0.22)] transition-[transform,filter] duration-300 group-hover:brightness-110 ${reduced ? "" : "group-hover:-translate-y-0.5 group-hover:scale-105"}`}
                   />
-                  <div
-                    className={`relative flex h-12 w-12 items-center justify-center rounded-full border border-white/15 bg-gradient-to-br from-cyan-100/20 via-cyan-300/10 to-slate-950/40 shadow-[inset_0_1px_0_rgba(255,255,255,0.14),0_8px_22px_rgba(0,0,0,0.3)] transition-transform duration-300 ${reduced ? "" : "group-hover:scale-105"}`}
-                  >
-                    <category.icon className="h-7 w-7 text-cyan-100 drop-shadow-[0_0_8px_rgba(103,232,249,0.5)]" strokeWidth={1.8} />
-                  </div>
                 </div>
                 <h3 className="relative z-10 min-h-12 text-base font-bold leading-snug text-white">{category.name}</h3>
                 <p className="relative z-10 mt-2 text-sm font-semibold text-cyan-200">{category.count} importadoras</p>
