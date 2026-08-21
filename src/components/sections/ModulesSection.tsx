@@ -38,7 +38,7 @@ const ModulesSection = () => {
 
   return (
     <>
-      <section className="relative overflow-hidden bg-deep py-24">
+      <section className="relative overflow-hidden bg-deep py-16 md:py-24">
         <div className="pointer-events-none absolute left-1/2 top-0 h-[420px] w-[700px] -translate-x-1/2 rounded-full bg-cyan-500/3 blur-[150px]" />
 
         <div className="container relative z-10 mx-auto px-4">

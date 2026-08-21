@@ -55,7 +55,7 @@ const SolutionSection = () => {
   });
 
   return (
-    <section id="ecossistema" className="relative overflow-hidden bg-[#0A192F] py-24">
+    <section id="ecossistema" className="relative overflow-hidden bg-[#0A192F] py-16 md:py-24">
       <div className="absolute bottom-0 right-0 h-[500px] w-[500px] rounded-full bg-cyan-500/3 blur-[150px]" />
       <div className="absolute left-0 top-0 h-[300px] w-[300px] rounded-full bg-cyan-500/3 blur-[120px]" />
 

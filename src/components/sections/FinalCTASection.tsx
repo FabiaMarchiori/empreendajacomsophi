@@ -4,7 +4,7 @@ import { ArrowRight, MessageCircle } from "lucide-react";
 const WHATSAPP_LINK = "https://wa.me/5511983348749?text=Pagina%20de%20vendas";
 
 const FinalCTASection = () => (
-  <section className="relative py-24 bg-deep overflow-hidden">
+  <section className="relative py-16 md:py-24 bg-deep overflow-hidden">
     <div className="absolute inset-0">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cyan-500/5 rounded-full blur-[150px]" />
     </div>

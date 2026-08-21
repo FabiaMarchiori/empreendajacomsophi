@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import guaranteeBadge from "@/assets/guarantee-badge.png";
 
 const GuaranteeSection = () => (
-  <section className="relative py-24 bg-deep overflow-hidden">
+  <section className="relative py-16 md:py-24 bg-deep overflow-hidden">
     <div className="container relative z-10 mx-auto px-4">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
