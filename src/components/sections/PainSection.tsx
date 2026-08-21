@@ -38,7 +38,7 @@ const PainSection = () => {
             Encontrar <span className="gradient-text">fornecedores</span> não deveria ser a parte mais difícil do seu
             negócio.
           </h2>
-          <p className="mx-auto max-w-3xl text-base leading-relaxed text-white/80 sm:text-lg">
+          <p className="mx-auto max-w-3xl text-base leading-relaxed text-white sm:text-lg">
             Para quem vende ou quer começar a vender, encontrar boas opções, comparar fornecedores e decidir onde
             comprar nem sempre é tão simples quanto deveria.
           </p>

@@ -48,7 +48,7 @@ const PricingSection = () => {
           >
             <header className="mb-6">
               <h3 className="mb-1.5 text-xl font-bold text-white">Plano Mensal</h3>
-              <p className="text-base text-white/70">Para quem prefere começar mês a mês.</p>
+              <p className="text-base text-white">Para quem prefere começar mês a mês.</p>
             </header>
 
             <div className="mb-7">
@@ -60,7 +60,7 @@ const PricingSection = () => {
               {features.map((feature) => (
                 <li key={feature} className="flex items-start gap-3">
                   <Check aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-cyan-400" />
-                  <span className="text-base leading-snug text-white/85">{feature}</span>
+                  <span className="text-base leading-snug text-white">{feature}</span>
                 </li>
               ))}
             </ul>
@@ -87,7 +87,7 @@ const PricingSection = () => {
 
             <header className="mb-6 mt-2">
               <h3 className="mb-1.5 text-xl font-bold text-white">Plano Anual</h3>
-              <p className="text-base text-white/70">Para quem quer mais economia no acesso.</p>
+              <p className="text-base text-white">Para quem quer mais economia no acesso.</p>
             </header>
 
             <div className="mb-7">

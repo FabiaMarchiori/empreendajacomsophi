@@ -20,7 +20,7 @@ const FinalCTASection = () => (
           <span className="text-white">Seu negócio não precisa depender de </span>
           <span className="gradient-text">tentativa e erro.</span>
         </h2>
-        <p className="text-lg md:text-xl text-white/85 max-w-2xl mx-auto leading-relaxed">
+        <p className="text-lg md:text-xl text-white max-w-2xl mx-auto leading-relaxed">
           Tenha fornecedores, ferramentas e orientação reunidos em uma plataforma para ajudar você a comprar, precificar, organizar e tomar decisões com mais clareza.
         </p>
 
@@ -45,7 +45,7 @@ const FinalCTASection = () => (
           </a>
         </div>
 
-        <p className="text-sm text-white/60">
+        <p className="text-sm text-white">
           7 dias de garantia • Acesso imediato • Valores de lançamento
         </p>
       </motion.div>

@@ -49,7 +49,7 @@ const ModulesSection = () => {
             <h2 className="mb-6 text-3xl font-extrabold tracking-tight text-white md:text-4xl lg:text-5xl">
               Você entra pelos fornecedores. E encontra <span className="gradient-text">muito mais.</span>
             </h2>
-            <p className="mx-auto max-w-3xl text-base leading-relaxed text-white/80 sm:text-lg">
+            <p className="mx-auto max-w-3xl text-base leading-relaxed text-white sm:text-lg">
               Além da Central de Fornecedores, o EmpreendaJá reúne ferramentas para ajudar você a precificar, organizar
               e administrar seu negócio — com a Soph como camada de assistência dentro da plataforma.
             </p>
@@ -70,7 +70,7 @@ const ModulesSection = () => {
                   <h3 className="text-sm font-extrabold uppercase tracking-[0.1em] text-white sm:text-base">
                     {pillar.title}
                   </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-white/65 sm:text-base">{pillar.description}</p>
+                  <p className="mt-2 text-sm leading-relaxed text-white sm:text-base">{pillar.description}</p>
                 </div>
               </motion.div>
             ))}
@@ -78,7 +78,7 @@ const ModulesSection = () => {
 
           <motion.p
             {...reveal(0.22, 12)}
-            className="mx-auto mt-12 max-w-3xl text-center text-base font-bold leading-relaxed text-white/85 sm:text-lg"
+            className="mx-auto mt-12 max-w-3xl text-center text-base font-bold leading-relaxed text-white sm:text-lg"
           >
             <span className="text-cyan-300">Fornecedores</span> para encontrar. Ferramentas para administrar. Soph para
             acompanhar.
@@ -102,7 +102,7 @@ const ModulesSection = () => {
             <h2 className="text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-[2rem] lg:text-[2.1rem]">
               Veja o EmpreendaJá <span className="gradient-text">por dentro.</span>
             </h2>
-            <p className="mt-4 text-base leading-relaxed text-white/75">
+            <p className="mt-4 text-base leading-relaxed text-white">
               Conheça, em poucos minutos, alguns dos principais recursos da plataforma.
             </p>
           </motion.div>
