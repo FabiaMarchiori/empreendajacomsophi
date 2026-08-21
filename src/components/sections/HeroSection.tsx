@@ -330,6 +330,7 @@ const HeroSection = () => {
 
   return (
     <section
+      id="inicio"
       ref={sectionRef}
       className="relative flex items-center overflow-hidden pt-24 lg:min-h-[calc(100svh-2rem)]"
       style={{ background: "#0A192F" }}

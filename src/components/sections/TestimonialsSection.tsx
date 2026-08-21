@@ -61,7 +61,7 @@ const TestimonialsSection = () => {
           <h2 className="text-3xl font-extrabold leading-tight tracking-tight text-white md:text-4xl lg:text-5xl">
             Experiências reais de quem já comprou com a gente.
           </h2>
-          <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-white/70 md:text-lg">
+          <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-white md:text-lg">
             Relatos de clientes que já utilizaram nossos materiais e fornecedores ao longo dessa jornada.
           </p>
         </motion.header>
@@ -88,7 +88,7 @@ const TestimonialsSection = () => {
                 >
                   <article className="group relative flex h-full min-h-[19rem] flex-col overflow-hidden rounded-2xl border border-cyan-300/15 bg-[#0b2139]/90 p-6 shadow-[0_20px_48px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(103,232,249,0.1)] transition-[transform,border-color,box-shadow] duration-300 [@media(hover:hover)_and_(pointer:fine)]:hover:-translate-y-0.5 [@media(hover:hover)_and_(pointer:fine)]:hover:border-cyan-300/30 [@media(hover:hover)_and_(pointer:fine)]:hover:shadow-[0_24px_54px_rgba(0,0,0,0.34),0_0_28px_rgba(0,239,255,0.08),inset_0_1px_0_rgba(103,232,249,0.14)]">
                     <Quote aria-hidden="true" className="absolute right-5 top-5 h-8 w-8 text-cyan-300/15" />
-                    <p className="relative z-10 mb-7 pr-6 leading-relaxed text-white/80">“{testimonial.text}”</p>
+                    <p className="relative z-10 mb-7 pr-6 leading-relaxed text-white">“{testimonial.text}”</p>
                     <footer className="mt-auto flex items-center gap-3 border-t border-white/[0.07] pt-5">
                       <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-cyan-300/15 bg-cyan-500/10">
                         <span className="text-sm font-bold text-cyan-300">{testimonial.name.charAt(0)}</span>

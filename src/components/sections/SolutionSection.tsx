@@ -55,7 +55,7 @@ const SolutionSection = () => {
   });
 
   return (
-    <section id="ecossistema" className="relative overflow-hidden bg-[#0A192F] py-24">
+    <section id="ecossistema" className="relative overflow-hidden bg-[#0A192F] py-16 md:py-24">
       <div className="absolute bottom-0 right-0 h-[500px] w-[500px] rounded-full bg-cyan-500/3 blur-[150px]" />
       <div className="absolute left-0 top-0 h-[300px] w-[300px] rounded-full bg-cyan-500/3 blur-[120px]" />
 
@@ -67,7 +67,7 @@ const SolutionSection = () => {
           <h2 className="mb-6 text-3xl font-extrabold tracking-tight text-white md:text-4xl lg:text-5xl">
             Escolha o nicho. Veja as opções. Encontre <span className="gradient-text">seu próximo fornecedor.</span>
           </h2>
-          <p className="mx-auto max-w-3xl text-base leading-relaxed text-white/85 sm:text-lg">
+          <p className="mx-auto max-w-3xl text-base leading-relaxed text-white sm:text-lg">
             São <strong className="font-extrabold text-cyan-300">mais de 320</strong> fornecedores e importadoras
             organizados em categorias para facilitar sua pesquisa.
           </p>
@@ -80,7 +80,7 @@ const SolutionSection = () => {
           <div className="mb-5 flex items-center justify-between gap-4 border-b border-cyan-300/10 pb-4">
             <div>
               <p className="text-xs font-extrabold uppercase tracking-[0.18em] text-cyan-300">Categorias</p>
-              <p className="mt-1 text-sm text-white/65">Escolha um nicho para explorar as importadoras</p>
+              <p className="mt-1 text-sm text-white">Escolha um nicho para explorar as importadoras</p>
             </div>
             <span className="hidden text-xs font-semibold text-cyan-200/70 sm:inline">+ outras categorias disponíveis</span>
           </div>
@@ -160,7 +160,7 @@ const SolutionSection = () => {
               </div>
               <div>
                 <h3 className="text-xs font-extrabold uppercase tracking-[0.12em] text-white">{benefit.title}</h3>
-                <p className="mt-1.5 text-sm leading-relaxed text-white/65">{benefit.description}</p>
+                <p className="mt-1.5 text-sm leading-relaxed text-white">{benefit.description}</p>
               </div>
             </motion.div>
           ))}

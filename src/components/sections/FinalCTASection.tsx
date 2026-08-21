@@ -4,7 +4,7 @@ import { ArrowRight, MessageCircle } from "lucide-react";
 const WHATSAPP_LINK = "https://wa.me/5511983348749?text=Pagina%20de%20vendas";
 
 const FinalCTASection = () => (
-  <section className="relative py-24 bg-deep overflow-hidden">
+  <section id="cta-final" className="relative py-16 md:py-24 bg-deep overflow-hidden">
     <div className="absolute inset-0">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cyan-500/5 rounded-full blur-[150px]" />
     </div>
@@ -20,12 +20,15 @@ const FinalCTASection = () => (
           <span className="text-white">Seu negócio não precisa depender de </span>
           <span className="gradient-text">tentativa e erro.</span>
         </h2>
-        <p className="text-lg md:text-xl text-white/85 max-w-2xl mx-auto leading-relaxed">
+        <p className="text-lg md:text-xl text-white max-w-2xl mx-auto leading-relaxed">
           Tenha fornecedores, ferramentas e orientação reunidos em uma plataforma para ajudar você a comprar, precificar, organizar e tomar decisões com mais clareza.
         </p>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-          <a href="#planos" className="btn-glow px-10 py-5 rounded-xl text-lg inline-flex items-center gap-2 font-bold">
+        <div className="flex flex-col items-center justify-center gap-4 pt-4 sm:flex-row">
+          <a
+            href="#planos"
+            className="btn-glow inline-flex w-full items-center justify-center gap-2 rounded-xl px-10 py-5 text-lg font-bold sm:w-auto"
+          >
             Quero entrar agora
             <ArrowRight className="w-5 h-5" />
           </a>
@@ -33,21 +36,12 @@ const FinalCTASection = () => (
             href={WHATSAPP_LINK}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-10 py-5 rounded-xl text-lg inline-flex items-center gap-2 font-bold transition-all duration-300 hover:-translate-y-0.5"
-            style={{
-              background: 'linear-gradient(135deg, #00FF88 0%, #00CC6A 100%)',
-              color: '#0A192F',
-              boxShadow: '0 0 30px rgba(0,255,136,0.25), 0 0 60px rgba(0,255,136,0.08)',
-            }}
+            className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-cyan-300/35 px-8 py-4 text-base font-semibold text-white transition-colors duration-300 hover:border-cyan-300/60 hover:bg-cyan-400/[0.07] sm:w-auto"
           >
-            <MessageCircle className="w-5 h-5" />
-            Falar no WhatsApp
+            <MessageCircle className="h-5 w-5 text-cyan-300" />
+            Tirar dúvidas no WhatsApp
           </a>
         </div>
-
-        <p className="text-sm text-white/60">
-          7 dias de garantia • Acesso imediato • Valores de lançamento
-        </p>
       </motion.div>
     </div>
   </section>

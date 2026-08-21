@@ -28,7 +28,7 @@ const BenefitsSection = () => {
           <h2 className="text-3xl font-extrabold leading-tight tracking-tight text-white md:text-4xl">
             Não é só encontrar fornecedores. É saber o que fazer depois.
           </h2>
-          <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-white/70 md:text-lg">
+          <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-white md:text-lg">
             O EmpreendaJá reúne informações e ferramentas para ajudar você a comparar, calcular, organizar e decidir com mais clareza.
           </p>
         </motion.header>
@@ -46,7 +46,7 @@ const BenefitsSection = () => {
               <div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] sm:items-center sm:gap-4">
                 <div>
                   <span className="mb-1.5 block text-[0.68rem] font-bold uppercase tracking-[0.18em] text-white/45">Antes</span>
-                  <p className="text-sm font-medium leading-snug text-white/65 sm:text-base">{item.before}</p>
+                  <p className="text-sm font-medium leading-snug text-white/70 sm:text-base">{item.before}</p>
                 </div>
 
                 <motion.div

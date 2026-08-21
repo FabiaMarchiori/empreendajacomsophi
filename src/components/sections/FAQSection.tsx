@@ -25,7 +25,7 @@ const faqs = [
 ];
 
 const FAQSection = () => (
-  <section className="relative py-24 overflow-hidden" style={{ background: '#0A192F' }}>
+  <section className="relative py-16 md:py-24 overflow-hidden" style={{ background: '#0A192F' }}>
     <div className="container relative z-10 mx-auto px-4">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
@@ -56,7 +56,7 @@ const FAQSection = () => (
               <AccordionTrigger className="text-white font-semibold text-left hover:no-underline hover:text-cyan-400 transition-colors py-5">
                 {faq.q}
               </AccordionTrigger>
-              <AccordionContent className="text-white/75 pb-5 leading-relaxed">
+              <AccordionContent className="text-white pb-5 leading-relaxed">
                 {faq.a}
               </AccordionContent>
             </AccordionItem>

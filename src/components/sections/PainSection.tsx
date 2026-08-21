@@ -24,7 +24,7 @@ const PainSection = () => {
   const reduced = !!useReducedMotion();
 
   return (
-    <section className="relative overflow-hidden bg-deep py-24">
+    <section className="relative overflow-hidden bg-deep py-16 md:py-24">
       <div className="absolute left-1/2 top-0 h-[300px] w-[600px] -translate-x-1/2 rounded-full bg-cyan-500/3 blur-[120px]" />
       <div className="container relative z-10 mx-auto px-4">
         <motion.div
@@ -38,7 +38,7 @@ const PainSection = () => {
             Encontrar <span className="gradient-text">fornecedores</span> não deveria ser a parte mais difícil do seu
             negócio.
           </h2>
-          <p className="mx-auto max-w-3xl text-base leading-relaxed text-white/80 sm:text-lg">
+          <p className="mx-auto max-w-3xl text-base leading-relaxed text-white sm:text-lg">
             Para quem vende ou quer começar a vender, encontrar boas opções, comparar fornecedores e decidir onde
             comprar nem sempre é tão simples quanto deveria.
           </p>

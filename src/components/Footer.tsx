@@ -6,7 +6,7 @@ const Footer = () => (
         alt="EmpreendaJá com Soph"
         className="h-auto w-[200px] sm:w-[260px] mx-auto object-contain"
       />
-      <p className="text-sm text-white/70 max-w-lg mx-auto leading-relaxed">
+      <p className="text-sm text-white max-w-lg mx-auto leading-relaxed">
         EmpreendaJá com Soph — fornecedores, ferramentas e orientação para quem empreende. © 2026 EmpreendaJá com Soph. Todos os direitos reservados.
       </p>
     </div>
