@@ -1,5 +1,5 @@
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowRight, Check, MessageCircle, Sparkles } from "lucide-react";
+import { ArrowRight, CalendarCheck, Check, LockKeyhole, MessageCircle, ShieldCheck, Sparkles, X, Zap } from "lucide-react";
 
 const WHATSAPP_LINK = "https://wa.me/5511983348749?text=Pagina%20de%20vendas";
 
@@ -7,8 +7,8 @@ const features = [
   "Central de Fornecedores com mais de 320 opções",
   "Categorias e nichos organizados",
   "Precificação",
-  "Gestão do negócio",
-  "Soph — sua sócia digital",
+  "Gestão do negócio — ferramentas para organizar sua operação",
+  "Soph — assistente digital que orienta você dentro da plataforma",
   "Guias e ferramentas para quem empreende",
 ];
 
@@ -63,6 +63,16 @@ const PricingSection = () => {
                   <span className="text-base leading-snug text-white">{feature}</span>
                 </li>
               ))}
+              <li className="flex items-start gap-3">
+                <CalendarCheck aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-cyan-400" />
+                <span className="text-base font-semibold leading-snug text-white">Pagamento mensal</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <X aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-white/40" />
+                <span className="text-base leading-snug text-white/60">
+                  <span className="line-through">Soph Gestão</span> — sistema de gestão exclusivo do Plano Anual
+                </span>
+              </li>
             </ul>
 
             <a
@@ -102,12 +112,18 @@ const PricingSection = () => {
               {features.map((feature) => (
                 <li key={feature} className="flex items-start gap-3">
                   <Check aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-cyan-400" />
-                  <span className="text-base leading-snug text-white/85">{feature}</span>
+                  <span className="text-base leading-snug text-white">{feature}</span>
                 </li>
               ))}
+              <li className="flex items-start gap-3">
+                <CalendarCheck aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-cyan-400" />
+                <span className="text-base font-semibold leading-snug text-white">Pagamento anual</span>
+              </li>
               <li className="flex items-start gap-3 rounded-lg border border-cyan-300/15 bg-cyan-400/[0.06] px-3 py-2.5">
                 <Check aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-cyan-300" />
-                <span className="text-base font-semibold leading-snug text-cyan-200">Inclui Soph Gestão</span>
+                <span className="text-base font-semibold leading-snug text-cyan-200">
+                  Inclui Soph Gestão — sistema de gestão do negócio
+                </span>
               </li>
             </ul>
 
@@ -122,6 +138,28 @@ const PricingSection = () => {
             </a>
           </motion.article>
         </div>
+
+        <motion.ul
+          initial={reduced ? { opacity: 0 } : { opacity: 0, y: 12 }}
+          whileInView={reduced ? { opacity: 1 } : { opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.6 }}
+          transition={{ duration: reduced ? 0.01 : 0.45, delay: reduced ? 0 : 0.12 }}
+          className="mx-auto mt-8 flex max-w-3xl flex-wrap items-center justify-center gap-x-7 gap-y-3 rounded-xl border border-cyan-300/12 bg-white/[0.03] px-5 py-3.5 text-center"
+        >
+          {[
+            { Icon: Zap, label: "Acesso imediato" },
+            { Icon: ShieldCheck, label: "7 dias de garantia" },
+            { Icon: LockKeyhole, label: "Pagamento seguro via Kiwify" },
+          ].map(({ Icon, label }) => (
+            <li key={label} className="flex items-center gap-2">
+              <Icon
+                aria-hidden="true"
+                className="h-[18px] w-[18px] shrink-0 text-cyan-400 drop-shadow-[0_0_6px_rgba(0,239,255,0.35)]"
+              />
+              <span className="text-sm font-semibold text-white">{label}</span>
+            </li>
+          ))}
+        </motion.ul>
 
         <motion.div
           initial={reduced ? { opacity: 0 } : { opacity: 0, y: 16 }}
