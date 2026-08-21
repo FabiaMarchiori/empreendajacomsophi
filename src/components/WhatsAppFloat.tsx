@@ -7,9 +7,10 @@ const WhatsAppFloat = () => {
   const [hidden, setHidden] = useState(false);
 
   useEffect(() => {
-    const targets = [document.getElementById("cta-final"), document.querySelector("footer")].filter(
-      (el): el is Element => Boolean(el),
-    );
+    const targets = [
+      document.getElementById("cta-final"),
+      document.querySelector("footer"),
+    ].filter((el): el is HTMLElement => el instanceof HTMLElement);
     if (!targets.length) return;
 
     const visible = new Set<Element>();
