@@ -1,34 +1,96 @@
-import { motion, useReducedMotion } from "framer-motion";
-import { Bot, Calculator, LayoutDashboard, Package, Play } from "lucide-react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { ArrowLeft, ArrowRight, Bot, Calculator, LayoutDashboard, Package } from "lucide-react";
 import { useState } from "react";
-import capaVideo from "@/assets/capa_video.png";
+
+import managementScreen from "@/assets/mod-erp.png";
+import importersScreen from "@/assets/mod-importadoras.png";
+import pricingScreen from "@/assets/mod-precificacao.png";
+import sophScreen from "@/assets/mod-soph.png";
+import thankYouScreen from "@/assets/tela-obrigado-original.png";
 
 const pillars = [
   {
+    number: "01",
     icon: Package,
     title: "CENTRAL DE FORNECEDORES",
     description: "Mais de 320 fornecedores e importadoras organizados por categorias para facilitar sua pesquisa.",
+    surface: "bg-[radial-gradient(circle_at_10%_0%,rgba(34,211,238,0.12),transparent_42%),linear-gradient(145deg,rgba(16,48,76,0.98),rgba(9,29,50,0.98))]",
+    accent: "left-6 right-[38%]",
   },
   {
+    number: "02",
     icon: Calculator,
     title: "PRECIFICAÇÃO",
     description: "Organize custos, margem e outros dados importantes para chegar a um preço de venda mais consciente.",
+    surface: "bg-[radial-gradient(circle_at_90%_8%,rgba(56,189,248,0.08),transparent_40%),linear-gradient(155deg,rgba(10,33,57,0.98),rgba(14,43,68,0.96))]",
+    accent: "left-[44%] right-6",
   },
   {
+    number: "03",
     icon: LayoutDashboard,
     title: "GESTÃO DO NEGÓCIO",
     description: "Recursos para acompanhar áreas como produtos, vendas, estoque, clientes, caixa e operação.",
+    surface: "bg-[radial-gradient(circle_at_8%_92%,rgba(6,182,212,0.09),transparent_42%),linear-gradient(135deg,rgba(11,36,60,0.98),rgba(13,42,67,0.96))]",
+    accent: "left-10 right-[34%]",
   },
   {
+    number: "04",
     icon: Bot,
     title: "SOPH — SUA SÓCIA DIGITAL",
     description: "Uma camada de assistência criada para apoiar você ao longo da sua jornada dentro da plataforma.",
+    surface: "bg-[radial-gradient(circle_at_92%_88%,rgba(34,211,238,0.08),transparent_40%),linear-gradient(145deg,rgba(14,43,68,0.96),rgba(8,29,50,0.98))]",
+    accent: "left-[38%] right-10",
+  },
+];
+
+const slides = [
+  {
+    label: "Fornecedores",
+    eyebrow: "CENTRAL DE FORNECEDORES",
+    title: "Explore opções organizadas por nichos.",
+    description: "Encontre fornecedores e importadoras de diferentes categorias para comparar possibilidades de compra.",
+    image: importersScreen,
+    alt: "Interface real da Central de Fornecedores organizada por categorias",
+  },
+  {
+    label: "Precificação",
+    eyebrow: "PRECIFICAÇÃO",
+    title: "Calcule preços com mais clareza.",
+    description: "Organize custos, taxas, impostos e margem para entender melhor a formação do seu preço de venda.",
+    image: pricingScreen,
+    alt: "Interface real da Central de Precificação",
+  },
+  {
+    label: "Gestão",
+    eyebrow: "GESTÃO DO NEGÓCIO",
+    title: "Acompanhe e organize seu negócio.",
+    description: "Visualize informações importantes da operação em uma área criada para apoiar sua organização.",
+    image: managementScreen,
+    alt: "Interface real da Gestão do Negócio",
+  },
+  {
+    label: "Soph",
+    eyebrow: "SOPH — SUA SÓCIA DIGITAL",
+    title: "Tenha orientação dentro da plataforma.",
+    description: "Conte com a Soph como apoio ao longo da sua jornada e das decisões do dia a dia.",
+    image: sophScreen,
+    alt: "Interface real da Soph, sua sócia digital",
+  },
+  {
+    label: "Após a compra",
+    eyebrow: "APÓS A COMPRA",
+    title: "Seu acesso começa aqui.",
+    description: "Assim que o pagamento for confirmado, você verá a tela com as informações para acessar a plataforma. Leia as orientações com atenção antes de fechar a página.",
+    image: thankYouScreen,
+    alt: "Captura original da Tela de Obrigado exibida após a confirmação do pagamento",
   },
 ];
 
 const ModulesSection = () => {
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [direction, setDirection] = useState(1);
   const reduced = !!useReducedMotion();
+  const activeSlide = slides[activeIndex];
   const reveal = (delay = 0, distance = 18) => ({
     initial: reduced ? false : { opacity: 0, y: distance },
     whileInView: { opacity: 1, y: 0 },
@@ -36,163 +98,133 @@ const ModulesSection = () => {
     transition: { duration: 0.5, delay: reduced ? 0 : delay, ease: "easeOut" as const },
   });
 
+  const selectSlide = (nextIndex: number) => {
+    const normalizedIndex = (nextIndex + slides.length) % slides.length;
+    setDirection(normalizedIndex > activeIndex || (activeIndex === slides.length - 1 && normalizedIndex === 0) ? 1 : -1);
+    setActiveIndex(normalizedIndex);
+  };
+
+  const paginate = (step: number) => {
+    setDirection(step);
+    setActiveIndex((current) => (current + step + slides.length) % slides.length);
+  };
+
+  const slideVariants = {
+    enter: (travelDirection: number) => reduced ? { opacity: 0 } : { opacity: 0, x: travelDirection > 0 ? 34 : -34, scale: 0.992 },
+    center: { opacity: 1, x: 0, scale: 1 },
+    exit: (travelDirection: number) => reduced ? { opacity: 0 } : { opacity: 0, x: travelDirection > 0 ? -26 : 26, scale: 0.994 },
+  };
+
   return (
     <>
       <section className="relative overflow-hidden bg-deep py-16 md:py-24">
-        <div className="pointer-events-none absolute left-1/2 top-0 h-[420px] w-[700px] -translate-x-1/2 rounded-full bg-cyan-500/3 blur-[150px]" />
+        <div aria-hidden="true" className="pointer-events-none absolute left-1/2 top-0 h-[420px] w-[min(700px,92vw)] -translate-x-1/2 rounded-full bg-cyan-500/[0.035] blur-[150px]" />
 
         <div className="container relative z-10 mx-auto px-4">
           <motion.div {...reveal()} className="mx-auto mb-12 max-w-4xl text-center md:mb-14">
-            <span className="mb-6 inline-block rounded-full bg-cyan-500/10 px-4 py-1.5 text-sm font-bold tracking-wide text-white">
-              MUITO ALÉM DOS FORNECEDORES
-            </span>
-            <h2 className="mb-6 text-3xl font-extrabold tracking-tight text-white md:text-4xl lg:text-5xl">
-              Você entra pelos fornecedores. E encontra <span className="gradient-text">muito mais.</span>
-            </h2>
-            <p className="mx-auto max-w-3xl text-base leading-relaxed text-white sm:text-lg">
-              Além da Central de Fornecedores, o EmpreendaJá reúne ferramentas para ajudar você a precificar, organizar
-              e administrar seu negócio — com a Soph como camada de assistência dentro da plataforma.
-            </p>
+            <span className="mb-6 inline-block rounded-full bg-cyan-500/10 px-4 py-1.5 text-sm font-bold tracking-wide text-white">MUITO ALÉM DOS FORNECEDORES</span>
+            <h2 className="mb-6 text-3xl font-extrabold tracking-tight text-white md:text-4xl lg:text-5xl">Você entra pelos fornecedores. E encontra <span className="gradient-text">muito mais.</span></h2>
+            <p className="mx-auto max-w-3xl text-base leading-relaxed text-white sm:text-lg">Além da Central de Fornecedores, o EmpreendaJá reúne ferramentas para ajudar você a precificar, organizar e administrar seu negócio — com a Soph como camada de assistência dentro da plataforma.</p>
           </motion.div>
 
           <div className="mx-auto grid max-w-5xl gap-4 md:grid-cols-2">
-            {pillars.map((pillar, i) => (
-              <motion.div
+            {pillars.map((pillar, index) => (
+              <motion.article
                 key={pillar.title}
-                {...reveal(0.08 + i * 0.07)}
-                whileHover={reduced ? undefined : { y: -4 }}
-                className="card-premium group flex items-start gap-4 p-5 sm:p-6"
+                {...reveal(0.08 + index * 0.07)}
+                variants={{ hover: { y: -3, borderColor: "rgba(103,232,249,0.34)", boxShadow: "0 22px 52px rgba(0,0,0,0.34), 0 0 26px rgba(0,239,255,0.08)" }, tap: { scale: 0.992 } }}
+                whileHover={reduced ? undefined : "hover"}
+                whileTap={reduced ? undefined : "tap"}
+                className={`group relative flex min-h-[144px] items-start gap-4 overflow-hidden rounded-2xl border p-5 shadow-[0_14px_38px_rgba(0,0,0,0.25),inset_0_1px_0_rgba(255,255,255,0.04)] sm:gap-5 sm:p-6 ${index === 0 ? "border-cyan-200/[0.24]" : "border-cyan-200/[0.13]"} ${pillar.surface}`}
               >
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-cyan-300/20 bg-cyan-300/[0.07] shadow-[0_0_18px_rgba(0,239,255,0.08)] transition-colors duration-300 group-hover:border-cyan-300/35 group-hover:bg-cyan-300/[0.1]">
-                  <pillar.icon className="h-5 w-5 text-cyan-300" />
+                <div aria-hidden="true" className={`pointer-events-none absolute top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/65 to-transparent opacity-70 ${pillar.accent}`} />
+                <div className="relative flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-cyan-200/[0.18] bg-[#071b30]/90 shadow-[inset_0_1px_0_rgba(255,255,255,0.055),0_8px_20px_rgba(0,0,0,0.24)]">
+                  <motion.div variants={{ hover: { scale: 1.04, rotate: index % 2 === 0 ? -2 : 2 } }}><pillar.icon className="h-5 w-5 text-cyan-300" strokeWidth={1.8} aria-hidden="true" /></motion.div>
                 </div>
-                <div className="min-w-0">
-                  <h3 className="text-sm font-extrabold uppercase tracking-[0.1em] text-white sm:text-base">
-                    {pillar.title}
-                  </h3>
+                <div className="min-w-0 pt-0.5">
+                  <div className="mb-2 flex items-center gap-2"><span className="text-[10px] font-extrabold tracking-[0.18em] text-cyan-300/75">{pillar.number}</span><span aria-hidden="true" className="h-px w-6 bg-cyan-300/20" /></div>
+                  <h3 className="text-sm font-extrabold uppercase tracking-[0.1em] text-white sm:text-base">{pillar.title}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-white sm:text-base">{pillar.description}</p>
                 </div>
-              </motion.div>
+              </motion.article>
             ))}
           </div>
 
-          <motion.p
-            {...reveal(0.22, 12)}
-            className="mx-auto mt-12 max-w-3xl text-center text-base font-bold leading-relaxed text-white sm:text-lg"
-          >
-            <span className="text-cyan-300">Fornecedores</span> para encontrar. Ferramentas para administrar. Soph para
-            acompanhar.
-          </motion.p>
+          <motion.p {...reveal(0.22, 12)} className="mx-auto mt-12 max-w-3xl text-center text-base font-bold leading-relaxed text-white sm:text-lg"><span className="text-cyan-300">Fornecedores</span> para encontrar. Ferramentas para administrar. Soph para acompanhar.</motion.p>
         </div>
       </section>
 
-      <section className="relative overflow-hidden py-14 lg:py-16" style={{ background: "#0a192f" }}>
-        {/* Ambient glow */}
-        <div
-          className="pointer-events-none absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[160px] lg:left-[70%]"
-          style={{ background: "rgba(0,255,255,0.06)" }}
-        />
+      <section className="relative overflow-hidden bg-[#0A192F] py-16 md:py-24">
+        <div aria-hidden="true" className="pointer-events-none absolute left-1/2 top-[48%] h-[620px] w-[min(980px,94vw)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-400/[0.045] blur-[170px]" />
 
-        <div className="container relative z-10 mx-auto grid max-w-[1060px] grid-cols-1 items-center justify-center gap-10 px-6 min-[900px]:grid-cols-[minmax(0,32rem)_auto] min-[900px]:justify-center min-[900px]:gap-14">
-          <motion.div {...reveal()} className="mx-auto max-w-xl text-center min-[900px]:mx-0 min-[900px]:max-w-[34rem] min-[900px]:text-left">
+        <div className="container relative z-10 mx-auto px-4">
+          <motion.header {...reveal()} className="mx-auto mb-10 max-w-4xl text-center md:mb-12">
+            <span className="mb-5 inline-block text-xs font-extrabold uppercase tracking-[0.22em] text-cyan-300">VEJA O EMPREENDAJÁ POR DENTRO</span>
+            <h2 className="text-3xl font-extrabold leading-tight tracking-tight text-white md:text-4xl lg:text-5xl">Veja o EmpreendaJá <span className="gradient-text">por dentro.</span></h2>
+            <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-white sm:text-lg">Conheça alguns dos principais recursos da plataforma e veja o que acontece depois da compra.</p>
+          </motion.header>
 
-            <span className="mb-5 inline-block text-xs font-extrabold uppercase tracking-[0.22em] text-cyan-300">
-              VEJA POR DENTRO
-            </span>
-            <h2 className="text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-[2rem] lg:text-[2.1rem]">
-              Veja o EmpreendaJá <span className="gradient-text">por dentro.</span>
-            </h2>
-            <p className="mt-4 text-base leading-relaxed text-white">
-              Conheça, em poucos minutos, alguns dos principais recursos da plataforma.
-            </p>
-          </motion.div>
-
-          {/* ── iPhone Mockup with Video ── */}
           <motion.div
-            {...reveal(0.1, 24)}
-            className="flex w-full max-w-[300px] flex-col items-center justify-center justify-self-center min-[900px]:max-w-[225px]"
+            {...reveal(0.08, 20)}
+            role="region"
+            aria-roledescription="carrossel"
+            aria-label="Tour da plataforma EmpreendaJá"
+            tabIndex={0}
+            onKeyDown={(event) => { if (event.key === "ArrowLeft") paginate(-1); if (event.key === "ArrowRight") paginate(1); }}
+            className="mx-auto max-w-7xl rounded-[1.75rem] border border-cyan-200/[0.16] bg-[#081c32]/95 p-3 shadow-[0_30px_80px_rgba(0,0,0,0.42),0_0_54px_rgba(0,239,255,0.07),inset_0_1px_0_rgba(255,255,255,0.045)] outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A192F] sm:p-5 lg:p-7"
           >
-
-            <span className="mb-4 inline-block rounded-full border border-cyan-300/15 bg-cyan-300/[0.06] px-4 py-1.5 text-[11px] font-extrabold uppercase tracking-[0.18em] text-cyan-200/85">
-              TOUR DA PLATAFORMA
-            </span>
-            <div className="relative">
-              {/* Outer glow */}
-              <div
-                className="pointer-events-none absolute inset-0 rounded-[3rem] opacity-60 blur-3xl"
-                style={{
-                  background: "radial-gradient(circle, #00FFFF 0%, transparent 70%)",
-                  transform: "scale(1.15)",
-                }}
-              />
-
-              {/* iPhone Frame */}
-              <div
-                className="relative mx-auto h-[620px] w-[300px] p-[14px] min-[900px]:h-[465px] min-[900px]:w-[225px] min-[900px]:p-[10px]"
-
-                style={{
-                  background: "linear-gradient(145deg, #1a1a1a 0%, #2a2a2a 50%, #0f0f0f 100%)",
-                  borderRadius: "3rem",
-                  boxShadow:
-                    "0 0 60px rgba(0,255,255,0.35), 0 0 120px rgba(0,255,255,0.15), inset 0 0 2px rgba(255,255,255,0.1), 0 25px 50px rgba(0,0,0,0.6)",
-                  border: "1px solid rgba(0,255,255,0.25)",
-                }}
-              >
-
-                {/* Side buttons */}
-                <div className="absolute left-[-3px] top-[110px] h-[32px] w-[3px] rounded-l-sm bg-[#1a1a1a]" />
-                <div className="absolute left-[-3px] top-[160px] h-[55px] w-[3px] rounded-l-sm bg-[#1a1a1a]" />
-                <div className="absolute left-[-3px] top-[225px] h-[55px] w-[3px] rounded-l-sm bg-[#1a1a1a]" />
-                <div className="absolute right-[-3px] top-[140px] h-[80px] w-[3px] rounded-r-sm bg-[#1a1a1a]" />
-
-                {/* Screen */}
-                <div className="relative h-full w-full overflow-hidden bg-black" style={{ borderRadius: "2.3rem" }}>
-                  {/* Dynamic Island */}
-                  <div
-                    className="absolute left-1/2 top-2 z-20 -translate-x-1/2"
-                    style={{ width: "100px", height: "28px", background: "#000", borderRadius: "999px" }}
-                  />
-
-                  {/* YouTube Short Embed */}
-                  {isPlaying ? (
-                    <iframe
-                      src="https://www.youtube.com/embed/K_ZQ1pTcNNs?autoplay=1&controls=1&rel=0&modestbranding=1&playsinline=1"
-                      title="EmpreendaJá com Soph"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                      className="absolute inset-0 h-full w-full"
-                      style={{ border: "none" }}
-                    />
-                  ) : (
-                    <button
-                      type="button"
-                      onClick={() => setIsPlaying(true)}
-                      aria-label="Reproduzir vídeo"
-                      className="group absolute inset-0 h-full w-full cursor-pointer overflow-hidden"
-                    >
-                      <img
-                        src={capaVideo}
-                        alt="Veja por dentro do Ecossistema EmpreendaJá com Soph"
-                        className="absolute inset-0 h-full w-full bg-black object-contain object-center transition-transform duration-500 group-hover:scale-[1.02]"
-                      />
-                      <div className="absolute inset-0 flex items-center justify-center bg-black/10 transition-colors duration-300 group-hover:bg-black/20">
-                        <div
-                          className="flex h-20 w-20 items-center justify-center rounded-full transition-transform duration-300 group-hover:scale-110"
-                          style={{
-                            background: "rgba(0,255,255,0.18)",
-                            border: "2px solid #00FFFF",
-                            boxShadow: "0 0 30px rgba(0,255,255,0.6), 0 0 60px rgba(0,255,255,0.3)",
-                            backdropFilter: "blur(4px)",
-                          }}
-                        >
-                          <Play className="ml-1 h-8 w-8" style={{ color: "#00FFFF", fill: "#00FFFF" }} />
-                        </div>
-                      </div>
-                    </button>
-                  )}
-                </div>
-              </div>
+            <div className="mb-4 hidden grid-cols-5 gap-2 lg:grid">
+              {slides.map((slide, index) => (
+                <button key={slide.label} type="button" onClick={() => selectSlide(index)} aria-current={activeIndex === index ? "true" : undefined} className={`min-h-11 rounded-xl border px-3 py-2 text-xs font-bold uppercase tracking-[0.08em] transition-[border-color,background-color,color] duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70 motion-reduce:transition-none ${activeIndex === index ? "border-cyan-300/40 bg-cyan-300/[0.09] text-cyan-200" : "border-white/[0.06] bg-white/[0.02] text-white/55 hover:border-cyan-300/20 hover:text-white/85"}`}>{String(index + 1).padStart(2, "0")} · {slide.label}</button>
+              ))}
             </div>
+
+            <div className="relative overflow-hidden rounded-[1.35rem] border border-cyan-200/[0.11] bg-[#06172b]">
+              <AnimatePresence initial={false} custom={direction} mode="wait">
+                <motion.article
+                  key={activeIndex}
+                  custom={direction}
+                  variants={slideVariants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  transition={{ duration: reduced ? 0.08 : 0.42, ease: [0.22, 1, 0.36, 1] }}
+                  drag={reduced ? false : "x"}
+                  dragConstraints={{ left: 0, right: 0 }}
+                  dragElastic={0.12}
+                  onDragEnd={(_, info) => { const swipe = Math.abs(info.offset.x) > 65 || Math.abs(info.velocity.x) > 520; if (swipe) paginate(info.offset.x < 0 ? 1 : -1); }}
+                  className="grid cursor-grab select-none lg:grid-cols-[minmax(0,1.75fr)_minmax(270px,0.72fr)] lg:items-stretch active:cursor-grabbing"
+                >
+                  <div className="relative flex min-h-[280px] items-center justify-center overflow-hidden border-b border-cyan-200/[0.1] bg-[radial-gradient(circle_at_50%_45%,rgba(0,239,255,0.075),transparent_58%)] p-3 sm:min-h-[420px] sm:p-5 lg:min-h-[560px] lg:border-b-0 lg:border-r lg:p-7">
+                    <div aria-hidden="true" className="absolute inset-x-[12%] top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/55 to-transparent" />
+                    <img src={activeSlide.image} alt={activeSlide.alt} draggable={false} className="relative max-h-[430px] w-full rounded-xl object-contain shadow-[0_20px_55px_rgba(0,0,0,0.42),0_0_28px_rgba(0,239,255,0.06)] sm:max-h-[520px] lg:max-h-[600px]" />
+                  </div>
+
+                  <div className="flex min-h-[260px] flex-col justify-between p-5 sm:p-7 lg:min-h-0 lg:p-8">
+                    <div>
+                      <div className="flex items-center justify-between gap-4"><span className="text-[10px] font-extrabold uppercase tracking-[0.2em] text-cyan-300/85 sm:text-xs">{activeSlide.eyebrow}</span><span className="shrink-0 text-sm font-bold tabular-nums text-white/50"><span className="text-cyan-300">{String(activeIndex + 1).padStart(2, "0")}</span> / 05</span></div>
+                      <h3 className="mt-5 text-2xl font-extrabold leading-tight tracking-tight text-white sm:text-3xl">{activeSlide.title}</h3>
+                      <p className="mt-4 text-sm leading-relaxed text-white/75 sm:text-base">{activeSlide.description}</p>
+                    </div>
+
+                    <div className="mt-8">
+                      <div className="mb-5 flex items-center gap-2" aria-label={`Slide ${activeIndex + 1} de 5`}>
+                        {slides.map((slide, index) => (
+                          <button key={slide.label} type="button" onClick={() => selectSlide(index)} aria-label={`Ir para ${slide.label}`} className="flex h-11 flex-1 items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70"><span className={`h-1.5 w-full rounded-full transition-[background-color] duration-300 motion-reduce:transition-none ${activeIndex === index ? "bg-cyan-300" : "bg-white/15"}`} /></button>
+                        ))}
+                      </div>
+                      <div className="flex items-center justify-between gap-3">
+                        <button type="button" onClick={() => paginate(-1)} aria-label="Slide anterior" className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-cyan-300/25 bg-cyan-300/[0.05] text-cyan-200 transition-[border-color,background-color] duration-300 hover:border-cyan-300/50 hover:bg-cyan-300/[0.09] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70 motion-reduce:transition-none"><ArrowLeft className="h-5 w-5" aria-hidden="true" /></button>
+                        <span className="text-xs font-semibold text-white/45 sm:hidden">Deslize para explorar</span>
+                        <button type="button" onClick={() => paginate(1)} aria-label="Próximo slide" className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-cyan-300/25 bg-cyan-300/[0.05] text-cyan-200 transition-[border-color,background-color] duration-300 hover:border-cyan-300/50 hover:bg-cyan-300/[0.09] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70 motion-reduce:transition-none"><ArrowRight className="h-5 w-5" aria-hidden="true" /></button>
+                      </div>
+                    </div>
+                  </div>
+                </motion.article>
+              </AnimatePresence>
+            </div>
+
+            <p className="sr-only" aria-live="polite">Slide {activeIndex + 1} de 5: {activeSlide.label}</p>
           </motion.div>
         </div>
       </section>
