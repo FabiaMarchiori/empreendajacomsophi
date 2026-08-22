@@ -69,7 +69,7 @@ const CentralInstrument = ({ scrollProgress, reduced }: { scrollProgress: Motion
   return (
     <motion.aside
       style={{ y: panelY }}
-      className="relative overflow-hidden rounded-2xl border border-cyan-300/25 bg-[#071b30] p-5 shadow-[0_24px_60px_rgba(0,0,0,0.42),inset_0_1px_0_rgba(165,243,252,0.08)] sm:p-6"
+      className="relative min-w-0 overflow-hidden rounded-2xl border border-cyan-300/25 bg-[#071b30] p-5 shadow-[0_24px_60px_rgba(0,0,0,0.42),inset_0_1px_0_rgba(165,243,252,0.08)] sm:p-6 min-[900px]:p-4 xl:p-6"
       aria-label="Resumo da Central de Fornecedores"
     >
       <motion.div aria-hidden="true" style={{ opacity: panelGlow }} className="pointer-events-none absolute inset-0 bg-cyan-300" />
@@ -84,12 +84,12 @@ const CentralInstrument = ({ scrollProgress, reduced }: { scrollProgress: Motion
       </div>
 
       <div className="relative mt-5 grid grid-cols-2 gap-3">
-        <div className="rounded-xl bg-[#102a43] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.035)]">
-          <strong className="block text-3xl font-extrabold tabular-nums text-white">{suppliers}</strong>
+        <div className="min-w-0 rounded-xl bg-[#102a43] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.035)] min-[900px]:p-3 xl:p-4">
+          <strong className="block text-3xl font-extrabold tabular-nums text-white min-[900px]:text-2xl xl:text-3xl">{suppliers}</strong>
           <span className="mt-1 block text-[10px] font-extrabold uppercase tracking-[0.12em] text-cyan-300">FORNECEDORES</span>
         </div>
-        <div className="rounded-xl bg-[#102a43] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.035)]">
-          <strong className="block text-3xl font-extrabold tabular-nums text-white">{niches}</strong>
+        <div className="min-w-0 rounded-xl bg-[#102a43] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.035)] min-[900px]:p-3 xl:p-4">
+          <strong className="block text-3xl font-extrabold tabular-nums text-white min-[900px]:text-2xl xl:text-3xl">{niches}</strong>
           <span className="mt-1 block text-[10px] font-extrabold uppercase tracking-[0.12em] text-cyan-300">NICHOS ATIVOS</span>
         </div>
       </div>
@@ -144,7 +144,7 @@ const SolutionSection = () => {
       <div className="absolute bottom-0 right-0 h-[500px] w-[500px] rounded-full bg-cyan-500/3 blur-[150px]" />
       <div className="absolute left-0 top-0 h-[300px] w-[300px] rounded-full bg-cyan-500/3 blur-[120px]" />
 
-      <div className="container relative z-10 mx-auto px-4">
+      <div className="relative z-10 mx-auto w-full max-w-[1280px] px-4">
         <motion.div {...entrance()} className="mx-auto mb-12 max-w-4xl text-center md:mb-14">
           <span className="mb-6 inline-block rounded-full bg-cyan-500/10 px-4 py-1.5 text-sm font-bold tracking-wide text-white">
             CENTRAL DE FORNECEDORES
@@ -170,9 +170,9 @@ const SolutionSection = () => {
             <span className="hidden text-xs font-semibold text-cyan-200/70 sm:inline">+ outras categorias disponíveis</span>
           </div>
 
-          <div className="lg:grid lg:grid-cols-[minmax(0,1.75fr)_minmax(300px,0.85fr)] lg:items-stretch lg:gap-5 xl:grid-cols-[minmax(0,1.9fr)_minmax(320px,0.82fr)] xl:gap-6">
+          <div className="min-[900px]:grid min-[900px]:grid-cols-[minmax(0,1fr)_minmax(260px,0.38fr)] min-[900px]:items-stretch min-[900px]:gap-4 xl:grid-cols-[minmax(0,1fr)_minmax(300px,0.38fr)] xl:gap-6">
             <div className="min-w-0">
-              <div className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:-mx-6 sm:px-6 md:mx-0 md:grid md:grid-cols-3 md:overflow-visible md:px-0 md:pb-0">
+              <div className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:-mx-6 sm:px-6 md:mx-0 md:grid md:grid-cols-3 md:overflow-visible md:px-0 md:pb-0 min-[900px]:gap-3 xl:gap-4">
                 {categories.map((category, i) => (
                   <motion.div
                     key={category.name}
@@ -196,7 +196,7 @@ const SolutionSection = () => {
                     }}
                     whileHover="hover"
                     whileTap="tap"
-                    className="relative min-w-[78%] max-w-[290px] snap-center overflow-hidden rounded-2xl border border-cyan-300/30 bg-[#0b2139] p-5 shadow-[0_22px_55px_rgba(0,0,0,0.4),0_0_34px_rgba(0,239,255,0.13),inset_0_1px_0_rgba(103,232,249,0.16)] sm:min-w-[56%] md:min-w-0 md:max-w-none"
+                    className="relative min-w-[78%] max-w-[290px] snap-center overflow-hidden rounded-2xl border border-cyan-300/30 bg-[#0b2139] p-5 shadow-[0_22px_55px_rgba(0,0,0,0.4),0_0_34px_rgba(0,239,255,0.13),inset_0_1px_0_rgba(103,232,249,0.16)] sm:min-w-[56%] md:min-w-0 md:max-w-none min-[900px]:p-4 xl:p-5"
                   >
                     <motion.div
                       variants={{ hover: { opacity: 1 }, tap: { opacity: 1 } }}
@@ -204,7 +204,7 @@ const SolutionSection = () => {
                     />
                     <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/70 to-transparent shadow-[0_0_12px_rgba(103,232,249,0.65)]" />
 
-                    <div className="relative z-10 mb-5 flex h-20 w-20 items-center justify-center">
+                    <div className="relative z-10 mb-5 flex h-20 w-20 items-center justify-center min-[900px]:mb-4 min-[900px]:h-16 min-[900px]:w-16 xl:mb-5 xl:h-20 xl:w-20">
                       <motion.div
                         variants={{ hover: { opacity: 1 }, tap: { opacity: 1 } }}
                         className="absolute -inset-1 rounded-full bg-cyan-300/30 blur-2xl"
@@ -220,10 +220,10 @@ const SolutionSection = () => {
                           tap: { scale: reduced ? 1 : 0.99, filter: "brightness(1.06)" },
                         }}
                         transition={{ duration: reduced ? 0 : 0.28, ease: "easeOut" }}
-                        className="relative h-20 w-20 rounded-full object-cover shadow-[0_10px_28px_rgba(0,0,0,0.35),0_0_24px_rgba(0,239,255,0.22)]"
+                        className="relative h-20 w-20 rounded-full object-cover shadow-[0_10px_28px_rgba(0,0,0,0.35),0_0_24px_rgba(0,239,255,0.22)] min-[900px]:h-16 min-[900px]:w-16 xl:h-20 xl:w-20"
                       />
                     </div>
-                    <h3 className="relative z-10 min-h-12 text-base font-bold leading-snug text-white">{category.name}</h3>
+                    <h3 className="relative z-10 min-h-12 text-[clamp(0.78rem,1.25vw,1rem)] font-bold leading-snug text-white">{category.name}</h3>
                     <p className="relative z-10 mt-2 text-sm font-semibold text-cyan-200">{category.count} importadoras</p>
                   </motion.div>
                 ))}
@@ -236,7 +236,7 @@ const SolutionSection = () => {
 
             <motion.div
               {...entrance(0.16, 14)}
-              className="mx-auto mt-6 w-full max-w-[520px] border-t border-cyan-300/10 pt-6 lg:mt-0 lg:max-w-none lg:border-l lg:border-t-0 lg:pl-5 lg:pt-0 xl:pl-6"
+              className="min-w-0 mx-auto mt-6 w-full max-w-[520px] border-t border-cyan-300/10 pt-6 min-[900px]:mt-0 min-[900px]:max-w-none min-[900px]:border-l min-[900px]:border-t-0 min-[900px]:pl-4 min-[900px]:pt-0 xl:pl-6"
             >
               <CentralInstrument scrollProgress={panelProgress} reduced={reduced} />
             </motion.div>

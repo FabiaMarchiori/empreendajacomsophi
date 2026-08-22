@@ -167,7 +167,7 @@ const ModulesSection = () => {
       <section className="relative overflow-hidden bg-[#0A192F] py-16 md:py-24">
         <div aria-hidden="true" className="pointer-events-none absolute left-1/2 top-[48%] h-[620px] w-[min(980px,94vw)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-400/[0.045] blur-[170px]" />
 
-        <div className="container relative z-10 mx-auto px-4">
+        <div className="relative z-10 mx-auto w-full max-w-[1280px] px-4">
           <motion.header {...reveal()} className="mx-auto mb-10 max-w-4xl text-center md:mb-12">
             <span className="mb-5 inline-block text-xs font-extrabold uppercase tracking-[0.22em] text-cyan-300">VEJA O EMPREENDAJÁ POR DENTRO</span>
             <h2 className="text-3xl font-extrabold leading-tight tracking-tight text-white md:text-4xl lg:text-5xl">Veja o EmpreendaJá <span className="gradient-text">por dentro.</span></h2>
@@ -183,9 +183,9 @@ const ModulesSection = () => {
             onKeyDown={(event) => { if (event.key === "ArrowLeft") paginate(-1); if (event.key === "ArrowRight") paginate(1); }}
             className="mx-auto max-w-7xl rounded-[1.5rem] border border-cyan-200/[0.16] bg-[#071c32]/95 p-3 shadow-[0_30px_80px_rgba(0,0,0,0.42),0_0_54px_rgba(0,239,255,0.07),inset_0_1px_0_rgba(255,255,255,0.045)] outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A192F] sm:p-5 lg:p-6"
           >
-            <div className="mb-4 flex snap-x snap-mandatory gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:grid lg:grid-cols-5 lg:overflow-visible lg:pb-0">
+            <div className="mb-4 flex snap-x snap-mandatory gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden min-[900px]:grid min-[900px]:grid-cols-5 min-[900px]:gap-1.5 min-[900px]:overflow-visible min-[900px]:pb-0 xl:gap-2">
               {slides.map((slide, index) => (
-                <button key={slide.label} type="button" onClick={() => selectSlide(index)} aria-current={activeIndex === index ? "true" : undefined} className={`min-h-11 min-w-[132px] snap-start rounded-lg border px-3 py-2 text-[10px] font-extrabold uppercase tracking-[0.07em] transition-[border-color,background-color,color,box-shadow] duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70 motion-reduce:transition-none lg:min-w-0 lg:text-xs ${activeIndex === index ? "border-cyan-300/45 bg-cyan-300/[0.1] text-cyan-100 shadow-[inset_0_1px_0_rgba(165,243,252,0.08),0_0_18px_rgba(0,239,255,0.06)]" : "border-white/[0.06] bg-[#0d2944]/70 text-white/55 hover:border-cyan-300/20 hover:text-white/85"}`}>{String(index + 1).padStart(2, "0")} · {slide.label}</button>
+                <button key={slide.label} type="button" onClick={() => selectSlide(index)} aria-current={activeIndex === index ? "true" : undefined} className={`min-h-11 min-w-[132px] snap-start rounded-lg border px-3 py-2 text-[10px] font-extrabold uppercase tracking-[0.07em] transition-[border-color,background-color,color,box-shadow] duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70 motion-reduce:transition-none min-[900px]:min-w-0 min-[900px]:px-2 min-[900px]:text-[clamp(0.58rem,0.82vw,0.75rem)] xl:px-3 ${activeIndex === index ? "border-cyan-300/45 bg-cyan-300/[0.1] text-cyan-100 shadow-[inset_0_1px_0_rgba(165,243,252,0.08),0_0_18px_rgba(0,239,255,0.06)]" : "border-white/[0.06] bg-[#0d2944]/70 text-white/55 hover:border-cyan-300/20 hover:text-white/85"}`}>{String(index + 1).padStart(2, "0")} · {slide.label}</button>
               ))}
             </div>
 
@@ -203,13 +203,13 @@ const ModulesSection = () => {
                   dragConstraints={{ left: 0, right: 0 }}
                   dragElastic={0.12}
                   onDragEnd={(_, info) => { const swipe = Math.abs(info.offset.x) > 65 || Math.abs(info.velocity.x) > 520; if (swipe) paginate(info.offset.x < 0 ? 1 : -1); }}
-                  className="grid cursor-grab select-none lg:grid-cols-[minmax(260px,0.72fr)_minmax(0,1.55fr)] lg:items-center lg:gap-8 active:cursor-grabbing"
+                  className="grid min-w-0 cursor-grab select-none min-[900px]:grid-cols-[minmax(250px,0.5625fr)_minmax(0,1fr)] min-[900px]:items-center min-[900px]:gap-5 xl:gap-8 active:cursor-grabbing"
                 >
-                  <div className="relative flex min-h-[250px] items-center justify-center overflow-hidden border-b border-cyan-200/[0.1] bg-[radial-gradient(circle_at_50%_45%,rgba(0,239,255,0.075),transparent_58%)] py-7 sm:min-h-[410px] sm:py-9 lg:order-2 lg:min-h-[560px] lg:border-b-0 lg:py-8">
+                  <div className="relative flex min-h-[250px] min-w-0 items-center justify-center overflow-hidden border-b border-cyan-200/[0.1] bg-[radial-gradient(circle_at_50%_45%,rgba(0,239,255,0.075),transparent_58%)] py-7 sm:min-h-[410px] sm:py-9 min-[900px]:order-2 min-[900px]:min-h-0 min-[900px]:border-b-0 min-[900px]:py-8">
                     <div aria-hidden="true" className="absolute inset-x-[12%] top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/55 to-transparent" />
                     <div
                       style={{ aspectRatio: activeSlide.aspectRatio }}
-                      className={`relative max-w-full rounded-[1rem] border border-cyan-200/30 bg-[linear-gradient(145deg,#152b3d,#030911)] p-[5px] shadow-[0_24px_60px_rgba(0,0,0,0.52),0_0_34px_rgba(0,239,255,0.1),inset_0_1px_0_rgba(255,255,255,0.12)] sm:rounded-[1.15rem] sm:p-1.5 ${activeSlide.portrait ? "h-[420px] w-auto sm:h-[520px]" : "w-full max-w-[760px]"}`}
+                      className={`relative mx-auto rounded-[1rem] border border-cyan-200/30 bg-[linear-gradient(145deg,#152b3d,#030911)] p-[5px] shadow-[0_24px_60px_rgba(0,0,0,0.52),0_0_34px_rgba(0,239,255,0.1),inset_0_1px_0_rgba(255,255,255,0.12)] sm:rounded-[1.15rem] sm:p-1.5 ${activeSlide.portrait ? "h-[clamp(360px,58vh,480px)] w-auto max-w-full" : "w-full max-w-[620px]"}`}
                     >
                       <span aria-hidden="true" className="absolute left-1/2 top-[2px] z-10 h-1 w-1 -translate-x-1/2 rounded-full bg-white/25" />
                       <div className="h-full w-full overflow-hidden rounded-[0.72rem] bg-[#031324] sm:rounded-[0.85rem]">
@@ -218,7 +218,7 @@ const ModulesSection = () => {
                     </div>
                   </div>
 
-                  <div className="flex min-h-[250px] flex-col justify-center py-7 sm:min-h-[280px] sm:py-9 lg:order-1 lg:min-h-0 lg:py-10 lg:pl-5">
+                  <div className="flex min-h-[250px] min-w-0 flex-col justify-center py-7 sm:min-h-[280px] sm:py-9 min-[900px]:order-1 min-[900px]:min-h-0 min-[900px]:py-8 min-[900px]:pl-3 xl:py-10 xl:pl-5">
                     <div>
                       <div className="flex items-center justify-between gap-4"><span className="text-[10px] font-extrabold uppercase tracking-[0.2em] text-cyan-300/85 sm:text-xs">{activeSlide.eyebrow}</span><span className="shrink-0 text-sm font-bold tabular-nums text-white/50"><span className="text-cyan-300">{String(activeIndex + 1).padStart(2, "0")}</span> / 05</span></div>
                       <h3 className="mt-5 text-2xl font-extrabold leading-tight tracking-tight text-white sm:text-3xl">{activeSlide.title}</h3>
@@ -228,8 +228,8 @@ const ModulesSection = () => {
                 </motion.article>
               </AnimatePresence>
 
-              <button type="button" onClick={() => paginate(-1)} aria-label="Slide anterior" className="absolute left-1 top-[29%] z-20 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-cyan-300/35 bg-[#071c32]/95 text-cyan-100 shadow-[0_10px_24px_rgba(0,0,0,0.35)] transition-[border-color,background-color,transform] duration-300 hover:border-cyan-200/65 hover:bg-[#0d2944] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/80 motion-reduce:transition-none sm:left-2 sm:top-[36%] lg:top-1/2"><ArrowLeft className="h-5 w-5" aria-hidden="true" /></button>
-              <button type="button" onClick={() => paginate(1)} aria-label="Próximo slide" className="absolute right-1 top-[29%] z-20 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-cyan-300/35 bg-[#071c32]/95 text-cyan-100 shadow-[0_10px_24px_rgba(0,0,0,0.35)] transition-[border-color,background-color,transform] duration-300 hover:border-cyan-200/65 hover:bg-[#0d2944] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/80 motion-reduce:transition-none sm:right-2 sm:top-[36%] lg:top-1/2"><ArrowRight className="h-5 w-5" aria-hidden="true" /></button>
+              <button type="button" onClick={() => paginate(-1)} aria-label="Slide anterior" className="absolute left-1 top-[29%] z-20 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-cyan-300/35 bg-[#071c32]/95 text-cyan-100 shadow-[0_10px_24px_rgba(0,0,0,0.35)] transition-[border-color,background-color,transform] duration-300 hover:border-cyan-200/65 hover:bg-[#0d2944] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/80 motion-reduce:transition-none sm:left-2 sm:top-[36%] min-[900px]:top-1/2"><ArrowLeft className="h-5 w-5" aria-hidden="true" /></button>
+              <button type="button" onClick={() => paginate(1)} aria-label="Próximo slide" className="absolute right-1 top-[29%] z-20 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-cyan-300/35 bg-[#071c32]/95 text-cyan-100 shadow-[0_10px_24px_rgba(0,0,0,0.35)] transition-[border-color,background-color,transform] duration-300 hover:border-cyan-200/65 hover:bg-[#0d2944] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/80 motion-reduce:transition-none sm:right-2 sm:top-[36%] min-[900px]:top-1/2"><ArrowRight className="h-5 w-5" aria-hidden="true" /></button>
 
               <div className="flex items-center gap-2 border-t border-cyan-200/[0.09] py-3 sm:py-4" aria-label={`Slide ${activeIndex + 1} de 5`}>
                 {slides.map((slide, index) => (
