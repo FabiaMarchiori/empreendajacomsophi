@@ -11,6 +11,8 @@ import {
 import { ArrowRight } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
+import HeroLaptop from "@/components/sections/HeroLaptop";
+
 const NICHES = [
   { name: "Papelaria Fofa", count: 29 },
   { name: "Bolsas, Mochilas e Malas", count: 66 },
@@ -112,7 +114,7 @@ const NicheRow = ({
   );
 };
 
-const ImportersCard = ({ scrollProgress }: { scrollProgress: MotionValue<number> }) => {
+export const HeroImportersPanel = ({ scrollProgress }: { scrollProgress: MotionValue<number> }) => {
   const ref = useRef<HTMLDivElement>(null);
   const reduced = !!useReducedMotion();
   const inView = useInView(ref, { once: true, amount: 0.35 });
@@ -317,6 +319,7 @@ const ImportersCard = ({ scrollProgress }: { scrollProgress: MotionValue<number>
 const HeroSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const reduced = !!useReducedMotion();
+  const copyInView = useInView(sectionRef, { once: true, amount: 0.16 });
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end start"] });
   const smoothProgress = useSpring(scrollYProgress, { stiffness: 105, damping: 24, mass: 0.35 });
   const fade = (delay: number) =>
@@ -342,8 +345,8 @@ const HeroSection = () => {
         style={{ background: "radial-gradient(circle, rgba(0,239,255,0.07) 0%, transparent 70%)" }}
       />
 
-      <div className="relative z-10 mx-auto w-full max-w-[1440px] px-5 py-12 sm:px-6 lg:px-8 lg:py-20">
-        <div className="grid items-center gap-10 min-[960px]:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] min-[960px]:gap-10 xl:gap-16">
+      <div className="relative z-10 mx-auto w-full max-w-[1440px] px-5 py-12 sm:px-6 lg:px-8 lg:py-8 xl:py-10">
+        <div className="grid items-center gap-10 min-[960px]:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] min-[960px]:gap-10 xl:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] xl:gap-12">
           {/* Content */}
           <div className="min-w-0 space-y-6">
             <motion.p
@@ -373,7 +376,7 @@ const HeroSection = () => {
                   backgroundClip: "text",
                 }}
               >
-                320
+                <Counter start={copyInView} reduced={reduced} />
               </span>
               fornecedores e importadoras para descobrir novas oportunidades de compra, margem e revenda.
             </motion.p>
@@ -412,9 +415,9 @@ const HeroSection = () => {
             </motion.div>
           </div>
 
-          {/* Card */}
-          <div className="min-w-0 min-[960px]:w-full min-[960px]:max-w-[560px] min-[960px]:justify-self-end xl:origin-right xl:scale-[1.1]">
-            <ImportersCard scrollProgress={smoothProgress} />
+          {/* Product */}
+          <div className="min-w-0 w-full min-[960px]:justify-self-end">
+            <HeroLaptop scrollProgress={smoothProgress} />
           </div>
         </div>
       </div>
