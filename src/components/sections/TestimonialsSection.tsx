@@ -99,7 +99,7 @@ const TestimonialsSection = () => {
       if (pauseReasonsRef.current.size === 0 && time >= resumeAfterRef.current && !engine.dragHandler.pointerDown()) {
         engine.animation.stop();
         const mobile = window.matchMedia("(max-width: 639px)").matches;
-        const distance = (mobile ? 0.22 : 0.32) * (elapsed / 16.667);
+        const distance = (mobile ? 0.38 : 0.44) * (elapsed / 16.667);
 
         engine.location.add(-distance);
         engine.target.set(engine.location);

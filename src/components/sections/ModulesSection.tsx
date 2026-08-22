@@ -102,7 +102,6 @@ const ModulesSection = () => {
   const [tourInView, setTourInView] = useState(false);
   const [pageVisible, setPageVisible] = useState(() => typeof document === "undefined" || !document.hidden);
   const [hoveringTour, setHoveringTour] = useState(false);
-  const [focusWithinTour, setFocusWithinTour] = useState(false);
   const [touchingTour, setTouchingTour] = useState(false);
   const [resumeAt, setResumeAt] = useState(0);
   const tourRef = useRef<HTMLDivElement>(null);
@@ -126,7 +125,7 @@ const ModulesSection = () => {
     setActiveIndex((current) => (current + step + slides.length) % slides.length);
   };
 
-  const holdAutoplay = useCallback((delay = 8000) => {
+  const holdAutoplay = useCallback((delay = 3000) => {
     setResumeAt(Date.now() + delay);
   }, []);
 
@@ -139,6 +138,13 @@ const ModulesSection = () => {
     holdAutoplay();
     paginate(step);
   };
+
+  useEffect(() => {
+    slides.forEach((slide) => {
+      const image = new Image();
+      image.src = slide.image;
+    });
+  }, []);
 
   useEffect(() => {
     const node = tourRef.current;
@@ -156,17 +162,16 @@ const ModulesSection = () => {
   }, []);
 
   useEffect(() => {
-    if (reduced || !tourInView || !pageVisible || hoveringTour || focusWithinTour || touchingTour) return;
+    if (reduced || !tourInView || !pageVisible || hoveringTour || touchingTour) return;
 
-    const slideDuration = activeIndex === slides.length - 1 ? 6500 : 5800;
-    const delay = Math.max(slideDuration, resumeAt - Date.now());
+    const delay = Math.max(2900, resumeAt - Date.now());
     const timer = window.setTimeout(() => {
       setDirection(1);
       setActiveIndex((current) => (current + 1) % slides.length);
     }, delay);
 
     return () => window.clearTimeout(timer);
-  }, [activeIndex, focusWithinTour, hoveringTour, pageVisible, reduced, resumeAt, touchingTour, tourInView]);
+  }, [activeIndex, hoveringTour, pageVisible, reduced, resumeAt, touchingTour, tourInView]);
 
   const slideVariants = {
     enter: (travelDirection: number) => reduced ? { opacity: 0 } : { opacity: 0, x: travelDirection > 0 ? 34 : -34, scale: 0.992 },
@@ -230,18 +235,20 @@ const ModulesSection = () => {
             aria-roledescription="carrossel"
             aria-label="Tour da plataforma EmpreendaJá"
             tabIndex={0}
-            onMouseEnter={() => setHoveringTour(true)}
-            onMouseLeave={() => { setHoveringTour(false); holdAutoplay(2400); }}
-            onFocusCapture={() => setFocusWithinTour(true)}
-            onBlurCapture={(event) => {
-              if (!event.currentTarget.contains(event.relatedTarget)) {
-                setFocusWithinTour(false);
-                holdAutoplay(3500);
-              }
+            onMouseEnter={() => {
+              if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) setHoveringTour(true);
             }}
+            onMouseLeave={() => {
+              setHoveringTour(false);
+              holdAutoplay();
+            }}
+            onFocusCapture={() => holdAutoplay()}
+            onBlurCapture={() => holdAutoplay()}
             onPointerDown={() => setTouchingTour(true)}
             onPointerUp={() => { setTouchingTour(false); holdAutoplay(); }}
             onPointerCancel={() => { setTouchingTour(false); holdAutoplay(); }}
+            onLostPointerCapture={() => { setTouchingTour(false); holdAutoplay(); }}
+            onTouchEnd={() => { setTouchingTour(false); holdAutoplay(); }}
             onKeyDown={(event) => {
               holdAutoplay();
               if (event.key === "ArrowLeft") paginate(-1);
@@ -256,7 +263,7 @@ const ModulesSection = () => {
             </div>
 
             <div className="relative overflow-hidden rounded-2xl border border-cyan-200/[0.12] bg-[#06172b] px-11 sm:px-14 lg:px-16">
-              <AnimatePresence initial={false} custom={direction} mode="wait">
+              <AnimatePresence initial={false} custom={direction} mode="popLayout">
                 <motion.article
                   key={activeIndex}
                   custom={direction}
@@ -264,7 +271,7 @@ const ModulesSection = () => {
                   initial="enter"
                   animate="center"
                   exit="exit"
-                  transition={{ duration: reduced ? 0.08 : 0.42, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{ duration: reduced ? 0.08 : 0.36, ease: [0.22, 1, 0.36, 1] }}
                   drag={reduced ? false : "x"}
                   dragConstraints={{ left: 0, right: 0 }}
                   dragElastic={0.12}
