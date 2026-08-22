@@ -170,8 +170,8 @@ const SolutionSection = () => {
             <span className="hidden text-xs font-semibold text-cyan-200/70 sm:inline">+ outras categorias disponíveis</span>
           </div>
 
-          <div className="xl:grid xl:grid-cols-[minmax(310px,0.72fr)_minmax(0,1.45fr)] xl:items-stretch xl:gap-6">
-            <div className="min-w-0 xl:order-2">
+          <div className="lg:grid lg:grid-cols-[minmax(0,1.75fr)_minmax(300px,0.85fr)] lg:items-stretch lg:gap-5 xl:grid-cols-[minmax(0,1.9fr)_minmax(320px,0.82fr)] xl:gap-6">
+            <div className="min-w-0">
               <div className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:-mx-6 sm:px-6 md:mx-0 md:grid md:grid-cols-3 md:overflow-visible md:px-0 md:pb-0">
                 {categories.map((category, i) => (
                   <motion.div
@@ -236,7 +236,7 @@ const SolutionSection = () => {
 
             <motion.div
               {...entrance(0.16, 14)}
-              className="mx-auto mt-6 w-full max-w-[520px] border-t border-cyan-300/10 pt-6 xl:order-1 xl:mt-0 xl:max-w-none xl:border-r xl:border-t-0 xl:pr-6 xl:pt-0"
+              className="mx-auto mt-6 w-full max-w-[520px] border-t border-cyan-300/10 pt-6 lg:mt-0 lg:max-w-none lg:border-l lg:border-t-0 lg:pl-5 lg:pt-0 xl:pl-6"
             >
               <CentralInstrument scrollProgress={panelProgress} reduced={reduced} />
             </motion.div>

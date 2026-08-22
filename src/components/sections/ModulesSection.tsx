@@ -51,6 +51,8 @@ const slides = [
     description: "Encontre fornecedores e importadoras de diferentes categorias para comparar possibilidades de compra.",
     image: importersScreen,
     alt: "Interface real da Central de Fornecedores organizada por categorias",
+    aspectRatio: "1024 / 912",
+    portrait: false,
   },
   {
     label: "Precificação",
@@ -59,6 +61,8 @@ const slides = [
     description: "Organize custos, taxas, impostos e margem para entender melhor a formação do seu preço de venda.",
     image: pricingScreen,
     alt: "Interface real da Central de Precificação",
+    aspectRatio: "1024 / 973",
+    portrait: false,
   },
   {
     label: "Gestão",
@@ -67,6 +71,8 @@ const slides = [
     description: "Visualize informações importantes da operação em uma área criada para apoiar sua organização.",
     image: managementScreen,
     alt: "Interface real da Gestão do Negócio",
+    aspectRatio: "1024 / 933",
+    portrait: false,
   },
   {
     label: "Soph",
@@ -75,6 +81,8 @@ const slides = [
     description: "Conte com a Soph como apoio ao longo da sua jornada e das decisões do dia a dia.",
     image: sophScreen,
     alt: "Interface real da Soph, sua sócia digital",
+    aspectRatio: "1024 / 910",
+    portrait: false,
   },
   {
     label: "Após a compra",
@@ -83,6 +91,8 @@ const slides = [
     description: "Assim que o pagamento for confirmado, você verá a tela com as informações para acessar a plataforma. Leia as orientações com atenção antes de fechar a página.",
     image: thankYouScreen,
     alt: "Captura original da Tela de Obrigado exibida após a confirmação do pagamento",
+    aspectRatio: "1368 / 1669",
+    portrait: true,
   },
 ];
 
@@ -193,19 +203,22 @@ const ModulesSection = () => {
                   dragConstraints={{ left: 0, right: 0 }}
                   dragElastic={0.12}
                   onDragEnd={(_, info) => { const swipe = Math.abs(info.offset.x) > 65 || Math.abs(info.velocity.x) > 520; if (swipe) paginate(info.offset.x < 0 ? 1 : -1); }}
-                  className="grid cursor-grab select-none lg:grid-cols-[minmax(0,1.55fr)_minmax(280px,0.72fr)] lg:items-center lg:gap-8 active:cursor-grabbing"
+                  className="grid cursor-grab select-none lg:grid-cols-[minmax(260px,0.72fr)_minmax(0,1.55fr)] lg:items-center lg:gap-8 active:cursor-grabbing"
                 >
-                  <div className="relative flex min-h-[250px] items-center justify-center overflow-hidden border-b border-cyan-200/[0.1] bg-[radial-gradient(circle_at_50%_45%,rgba(0,239,255,0.075),transparent_58%)] py-7 sm:min-h-[410px] sm:py-9 lg:min-h-[520px] lg:border-b-0 lg:py-10">
+                  <div className="relative flex min-h-[250px] items-center justify-center overflow-hidden border-b border-cyan-200/[0.1] bg-[radial-gradient(circle_at_50%_45%,rgba(0,239,255,0.075),transparent_58%)] py-7 sm:min-h-[410px] sm:py-9 lg:order-2 lg:min-h-[560px] lg:border-b-0 lg:py-8">
                     <div aria-hidden="true" className="absolute inset-x-[12%] top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/55 to-transparent" />
-                    <div className="relative aspect-[16/10] w-full max-w-[760px] rounded-[1.15rem] border border-cyan-200/30 bg-[linear-gradient(145deg,#152b3d,#030911)] p-[7px] shadow-[0_24px_60px_rgba(0,0,0,0.52),0_0_34px_rgba(0,239,255,0.1),inset_0_1px_0_rgba(255,255,255,0.12)] sm:rounded-[1.35rem] sm:p-[9px]">
-                      <span aria-hidden="true" className="absolute left-1/2 top-[3px] z-10 h-1 w-1 -translate-x-1/2 rounded-full bg-white/25 sm:top-1 sm:h-1.5 sm:w-1.5" />
-                      <div className="h-full w-full overflow-hidden rounded-[0.85rem] border border-cyan-300/15 bg-[#031324] sm:rounded-2xl">
+                    <div
+                      style={{ aspectRatio: activeSlide.aspectRatio }}
+                      className={`relative max-w-full rounded-[1rem] border border-cyan-200/30 bg-[linear-gradient(145deg,#152b3d,#030911)] p-[5px] shadow-[0_24px_60px_rgba(0,0,0,0.52),0_0_34px_rgba(0,239,255,0.1),inset_0_1px_0_rgba(255,255,255,0.12)] sm:rounded-[1.15rem] sm:p-1.5 ${activeSlide.portrait ? "h-[420px] w-auto sm:h-[520px]" : "w-full max-w-[760px]"}`}
+                    >
+                      <span aria-hidden="true" className="absolute left-1/2 top-[2px] z-10 h-1 w-1 -translate-x-1/2 rounded-full bg-white/25" />
+                      <div className="h-full w-full overflow-hidden rounded-[0.72rem] bg-[#031324] sm:rounded-[0.85rem]">
                         <img src={activeSlide.image} alt={activeSlide.alt} draggable={false} className="h-full w-full object-contain" />
                       </div>
                     </div>
                   </div>
 
-                  <div className="flex min-h-[250px] flex-col justify-center py-7 sm:min-h-[280px] sm:py-9 lg:min-h-0 lg:py-10 lg:pr-5">
+                  <div className="flex min-h-[250px] flex-col justify-center py-7 sm:min-h-[280px] sm:py-9 lg:order-1 lg:min-h-0 lg:py-10 lg:pl-5">
                     <div>
                       <div className="flex items-center justify-between gap-4"><span className="text-[10px] font-extrabold uppercase tracking-[0.2em] text-cyan-300/85 sm:text-xs">{activeSlide.eyebrow}</span><span className="shrink-0 text-sm font-bold tabular-nums text-white/50"><span className="text-cyan-300">{String(activeIndex + 1).padStart(2, "0")}</span> / 05</span></div>
                       <h3 className="mt-5 text-2xl font-extrabold leading-tight tracking-tight text-white sm:text-3xl">{activeSlide.title}</h3>
