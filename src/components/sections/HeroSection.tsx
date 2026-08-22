@@ -11,7 +11,7 @@ import {
 import { ArrowRight } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
-import HeroLaptop from "@/components/sections/HeroLaptop";
+import HeroTablet from "@/components/sections/HeroTablet";
 
 const NICHES = [
   { name: "Papelaria Fofa", count: 29 },
@@ -417,7 +417,7 @@ const HeroSection = () => {
 
           {/* Product */}
           <div className="min-w-0 w-full min-[960px]:justify-self-end">
-            <HeroLaptop scrollProgress={smoothProgress} />
+            <HeroTablet scrollProgress={smoothProgress} />
           </div>
         </div>
       </div>
