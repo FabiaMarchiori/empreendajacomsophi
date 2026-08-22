@@ -1,5 +1,5 @@
-import { motion, useReducedMotion, useScroll, useSpring } from "framer-motion";
-import { useRef } from "react";
+import { motion, MotionValue, useMotionValueEvent, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
+import { useRef, useState } from "react";
 import {
   ArrowDown,
   Contact,
@@ -13,7 +13,6 @@ import gamesEletronicos from "@/assets/categories/games-eletronicos.png";
 import maquiagem from "@/assets/categories/maquiagem.png";
 import papelariaFofa from "@/assets/categories/papelaria-fofa.png";
 import presentesPelucias from "@/assets/categories/presentes-pelucias.png";
-import { HeroImportersPanel } from "@/components/sections/HeroSection";
 
 const categories = [
   { image: bolsasMochilasMalas, name: "Bolsas, Mochilas e Malas", count: 66 },
@@ -46,6 +45,87 @@ const benefits = [
     description: "Acesse a Central mesmo sem estar fisicamente nos grandes polos comerciais.",
   },
 ];
+
+const panelNiches = [
+  { name: "Papelaria Fofa", count: 29 },
+  { name: "Semijoias", count: 39 },
+  { name: "Moda Feminina", count: 58 },
+  { name: "Games e Eletrônicos", count: 24 },
+];
+
+const CentralInstrument = ({ scrollProgress, reduced }: { scrollProgress: MotionValue<number>; reduced: boolean }) => {
+  const [suppliers, setSuppliers] = useState(reduced ? 320 : 0);
+  const [niches, setNiches] = useState(reduced ? 14 : 0);
+  const panelY = useTransform(scrollProgress, [0, 0.45, 1], reduced ? [0, 0, 0] : [18, 0, -10]);
+  const panelGlow = useTransform(scrollProgress, [0.08, 0.48, 0.9], reduced ? [0.08, 0.08, 0.08] : [0.025, 0.13, 0.06]);
+
+  useMotionValueEvent(scrollProgress, "change", (value) => {
+    if (reduced) return;
+    const progress = Math.min(1, Math.max(0, (value - 0.08) / 0.16));
+    setSuppliers(Math.round(320 * progress));
+    setNiches(Math.round(14 * progress));
+  });
+
+  return (
+    <motion.aside
+      style={{ y: panelY }}
+      className="relative overflow-hidden rounded-2xl border border-cyan-300/25 bg-[#071b30] p-5 shadow-[0_24px_60px_rgba(0,0,0,0.42),inset_0_1px_0_rgba(165,243,252,0.08)] sm:p-6"
+      aria-label="Resumo da Central de Fornecedores"
+    >
+      <motion.div aria-hidden="true" style={{ opacity: panelGlow }} className="pointer-events-none absolute inset-0 bg-cyan-300" />
+      <div aria-hidden="true" className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/70 to-transparent shadow-[0_0_14px_rgba(103,232,249,0.65)]" />
+
+      <div className="relative flex items-center justify-between gap-3 text-[10px] font-extrabold uppercase tracking-[0.16em] text-cyan-300 sm:text-xs">
+        <span>PAINEL DA CENTRAL</span>
+        <span className="inline-flex items-center gap-2 text-cyan-100/65">
+          <motion.span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-cyan-300 shadow-[0_0_10px_rgba(103,232,249,0.9)]" animate={reduced ? undefined : { opacity: [0.45, 1, 0.45] }} transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }} />
+          ATUALIZADO
+        </span>
+      </div>
+
+      <div className="relative mt-5 grid grid-cols-2 gap-3">
+        <div className="rounded-xl bg-[#102a43] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.035)]">
+          <strong className="block text-3xl font-extrabold tabular-nums text-white">{suppliers}</strong>
+          <span className="mt-1 block text-[10px] font-extrabold uppercase tracking-[0.12em] text-cyan-300">FORNECEDORES</span>
+        </div>
+        <div className="rounded-xl bg-[#102a43] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.035)]">
+          <strong className="block text-3xl font-extrabold tabular-nums text-white">{niches}</strong>
+          <span className="mt-1 block text-[10px] font-extrabold uppercase tracking-[0.12em] text-cyan-300">NICHOS ATIVOS</span>
+        </div>
+      </div>
+
+      <div className="relative my-5 h-px overflow-visible bg-cyan-200/10">
+        <motion.div
+          aria-hidden="true"
+          className="absolute -top-px h-[3px] w-1/3 bg-gradient-to-r from-transparent via-cyan-200 to-transparent shadow-[0_0_14px_rgba(0,239,255,0.85)]"
+          animate={reduced ? { left: "33%" } : { left: ["-34%", "100%"] }}
+          transition={{ duration: 3.8, repeat: reduced ? 0 : Infinity, ease: "linear" }}
+        />
+      </div>
+
+      <div className="relative grid gap-2.5">
+        {panelNiches.map((niche, index) => (
+          <motion.div
+            key={niche.name}
+            initial={reduced ? false : { opacity: 0, x: -10 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.7 }}
+            transition={{ duration: 0.32, delay: reduced ? 0 : 0.12 + index * 0.06, ease: "easeOut" }}
+            className="flex min-h-10 items-center justify-between gap-3 rounded-lg bg-[#102a43] px-3.5 py-2.5 text-xs text-white"
+          >
+            <span className="inline-flex min-w-0 items-center gap-2.5"><span aria-hidden="true" className="h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-300/75" /><span className="truncate">{niche.name}</span></span>
+            <strong className="tabular-nums text-cyan-200">{niche.count}</strong>
+          </motion.div>
+        ))}
+      </div>
+
+      <div className="relative mt-5 flex items-center justify-between border-t border-cyan-200/10 pt-4 text-[10px] font-bold uppercase tracking-[0.12em] text-white/45">
+        <span>ATIVIDADE</span>
+        <span className="inline-flex items-center gap-1.5 text-cyan-200/75"><span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-cyan-300" /> EM SINCRONIA</span>
+      </div>
+    </motion.aside>
+  );
+};
 
 const SolutionSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -90,8 +170,8 @@ const SolutionSection = () => {
             <span className="hidden text-xs font-semibold text-cyan-200/70 sm:inline">+ outras categorias disponíveis</span>
           </div>
 
-          <div className="xl:grid xl:grid-cols-[minmax(0,1.55fr)_minmax(340px,0.85fr)] xl:items-center xl:gap-6">
-            <div className="min-w-0">
+          <div className="xl:grid xl:grid-cols-[minmax(310px,0.72fr)_minmax(0,1.45fr)] xl:items-stretch xl:gap-6">
+            <div className="min-w-0 xl:order-2">
               <div className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:-mx-6 sm:px-6 md:mx-0 md:grid md:grid-cols-3 md:overflow-visible md:px-0 md:pb-0">
                 {categories.map((category, i) => (
                   <motion.div
@@ -155,11 +235,12 @@ const SolutionSection = () => {
             </div>
 
             <motion.div
-              {...entrance(0.2, 14)}
-              className="mx-auto mt-6 w-full max-w-[480px] border-t border-cyan-300/10 pt-6 xl:mt-0 xl:max-w-none xl:border-l xl:border-t-0 xl:pl-6 xl:pt-0"
+              {...entrance(0.16, 14)}
+              className="mx-auto mt-6 w-full max-w-[520px] border-t border-cyan-300/10 pt-6 xl:order-1 xl:mt-0 xl:max-w-none xl:border-r xl:border-t-0 xl:pr-6 xl:pt-0"
             >
-              <HeroImportersPanel scrollProgress={panelProgress} />
+              <CentralInstrument scrollProgress={panelProgress} reduced={reduced} />
             </motion.div>
+
           </div>
         </motion.div>
 
