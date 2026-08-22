@@ -210,15 +210,15 @@ const TestimonialsSection = () => {
 
             <CarouselPrevious
               aria-label="Ver depoimentos anteriores"
-              className="left-0 hidden h-9 w-9 border-cyan-300/20 bg-[#0b2139] text-cyan-200 hover:border-cyan-300/40 hover:bg-[#0d2944] focus-visible:ring-2 focus-visible:ring-cyan-300 md:flex"
+              className="left-0 hidden h-11 w-11 border-cyan-300/20 bg-[#0b2139] text-cyan-200 hover:border-cyan-300/40 hover:bg-[#0d2944] focus-visible:ring-2 focus-visible:ring-cyan-300 md:flex"
             />
             <CarouselNext
               aria-label="Ver próximos depoimentos"
-              className="right-0 hidden h-9 w-9 border-cyan-300/20 bg-[#0b2139] text-cyan-200 hover:border-cyan-300/40 hover:bg-[#0d2944] focus-visible:ring-2 focus-visible:ring-cyan-300 md:flex"
+              className="right-0 hidden h-11 w-11 border-cyan-300/20 bg-[#0b2139] text-cyan-200 hover:border-cyan-300/40 hover:bg-[#0d2944] focus-visible:ring-2 focus-visible:ring-cyan-300 md:flex"
             />
           </Carousel>
 
-          <div className="mt-7 flex items-center justify-center gap-2" aria-label={"Depoimento " + (current + 1) + " de " + count}>
+          <div className="mt-2 flex items-center justify-center" aria-label={"Depoimento " + (current + 1) + " de " + count}>
             {Array.from({ length: count }).map((_, index) => (
               <button
                 key={index}
@@ -230,10 +230,15 @@ const TestimonialsSection = () => {
                 }}
                 aria-label={"Ir para o depoimento " + (index + 1)}
                 aria-current={index === current ? "true" : undefined}
-                className={"h-2 rounded-full transition-[width,background-color] duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A192F] " + (
-                  index === current ? "w-6 bg-cyan-300" : "w-2 bg-white/25 hover:bg-white/40"
-                )}
-              />
+                className="group flex h-11 w-11 items-center justify-center rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A192F]"
+              >
+                <span
+                  aria-hidden="true"
+                  className={"h-2 rounded-full transition-[width,background-color] duration-300 " + (
+                    index === current ? "w-6 bg-cyan-300" : "w-2 bg-white/25 group-hover:bg-white/40"
+                  )}
+                />
+              </button>
             ))}
           </div>
         </motion.div>
