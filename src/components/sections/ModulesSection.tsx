@@ -262,7 +262,7 @@ const ModulesSection = () => {
               ))}
             </div>
 
-            <div className="relative overflow-hidden rounded-2xl border border-cyan-200/[0.12] bg-[#06172b] px-11 sm:px-14 lg:px-16">
+            <div className={`relative overflow-hidden rounded-2xl border border-cyan-200/[0.12] bg-[#06172b] sm:px-14 lg:px-16 ${activeSlide.portrait ? "px-5" : "px-11"}`}>
               <AnimatePresence initial={false} custom={direction} mode="popLayout">
                 <motion.article
                   key={activeIndex}
@@ -278,15 +278,15 @@ const ModulesSection = () => {
                   onDragEnd={(_, info) => { const swipe = Math.abs(info.offset.x) > 65 || Math.abs(info.velocity.x) > 520; holdAutoplay(); if (swipe) paginate(info.offset.x < 0 ? 1 : -1); }}
                   className="grid min-w-0 cursor-grab select-none min-[900px]:grid-cols-[minmax(250px,0.5625fr)_minmax(0,1fr)] min-[900px]:items-center min-[900px]:gap-5 xl:gap-8 active:cursor-grabbing"
                 >
-                  <div className="relative flex min-h-[250px] min-w-0 items-center justify-center overflow-hidden border-b border-cyan-200/[0.1] bg-[radial-gradient(circle_at_50%_45%,rgba(0,239,255,0.075),transparent_58%)] py-7 sm:min-h-[410px] sm:py-9 min-[900px]:order-2 min-[900px]:min-h-0 min-[900px]:border-b-0 min-[900px]:py-8">
+                  <div className={`relative flex min-w-0 items-center justify-center overflow-hidden border-b border-cyan-200/[0.1] bg-[radial-gradient(circle_at_50%_45%,rgba(0,239,255,0.075),transparent_58%)] sm:min-h-[410px] sm:py-9 min-[900px]:order-2 min-[900px]:min-h-0 min-[900px]:border-b-0 min-[900px]:py-8 ${activeSlide.portrait ? "min-h-0 py-3" : "min-h-[250px] py-7"}`}>
                     <div aria-hidden="true" className="absolute inset-x-[12%] top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/55 to-transparent" />
                     <div
                       style={{ aspectRatio: activeSlide.aspectRatio }}
-                      className={`relative mx-auto rounded-[1rem] border border-cyan-200/30 bg-[linear-gradient(145deg,#152b3d,#030911)] p-[5px] shadow-[0_24px_60px_rgba(0,0,0,0.52),0_0_34px_rgba(0,239,255,0.1),inset_0_1px_0_rgba(255,255,255,0.12)] sm:rounded-[1.15rem] sm:p-1.5 ${activeSlide.portrait ? "h-[clamp(360px,58vh,480px)] w-auto max-w-full" : "w-full max-w-[620px]"}`}
+                      className={`relative mx-auto border border-cyan-200/30 bg-[linear-gradient(145deg,#152b3d,#030911)] shadow-[0_24px_60px_rgba(0,0,0,0.52),0_0_34px_rgba(0,239,255,0.1),inset_0_1px_0_rgba(255,255,255,0.12)] sm:rounded-[1.15rem] sm:p-1.5 ${activeSlide.portrait ? "h-auto w-full max-w-full rounded-xl p-[3px] sm:h-[clamp(360px,58vh,480px)] sm:w-auto" : "w-full max-w-[620px] rounded-[1rem] p-[5px]"}`}
                     >
                       <span aria-hidden="true" className="absolute left-1/2 top-[2px] z-10 h-1 w-1 -translate-x-1/2 rounded-full bg-white/25" />
                       <div className="h-full w-full overflow-hidden rounded-[0.72rem] bg-[#031324] sm:rounded-[0.85rem]">
-                        <img src={activeSlide.image} alt={activeSlide.alt} draggable={false} className="h-full w-full object-contain" />
+                        <img src={activeSlide.image} alt={activeSlide.alt} draggable={false} className={activeSlide.portrait ? "h-auto w-full object-contain sm:h-full" : "h-full w-full object-contain"} />
                       </div>
                     </div>
                   </div>
