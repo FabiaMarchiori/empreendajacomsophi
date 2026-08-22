@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { Quote } from "lucide-react";
 
@@ -25,6 +25,18 @@ const TestimonialsSection = () => {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
+  const carouselRegionRef = useRef<HTMLDivElement>(null);
+  const pauseReasonsRef = useRef(new Set<string>());
+  const resumeAfterRef = useRef(0);
+
+  const pause = useCallback((reason: string) => {
+    pauseReasonsRef.current.add(reason);
+  }, []);
+
+  const resume = useCallback((reason: string, delay = 900) => {
+    pauseReasonsRef.current.delete(reason);
+    resumeAfterRef.current = performance.now() + delay;
+  }, []);
 
   useEffect(() => {
     if (!api) return;
@@ -43,6 +55,93 @@ const TestimonialsSection = () => {
       api.off("reInit", updatePosition);
     };
   }, [api]);
+
+  useEffect(() => {
+    if (!api || reduced) return;
+
+    const root = carouselRegionRef.current;
+    if (!root) return;
+
+    let frame = 0;
+    let previousTime = performance.now();
+    let previousIndex = api.selectedScrollSnap();
+    let engine = api.internalEngine();
+
+    const updateEngine = () => {
+      engine = api.internalEngine();
+      previousIndex = api.selectedScrollSnap();
+    };
+    const handlePointerDown = () => pause("drag");
+    const handlePointerUp = () => resume("drag", 2200);
+    const handleVisibility = () => {
+      if (document.hidden) pause("document");
+      else resume("document", 700);
+    };
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) resume("viewport", 700);
+        else pause("viewport");
+      },
+      { threshold: 0.12 },
+    );
+
+    observer.observe(root);
+    handleVisibility();
+    api.on("pointerDown", handlePointerDown);
+    api.on("pointerUp", handlePointerUp);
+    api.on("reInit", updateEngine);
+    document.addEventListener("visibilitychange", handleVisibility);
+
+    const tick = (time: number) => {
+      const elapsed = Math.min(time - previousTime, 32);
+      previousTime = time;
+
+      if (pauseReasonsRef.current.size === 0 && time >= resumeAfterRef.current && !engine.dragHandler.pointerDown()) {
+        engine.animation.stop();
+        const mobile = window.matchMedia("(max-width: 639px)").matches;
+        const distance = (mobile ? 0.22 : 0.32) * (elapsed / 16.667);
+
+        engine.location.add(-distance);
+        engine.target.set(engine.location);
+        engine.previousLocation.set(engine.location);
+        engine.offsetLocation.set(engine.location);
+        engine.scrollLooper.loop(-1);
+        engine.slideLooper.loop();
+        engine.translate.to(engine.location.get());
+        api.emit("scroll");
+
+        let closestIndex = 0;
+        let closestDistance = Number.POSITIVE_INFINITY;
+        engine.scrollSnaps.forEach((snap, index) => {
+          const snapDistance = Math.abs(snap - engine.location.get());
+          if (snapDistance < closestDistance) {
+            closestDistance = snapDistance;
+            closestIndex = index;
+          }
+        });
+
+        if (closestIndex !== previousIndex) {
+          engine.indexPrevious.set(previousIndex);
+          engine.index.set(closestIndex);
+          previousIndex = closestIndex;
+          api.emit("select");
+        }
+      }
+
+      frame = requestAnimationFrame(tick);
+    };
+
+    frame = requestAnimationFrame(tick);
+
+    return () => {
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+      api.off("pointerDown", handlePointerDown);
+      api.off("pointerUp", handlePointerUp);
+      api.off("reInit", updateEngine);
+      document.removeEventListener("visibilitychange", handleVisibility);
+    };
+  }, [api, pause, reduced, resume]);
 
   return (
     <section className="relative overflow-hidden bg-[#0A192F] py-20 md:py-24">
@@ -67,15 +166,24 @@ const TestimonialsSection = () => {
         </motion.header>
 
         <motion.div
+          ref={carouselRegionRef}
           initial={reduced ? { opacity: 0 } : { opacity: 0, y: 20 }}
           whileInView={reduced ? { opacity: 1 } : { opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: reduced ? 0.01 : 0.5, ease: "easeOut" }}
           className="mx-auto max-w-6xl"
+          onMouseEnter={() => pause("hover")}
+          onMouseLeave={() => resume("hover", 900)}
+          onFocusCapture={() => pause("focus")}
+          onBlurCapture={(event) => {
+            if (!event.currentTarget.contains(event.relatedTarget)) resume("focus", 1600);
+          }}
+          onTouchStart={() => pause("touch")}
+          onTouchEnd={() => resume("touch", 2400)}
         >
           <Carousel
             setApi={setApi}
-            opts={{ align: "start", loop: false, skipSnaps: false }}
+            opts={{ align: "start", loop: true, dragFree: true, skipSnaps: false }}
             aria-label="Depoimentos de clientes"
             className="px-0 md:px-11"
           >
@@ -115,7 +223,11 @@ const TestimonialsSection = () => {
               <button
                 key={index}
                 type="button"
-                onClick={() => api?.scrollTo(index)}
+                onClick={() => {
+                  pause("control");
+                  api?.scrollTo(index);
+                  resume("control", 2600);
+                }}
                 aria-label={"Ir para o depoimento " + (index + 1)}
                 aria-current={index === current ? "true" : undefined}
                 className={"h-2 rounded-full transition-[width,background-color] duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A192F] " + (

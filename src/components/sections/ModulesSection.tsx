@@ -1,6 +1,6 @@
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ArrowLeft, ArrowRight, Bot, Calculator, LayoutDashboard, Package } from "lucide-react";
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import managementScreen from "@/assets/mod-erp.png";
 import importersScreen from "@/assets/mod-importadoras.png";
@@ -99,6 +99,13 @@ const slides = [
 const ModulesSection = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [direction, setDirection] = useState(1);
+  const [tourInView, setTourInView] = useState(false);
+  const [pageVisible, setPageVisible] = useState(() => typeof document === "undefined" || !document.hidden);
+  const [hoveringTour, setHoveringTour] = useState(false);
+  const [focusWithinTour, setFocusWithinTour] = useState(false);
+  const [touchingTour, setTouchingTour] = useState(false);
+  const [resumeAt, setResumeAt] = useState(0);
+  const tourRef = useRef<HTMLDivElement>(null);
   const reduced = !!useReducedMotion();
   const activeSlide = slides[activeIndex];
   const reveal = (delay = 0, distance = 18) => ({
@@ -118,6 +125,48 @@ const ModulesSection = () => {
     setDirection(step);
     setActiveIndex((current) => (current + step + slides.length) % slides.length);
   };
+
+  const holdAutoplay = useCallback((delay = 8000) => {
+    setResumeAt(Date.now() + delay);
+  }, []);
+
+  const selectWithInteraction = (nextIndex: number) => {
+    holdAutoplay();
+    selectSlide(nextIndex);
+  };
+
+  const paginateWithInteraction = (step: number) => {
+    holdAutoplay();
+    paginate(step);
+  };
+
+  useEffect(() => {
+    const node = tourRef.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(([entry]) => setTourInView(entry.isIntersecting), { threshold: 0.18 });
+    const handleVisibility = () => setPageVisible(!document.hidden);
+
+    observer.observe(node);
+    document.addEventListener("visibilitychange", handleVisibility);
+    return () => {
+      observer.disconnect();
+      document.removeEventListener("visibilitychange", handleVisibility);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (reduced || !tourInView || !pageVisible || hoveringTour || focusWithinTour || touchingTour) return;
+
+    const slideDuration = activeIndex === slides.length - 1 ? 6500 : 5800;
+    const delay = Math.max(slideDuration, resumeAt - Date.now());
+    const timer = window.setTimeout(() => {
+      setDirection(1);
+      setActiveIndex((current) => (current + 1) % slides.length);
+    }, delay);
+
+    return () => window.clearTimeout(timer);
+  }, [activeIndex, focusWithinTour, hoveringTour, pageVisible, reduced, resumeAt, touchingTour, tourInView]);
 
   const slideVariants = {
     enter: (travelDirection: number) => reduced ? { opacity: 0 } : { opacity: 0, x: travelDirection > 0 ? 34 : -34, scale: 0.992 },
@@ -175,17 +224,34 @@ const ModulesSection = () => {
           </motion.header>
 
           <motion.div
+            ref={tourRef}
             {...reveal(0.08, 20)}
             role="region"
             aria-roledescription="carrossel"
             aria-label="Tour da plataforma EmpreendaJá"
             tabIndex={0}
-            onKeyDown={(event) => { if (event.key === "ArrowLeft") paginate(-1); if (event.key === "ArrowRight") paginate(1); }}
+            onMouseEnter={() => setHoveringTour(true)}
+            onMouseLeave={() => { setHoveringTour(false); holdAutoplay(2400); }}
+            onFocusCapture={() => setFocusWithinTour(true)}
+            onBlurCapture={(event) => {
+              if (!event.currentTarget.contains(event.relatedTarget)) {
+                setFocusWithinTour(false);
+                holdAutoplay(3500);
+              }
+            }}
+            onPointerDown={() => setTouchingTour(true)}
+            onPointerUp={() => { setTouchingTour(false); holdAutoplay(); }}
+            onPointerCancel={() => { setTouchingTour(false); holdAutoplay(); }}
+            onKeyDown={(event) => {
+              holdAutoplay();
+              if (event.key === "ArrowLeft") paginate(-1);
+              if (event.key === "ArrowRight") paginate(1);
+            }}
             className="mx-auto max-w-7xl rounded-[1.5rem] border border-cyan-200/[0.16] bg-[#071c32]/95 p-3 shadow-[0_30px_80px_rgba(0,0,0,0.42),0_0_54px_rgba(0,239,255,0.07),inset_0_1px_0_rgba(255,255,255,0.045)] outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A192F] sm:p-5 lg:p-6"
           >
             <div className="mb-4 flex snap-x snap-mandatory gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden min-[900px]:grid min-[900px]:grid-cols-5 min-[900px]:gap-1.5 min-[900px]:overflow-visible min-[900px]:pb-0 xl:gap-2">
               {slides.map((slide, index) => (
-                <button key={slide.label} type="button" onClick={() => selectSlide(index)} aria-current={activeIndex === index ? "true" : undefined} className={`min-h-11 min-w-[132px] snap-start rounded-lg border px-3 py-2 text-[10px] font-extrabold uppercase tracking-[0.07em] transition-[border-color,background-color,color,box-shadow] duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70 motion-reduce:transition-none min-[900px]:min-w-0 min-[900px]:px-2 min-[900px]:text-[clamp(0.58rem,0.82vw,0.75rem)] xl:px-3 ${activeIndex === index ? "border-cyan-300/45 bg-cyan-300/[0.1] text-cyan-100 shadow-[inset_0_1px_0_rgba(165,243,252,0.08),0_0_18px_rgba(0,239,255,0.06)]" : "border-white/[0.06] bg-[#0d2944]/70 text-white/55 hover:border-cyan-300/20 hover:text-white/85"}`}>{String(index + 1).padStart(2, "0")} · {slide.label}</button>
+                <button key={slide.label} type="button" onClick={() => selectWithInteraction(index)} aria-current={activeIndex === index ? "true" : undefined} className={`min-h-11 min-w-[132px] snap-start rounded-lg border px-3 py-2 text-[10px] font-extrabold uppercase tracking-[0.07em] transition-[border-color,background-color,color,box-shadow] duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70 motion-reduce:transition-none min-[900px]:min-w-0 min-[900px]:px-2 min-[900px]:text-[clamp(0.58rem,0.82vw,0.75rem)] xl:px-3 ${activeIndex === index ? "border-cyan-300/45 bg-cyan-300/[0.1] text-cyan-100 shadow-[inset_0_1px_0_rgba(165,243,252,0.08),0_0_18px_rgba(0,239,255,0.06)]" : "border-white/[0.06] bg-[#0d2944]/70 text-white/55 hover:border-cyan-300/20 hover:text-white/85"}`}>{String(index + 1).padStart(2, "0")} · {slide.label}</button>
               ))}
             </div>
 
@@ -202,7 +268,7 @@ const ModulesSection = () => {
                   drag={reduced ? false : "x"}
                   dragConstraints={{ left: 0, right: 0 }}
                   dragElastic={0.12}
-                  onDragEnd={(_, info) => { const swipe = Math.abs(info.offset.x) > 65 || Math.abs(info.velocity.x) > 520; if (swipe) paginate(info.offset.x < 0 ? 1 : -1); }}
+                  onDragEnd={(_, info) => { const swipe = Math.abs(info.offset.x) > 65 || Math.abs(info.velocity.x) > 520; holdAutoplay(); if (swipe) paginate(info.offset.x < 0 ? 1 : -1); }}
                   className="grid min-w-0 cursor-grab select-none min-[900px]:grid-cols-[minmax(250px,0.5625fr)_minmax(0,1fr)] min-[900px]:items-center min-[900px]:gap-5 xl:gap-8 active:cursor-grabbing"
                 >
                   <div className="relative flex min-h-[250px] min-w-0 items-center justify-center overflow-hidden border-b border-cyan-200/[0.1] bg-[radial-gradient(circle_at_50%_45%,rgba(0,239,255,0.075),transparent_58%)] py-7 sm:min-h-[410px] sm:py-9 min-[900px]:order-2 min-[900px]:min-h-0 min-[900px]:border-b-0 min-[900px]:py-8">
@@ -228,12 +294,12 @@ const ModulesSection = () => {
                 </motion.article>
               </AnimatePresence>
 
-              <button type="button" onClick={() => paginate(-1)} aria-label="Slide anterior" className="absolute left-1 top-[29%] z-20 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-cyan-300/35 bg-[#071c32]/95 text-cyan-100 shadow-[0_10px_24px_rgba(0,0,0,0.35)] transition-[border-color,background-color,transform] duration-300 hover:border-cyan-200/65 hover:bg-[#0d2944] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/80 motion-reduce:transition-none sm:left-2 sm:top-[36%] min-[900px]:top-1/2"><ArrowLeft className="h-5 w-5" aria-hidden="true" /></button>
-              <button type="button" onClick={() => paginate(1)} aria-label="Próximo slide" className="absolute right-1 top-[29%] z-20 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-cyan-300/35 bg-[#071c32]/95 text-cyan-100 shadow-[0_10px_24px_rgba(0,0,0,0.35)] transition-[border-color,background-color,transform] duration-300 hover:border-cyan-200/65 hover:bg-[#0d2944] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/80 motion-reduce:transition-none sm:right-2 sm:top-[36%] min-[900px]:top-1/2"><ArrowRight className="h-5 w-5" aria-hidden="true" /></button>
+              <button type="button" onClick={() => paginateWithInteraction(-1)} aria-label="Slide anterior" className="absolute left-1 top-[29%] z-20 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-cyan-300/35 bg-[#071c32]/95 text-cyan-100 shadow-[0_10px_24px_rgba(0,0,0,0.35)] transition-[border-color,background-color,transform] duration-300 hover:border-cyan-200/65 hover:bg-[#0d2944] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/80 motion-reduce:transition-none sm:left-2 sm:top-[36%] min-[900px]:top-1/2"><ArrowLeft className="h-5 w-5" aria-hidden="true" /></button>
+              <button type="button" onClick={() => paginateWithInteraction(1)} aria-label="Próximo slide" className="absolute right-1 top-[29%] z-20 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-cyan-300/35 bg-[#071c32]/95 text-cyan-100 shadow-[0_10px_24px_rgba(0,0,0,0.35)] transition-[border-color,background-color,transform] duration-300 hover:border-cyan-200/65 hover:bg-[#0d2944] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/80 motion-reduce:transition-none sm:right-2 sm:top-[36%] min-[900px]:top-1/2"><ArrowRight className="h-5 w-5" aria-hidden="true" /></button>
 
               <div className="flex items-center gap-2 border-t border-cyan-200/[0.09] py-3 sm:py-4" aria-label={`Slide ${activeIndex + 1} de 5`}>
                 {slides.map((slide, index) => (
-                  <button key={slide.label} type="button" onClick={() => selectSlide(index)} aria-label={`Ir para ${slide.label}`} aria-current={activeIndex === index ? "true" : undefined} className="flex h-11 flex-1 items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70"><span className={`h-1.5 w-full rounded-full transition-[background-color,box-shadow] duration-300 motion-reduce:transition-none ${activeIndex === index ? "bg-cyan-300 shadow-[0_0_10px_rgba(0,239,255,0.55)]" : "bg-white/15"}`} /></button>
+                  <button key={slide.label} type="button" onClick={() => selectWithInteraction(index)} aria-label={`Ir para ${slide.label}`} aria-current={activeIndex === index ? "true" : undefined} className="flex h-11 flex-1 items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70"><span className={`h-1.5 w-full rounded-full transition-[background-color,box-shadow] duration-300 motion-reduce:transition-none ${activeIndex === index ? "bg-cyan-300 shadow-[0_0_10px_rgba(0,239,255,0.55)]" : "bg-white/15"}`} /></button>
                 ))}
               </div>
             </div>
