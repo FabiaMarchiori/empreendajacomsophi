@@ -76,7 +76,7 @@ const PricingSection = () => {
             </ul>
 
             <a
-              href="https://pay.kiwify.com.br/gNROnVP"
+              href="https://pay.kiwify.com.br/46EL9cE"
               target="_blank"
               rel="noopener noreferrer"
               className="btn-secondary-dark inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-xl px-5 py-4 text-center font-bold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A192F]"
@@ -128,7 +128,7 @@ const PricingSection = () => {
             </ul>
 
             <a
-              href="https://pay.kiwify.com.br/I4VDoSk"
+              href="https://pay.kiwify.com.br/46EL9cE"
               target="_blank"
               rel="noopener noreferrer"
               className="btn-glow inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-xl px-5 py-4 text-center text-lg font-bold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A192F]"
