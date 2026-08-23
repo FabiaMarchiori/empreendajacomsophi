@@ -235,8 +235,11 @@ const ModulesSection = () => {
             aria-roledescription="carrossel"
             aria-label="Tour da plataforma EmpreendaJá"
             tabIndex={0}
-            onMouseEnter={() => {
-              if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) setHoveringTour(true);
+            onPointerMove={(event) => {
+              const moved = event.movementX !== 0 || event.movementY !== 0;
+              if (event.pointerType === "mouse" && moved && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+                setHoveringTour(true);
+              }
             }}
             onMouseLeave={() => {
               setHoveringTour(false);
