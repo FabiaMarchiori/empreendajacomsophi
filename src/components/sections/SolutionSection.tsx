@@ -47,10 +47,10 @@ const benefits = [
 ];
 
 const panelNiches = [
-  { name: "Papelaria Fofa", count: 29 },
-  { name: "Semijoias", count: 39 },
-  { name: "Moda Feminina", count: 58 },
-  { name: "Games e Eletrônicos", count: 24 },
+  { name: "Cosméticos e Perfumes", count: 23 },
+  { name: "Garrafas e Marmitas", count: 19 },
+  { name: "Utilidades Domésticas", count: 19 },
+  { name: "Acessórios e Laços", count: 13 },
 ];
 
 const CentralInstrument = ({ scrollProgress, reduced }: { scrollProgress: MotionValue<number>; reduced: boolean }) => {
